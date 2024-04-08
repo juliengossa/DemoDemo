@@ -77,7 +77,7 @@ Chaque année, un budget éducation est calculé.
 - Les places peuvent être ouvertes à chacun des trois niveaux (primaire, secondaire, tertiaire).
 - Chaque place a un coût, qui dépend de son niveau.
 - Une nouvelle place ne peut être ouverte que si le budget éducation est suffisant.
-- Si le budget n'est pas suffisant, on ne peut que diminuer le nombre de places.
+- Si le budget n'est pas suffisant, le budget est déficitaire et on ne peut que diminuer le nombre de places.
 
 Les travailleurs peuvent occuper un emploi (fonctionalité avancée)
 
@@ -104,7 +104,7 @@ Les actions du joueur sont les suivantes :
 - Modifier le nombre de places de formation primaire.
 - Modifier le nombre de places de formation secondaire.
 - Modifier le nombre de places de formation tertiaire.
-- Autres actions : mise en œuvre de différentes politiques avant différents couts et effets.
+- Autres actions : mise en œuvre de différentes politiques avec différents couts et effets.
 
 ### Scenario
 
@@ -132,5 +132,8 @@ Les modules suivantes peuvent être remplacés dans les scénarios :
 
 - PvP ou PvE (avec concurrents IA)
 - Filière de la formation : en plus du niveau, les formations sont dans des filières professionnalisantes (inertion pro et pas de poursuite d'étude) ou non-professionalisantes (poursuite d'étude ou travailleur non qualifiés).
-- Qualité de la formation : en plus du niveau, la formation a également une qualité, qui le joueur peut faire varier.
+- Qualité de la formation : en plus du niveau, la formation a également une qualité, qui le joueur peut faire varier, par exemple avec budget exédentaire ou bénéficiaire, des politiques d'inclusion ou de réussite, etc.
+- Définir un taux de réussite en fin de niveau : seulement x% des étudiants obtiennent la qualification.
+- Ajouter la notion de qualification incomplète : pour chaque niveau de qualification, l'individu peut l'avoir en complet (réussite à l'examen) ou incomplet (abandon ou échec).
+- Ajouter plus de niveau de qualification : secondaire = collège + lycée ; tertaire = Licence + Master + Doctorat.
 
