@@ -137,3 +137,4 @@ Les modules suivantes peuvent être remplacés dans les scénarios :
 - Ajouter la notion de qualification incomplète : pour chaque niveau de qualification, l'individu peut l'avoir en complet (réussite à l'examen) ou incomplet (abandon ou échec).
 - Ajouter plus de niveau de qualification : secondaire = collège + lycée ; tertaire = Licence + Master + Doctorat.
 - Ajouter des rentiers : ils ne produisent rien mais consomment beaucoup.
+- Ajouter la formation continue des adultes.
