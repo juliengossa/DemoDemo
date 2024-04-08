@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js Bar Chart</title>
+    <!--Chart.js JS CDN--> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      .row {
+        margin-left:-5px;
+        margin-right:-5px;
+      }
+        
+      .column {
+        float: left;
+        width: 50%;
+        padding: 5px;
+      }
+
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div>
+	    <canvas id="popChart", height="100"></canvas>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <canvas id="statsChart", height="100"></canvas>
+      </div>
+      <div class="column">
+        <table id="populationTable">
+        </table>
+      </div>
+    </div>
+    <br/>
+
+    <div class="row">
+      <input type="number" id="primary" value="0" step="1" min="0" max="100"> 
+      <button onclick="updateData()">Update Data</button>
+    </div>
+
+
+    <script>
+      var popctx = document.getElementById('popChart').getContext('2d');
+      var statsctx = document.getElementById('statsChart').getContext('2d');
+
+      dpop = 0;
+      
+      // make an array with 10 elements and fill it with random data
+      var population = new Array(100);
+      for (var i = 0; i < population.length; i++) {
+        population[i] = {
+          child : i <= 10 ? 10 : 0,
+          student : 0,
+          worker_unqualified :  i > 10 & i < 64? 10 : 0,
+          worker_primary : 0,
+          retired : i >= 64 ? Math.max(Math.min(10,(85-i)),0) : 0
+        }
+      }
+
+      // make a function to update the data
+      function updatePopulation() {
+
+        trainings = {
+          'primary' : parseFloat(document.getElementById("primary").value)
+        }
+        
+        // primaire
+        s = Math.min(population[2].child, trainings.primary)
+        population[2].child = population[2].child - s;
+        population[2].student = s;
+        
+
+        // insertion pro
+        population[10] = {
+          child : 0,
+          student : 0,
+          worker_unqualified : population[10].child,
+          worker_primary : population[10].student,
+          retired : 0
+        }
+
+        // retraites
+        population[63] = {
+          child : 0,
+          student : 0,
+          worker_unqualified : 0,
+          worker_primary : 0,
+          retired : population[63].worker_unqualified + population[63].worker_primary
+        }
+
+        // morts
+        death_ratio = 0.9;
+        for (var i = 64; i < population.length; i++) {
+            population[i].retired = population[i].retired * (death_ratio+Math.random()*0.1);
+            death_ratio = Math.max(death_ratio - 0.01, 0);
+        }
+
+        // Vieillissement
+        for (var i = population.length-1; i > 0 ; i--) {
+          population[i] = population[i-1];
+        }
+
+        // naissances
+        dpop = Math.max(Math.min(dpop+Math.random() * 1 - 0.5, 1),-1);
+        pop0 = Math.max(population[0].child + dpop, 10);
+        population[0] =  {
+          child : pop0,
+          student : 0,
+          worker_unqualified : 0,
+          worker_primary : 0,
+          retired : 0
+        }
+
+        // rounding
+        for (var i = 0; i < population.length; i++) {
+          population[i].child = Math.floor(population[i].child);
+          population[i].student = Math.floor(population[i].student);
+          population[i].worker_unqualified = Math.floor(population[i].worker_unqualified);
+          population[i].worker_primary = Math.floor(population[i].worker_primary);
+          population[i].retired = Math.floor(population[i].retired);
+        }
+
+      }
+
+      function updateStats() {
+        var stats = {
+          child : 0,
+          student : 0,
+          worker_unqualified : 0,
+          worker_primary : 0,
+          retired : 0
+        }
+        for (var i = 0; i < population.length; i++) {
+          stats.child += population[i].child;
+          stats.student += population[i].student;
+          stats.worker_unqualified += population[i].worker_unqualified;
+          stats.worker_primary += population[i].worker_primary;
+          stats.retired += population[i].retired;
+          console.log(i);
+          console.log(stats);
+        }
+        return stats;
+      }
+
+      function updateBudget(stats) {
+        var budget = [{ 
+          'name' : 'Enfants', 
+          'pop' : stats.child,
+          'consumption' : 0.5,
+          'production' : 0,
+        },
+        { 
+          'name' : 'Etudiants', 
+          'pop' : stats.student,
+          'consumption' : 0.5,
+          'production' : 0
+        },
+        { 
+          'name' : 'Travailleurs non qualifiés', 
+          'pop' : stats.worker_unqualified,
+          'consumption' : 1,
+          'production' : 2
+        },
+        { 
+          'name' : 'Travailleurs qualifiés primaire', 
+          'pop' : stats.worker_primary,
+          'consumption' : 1,
+          'production' : 3
+        }, 
+        { 
+          'name' : 'Retraités', 
+          'pop' : stats.retired,
+          'consumption' : 0.5,
+          'production' : 0
+        }]
+
+        budget.forEach(function(b, i) {
+          b.pop = Math.round(b.pop);
+          b.total_consumption = b.consumption * b.pop;
+          b.total_production = b.production * b.pop;
+          b.net =  b.total_production - b.total_consumption;
+        })
+
+        budget[budget.length] = {
+          'name' : 'Total',
+          'pop' : budget.reduce((a, b) => a + b.pop, 0),
+          'consumption' : "",
+          'production' : "",
+          'total_consumption' :  budget.reduce((a, b) => a + b.consumption * b.pop, 0),
+          'total_production' : budget.reduce((a, b) => a + b.production * b.pop, 0),
+          'net' : budget.reduce((a, b) => a + b.net, 0)
+        }
+
+        return budget;
+      }
+
+      function updateTable(table, tableData) {
+        
+        table.innerHTML = '';
+        var tableBody = document.createElement('tbody');
+        // add header
+        var header = document.createElement('tr');
+        for(const [key, cellData] of Object.entries(tableData[0])) {
+          var cell = document.createElement('th');
+          cell.appendChild(document.createTextNode(key));
+          header.appendChild(cell);
+        }
+        tableBody.appendChild(header);
+        
+        tableData.forEach(function(rowData) {
+          var row = document.createElement('tr');
+
+          for(const [key, cellData] of Object.entries(rowData)) {
+            var cell = document.createElement('td');
+            cell.appendChild(document.createTextNode(cellData));
+            row.appendChild(cell);
+          }
+
+          tableBody.appendChild(row);
+        });
+
+        table.appendChild(tableBody);
+      }
+
+
+      function updateData() {
+
+        updatePopulation();
+        stats = updateStats();
+        budget = updateBudget(stats);
+
+        updateTable(document.getElementById('populationTable'),budget);
+
+        popChart.data.datasets[0].data = population.map(function (d) {return d.child;});
+        popChart.data.datasets[1].data = population.map(function (d) {return d.student;});
+        popChart.data.datasets[2].data = population.map(function (d) {return d.worker_unqualified;});
+        popChart.data.datasets[3].data = population.map(function (d) {return d.worker_primary;});
+        popChart.data.datasets[4].data = population.map(function (d) {return d.retired;});
+        popChart.update();
+
+        statsChart.data.datasets[0].data = [population.length, stats.student, stats.worker_unqualified, stats.worker_primary, stats.retired];
+        
+        statsChart.update();
+      }
+      
+      // run updateData once on load
+      window.onload = function() {
+        for (var i = 0; i < 1; i++)
+          updateData();
+      }
+      
+      // create a new chart object
+      var popChart = new Chart(popctx, {
+          type: 'bar',
+          data: {
+            labels: population.map(function (d,i) {return i;}),
+            datasets: [{ 
+                data: population.map(function (d) {return d.child;}),
+                label: "Enfant",
+                borderColor: "rgb(100,200,100)",
+                backgroundColor: "rgb(100,200,100,0.1)",
+                borderWidth:2
+              }, 
+              { 
+                data: population.map(function (d) {return d.student;}),
+                label: "Etudiant",
+                borderColor: "rgb(100,100,200)",
+                backgroundColor: "rgb(100,100,200,0.2)",
+                borderWidth:2
+              },
+              { 
+                data: population.map(function (d) {return d.worker_unqualified;}),
+                label: "Travailleur non qualifié",
+                borderColor: "rgb(200,100,100)",
+                backgroundColor: "rgb(200,100,100,0.1)",
+                borderWidth:2
+              },
+              { 
+                data: population.map(function (d) {return d.worker_primary;}),
+                label: "Travailleur primaire",
+                borderColor: "rgb(200,100,200)",
+                backgroundColor: "rgb(200,100,200,0.2)",
+                borderWidth:2
+              },
+              { 
+                data: population.map(function (d) {return d.retired;}),
+                label: "Retraité",
+                borderColor: "rgb(100,100,100)",
+                backgroundColor: "rgb(100,100,100,0.1)",
+                borderWidth:2
+              }]
+          },
+          options: {
+            scales: {
+              x: {
+                stacked: true
+              },
+              y: {
+                beginAtZero: true,
+                stacked: true
+              },
+            },
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                fontColor: 'rgb(0, 0, 0)',
+                fontSize: 14
+              }
+            },
+            title: {
+              display: true,
+              text: 'Mass Game',
+              fontSize: 20,
+              fontColor: 'rgb(0, 0, 0)',
+              padding: 20
+            }
+          }
+        });
+
+
+      // create a new chart object
+      var statsChart = new Chart(statsctx, {
+          type: 'bar',
+          data: {
+            labels: ['Enfant', 'Etudiant', 'Travailleur non qualifié', 'Travailleur primaire', 'Retraité'],
+            datasets: [{ 
+                data: [0,0,0,0,0],
+                label: "Citoyens",
+                borderColor: "rgb(100,100,100)",
+                backgroundColor: "rgb(100,100,100,0.1)",
+                borderWidth:2
+              }]
+          },
+          options: {
+            scales: {
+              x: {
+                stacked: false
+              },
+              y: {
+                beginAtZero: true,
+                stacked: false
+              },
+            },
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                fontColor: 'rgb(0, 0, 0)',
+                fontSize: 14
+              }
+            },
+            title: {
+              display: true,
+              text: 'Mass Game',
+              fontSize: 20,
+              fontColor: 'rgb(0, 0, 0)',
+              padding: 20
+            }
+          }
+        });
+
+    </script>
+  
+  </body>
+</html>
