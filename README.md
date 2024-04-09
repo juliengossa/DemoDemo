@@ -2,7 +2,7 @@
 Un simulateur de démographie
 
 DemoDemo est un démonstrateur de démographie, qui simule une population, avec un certain nombre d'individus par âge. 
-Il permet au joueur d'expérimenter diverses politiques d'éducation, mesurer les impacts sur la société, et découvrir les enjeux de la massification scolaire.
+Il permet au joueur d'expérimenter diverses politiques éducatives, mesurer les impacts sur la société, et découvrir les enjeux de la massification scolaire.
 
 ## Objectifs pédagogiques
 Les objectifs pédagogiques sont de permettre au joueur de comprendre :
@@ -104,16 +104,17 @@ Les actions du joueur sont les suivantes :
 - Modifier le nombre de places de formation primaire.
 - Modifier le nombre de places de formation secondaire.
 - Modifier le nombre de places de formation tertiaire.
-- Autres actions : mise en œuvre de différentes politiques avec différents couts et effets.
+  - Les modifications sont en % d'une classe d'âge, avec un pas de 5% ou 10%.
+- Autres actions : mise en œuvre de différentes politiques avec différents couts et effets (voir fonctionnalités et scénarios avancés)
 
-### Scenario
+### Scénario
 
 Le jeu permet de choisir un scenario, qui contient une description et un objectif à atteindre (conditions de victoire).
 
-- Bac à sable.
-- Atteindre 100% d'éducation tertiaire en moins de x années.
-- Diminuer le chômage dans une société massifiées.
-- Diminuer le chômage dans une société massifiées, dans le temps d'un mandat présidentiel (5 ou 10 ans).
+- Bac à sable : on commence avec une petite société non qualifiée, pas de condition de victoire.
+- Atteindre 100% d'éducation tertiaire en moins de x années, sans avoir de déficit budgétaire.
+- Arriver au plein emploi dans une société massifiées.
+- Arriver au plein emploi dans une société massifiées, dans le temps d'un mandat présidentiel (5 ou 10 ans).
 
 ### Modularité
 
@@ -123,18 +124,21 @@ Toutes les pondérations (constantes) sont réunies dans un fihier unique.
 
 Chaque scenario est décrit dans un fichier unique.
 
-Les modules suivantes peuvent être remplacés dans les scénarios :
-- pondérations
+Les modules suivants peuvent être remplacés dans les scénarios :
+- toutes les pondérations
 - démographie (naissance et décès)
-- économie (nombre d'emplois par strates)
+- statuts (type + règles de modification)
+- économie (calcul du nombre d'emplois par strates)
 
-## Fonctionnalités avancées
+## Fonctionnalités et scénarios avancés
 
 - PvP ou PvE (avec concurrents IA)
 - Filière de la formation : en plus du niveau, les formations sont dans des filières professionnalisantes (inertion pro et pas de poursuite d'étude) ou non-professionalisantes (poursuite d'étude ou travailleur non qualifiés).
+- Alternance : en plus du niveau, les formations sont dans des filières initale ou en alternance.
 - Qualité de la formation : en plus du niveau, la formation a également une qualité, qui le joueur peut faire varier, par exemple avec budget exédentaire ou bénéficiaire, des politiques d'inclusion ou de réussite, etc.
 - Définir un taux de réussite en fin de niveau : seulement x% des étudiants obtiennent la qualification.
 - Ajouter la notion de qualification incomplète : pour chaque niveau de qualification, l'individu peut l'avoir en complet (réussite à l'examen) ou incomplet (abandon ou échec).
 - Ajouter plus de niveau de qualification : secondaire = collège + lycée ; tertaire = Licence + Master + Doctorat.
 - Ajouter des rentiers : ils ne produisent rien mais consomment beaucoup.
 - Ajouter la formation continue des adultes.
+- Permettre de modifier la part du surplus de richesses affectée à l'éducation, par exemple s'il y a croissance économique.

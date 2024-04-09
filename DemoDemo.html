@@ -49,16 +49,21 @@
     <br/>
 
     <div class="row">
-      <input type="number" id="primary" value="0" step="1" min="0" max="100"> 
-      <button onclick="updateData()">Update Data</button>
+      <table id="educationTable">
+      </table>
     </div>
 
+    <div class="row">
+      <input type="number" id="primary" value="0" step="10" min="0" max="100"> 
+      <button onclick="updateData()">Update Data</button>
+    </div>
 
     <script>
       var popctx = document.getElementById('popChart').getContext('2d');
       var statsctx = document.getElementById('statsChart').getContext('2d');
 
       dpop = 0;
+      debt = 0;
       
       // make an array with 10 elements and fill it with random data
       var population = new Array(100);
@@ -80,7 +85,7 @@
         }
         
         // primaire
-        s = Math.min(population[2].child, trainings.primary)
+        s = Math.floor(Math.min(population[2].child, population[2].child*trainings.primary/100))
         population[2].child = population[2].child - s;
         population[2].student = s;
         
@@ -151,13 +156,11 @@
           stats.worker_unqualified += population[i].worker_unqualified;
           stats.worker_primary += population[i].worker_primary;
           stats.retired += population[i].retired;
-          console.log(i);
-          console.log(stats);
         }
         return stats;
       }
 
-      function updateBudget(stats) {
+      function updateBudgetNation(stats) {
         var budget = [{ 
           'name' : 'Enfants', 
           'pop' : stats.child,
@@ -209,6 +212,42 @@
         return budget;
       }
 
+      function updateBudgetEducation(stats,budget_nation) {
+        var budget = [{ 
+          'name' : 'Dotation', 
+          'unit_cost' : "",
+          'pop' : "",
+          'budget' : Math.floor(budget_nation[budget_nation.length-1].net * 2 / 100)
+
+        },
+        { 
+          'name' : 'Dette', 
+          'unit_cost' : "",
+          'pop' : "",
+          'budget' : debt
+
+        },
+        { 
+          'name' : 'Primaire', 
+          'unit_cost' : "3 pour 25", // 1 prof + 1 admin + 1 fonctionnement / 25 élèves
+          'pop' : stats.student,
+          'budget' : -Math.ceil(stats.student/25) * 3
+
+        }]
+
+        budget[budget.length] = { 
+          'name' : 'Bilan', 
+          'unit_cost' : "",
+          'pop' : stats.student,
+          'budget' : budget[0].budget + budget[1].budget + budget[2].budget
+        }
+
+        debt = Math.min(0,budget[budget.length-1].budget)
+
+        return budget;
+      }
+
+
       function updateTable(table, tableData) {
         
         table.innerHTML = '';
@@ -242,9 +281,11 @@
 
         updatePopulation();
         stats = updateStats();
-        budget = updateBudget(stats);
+        budget_nation = updateBudgetNation(stats);
+        budget_education = updateBudgetEducation(stats,budget_nation);
 
-        updateTable(document.getElementById('populationTable'),budget);
+        updateTable(document.getElementById('populationTable'),budget_nation);
+        updateTable(document.getElementById('educationTable'),budget_education);
 
         popChart.data.datasets[0].data = population.map(function (d) {return d.child;});
         popChart.data.datasets[1].data = population.map(function (d) {return d.student;});
