@@ -132,7 +132,9 @@ Les modules suivants peuvent être remplacés dans les scénarios :
 
 ## Fonctionnalités et scénarios avancés
 
-- PvP ou PvE (avec concurrents IA)
+- Scénarios : réforme des retraites ; démographie de l'an 2000 ; données réelles de différentes sociétés.
+- Ajouter le genre.
+- Espérance de vie et taux de natalité en fonction du niveau de qualification.
 - Filière de la formation : en plus du niveau, les formations sont dans des filières professionnalisantes (inertion pro et pas de poursuite d'étude) ou non-professionalisantes (poursuite d'étude ou travailleur non qualifiés).
 - Alternance : en plus du niveau, les formations sont dans des filières initale ou en alternance.
 - Qualité de la formation : en plus du niveau, la formation a également une qualité, qui le joueur peut faire varier, par exemple avec budget exédentaire ou bénéficiaire, des politiques d'inclusion ou de réussite, etc.
@@ -142,3 +144,4 @@ Les modules suivants peuvent être remplacés dans les scénarios :
 - Ajouter des rentiers : ils ne produisent rien mais consomment beaucoup.
 - Ajouter la formation continue des adultes.
 - Permettre de modifier la part du surplus de richesses affectée à l'éducation, par exemple s'il y a croissance économique.
+- PvP ou PvE (avec concurrents IA)
