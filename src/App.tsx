@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import PopulationTable from "./components/PopulationTable.tsx";
+import PopulationChart from "./components/PopulationChart.tsx";
+import StatsChart from "./components/StatsChart.tsx";
+import EducationTable from "./components/EducationTable.tsx";
+import UpdateData from "./components/UpdateData.tsx";
+import {useState} from "react";
+import {GameData} from "./models/GameData.ts";
+import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [gameData, setGameData] = useState<GameData>(new GameData());
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return <div>
+        <PopulationChart gameData={gameData}/>
+        <div className={"row"}>
+            <StatsChart gameData={gameData} />
+            <PopulationTable gameData={gameData} />
+        </div>
+        <EducationTable gameData={gameData}/>
+        <UpdateData gameData={gameData} setGameData={setGameData}/>
+    </div>
 }
 
 export default App
