@@ -19,16 +19,27 @@ ChartJS.register(
 
 function App() {
     const [gameData, setGameData] = useState<GameData>(new GameData());
+    const [activeTab, setActiveTab] = useState('Stats');
 
-    return <div>
-        <PopulationChart gameData={gameData}/>
-        <div className={"row"}>
-            <StatsChart gameData={gameData} />
-            <PopulationTable gameData={gameData} />
+    return (<div>
+        <div id= "container">
+            <div id="sidebar">
+                <EducationTable gameData={gameData}/>
+                <UpdateData gameData={gameData} setGameData={setGameData}/>
+            </div>
+            <div id="info">
+                <PopulationChart gameData={gameData}/>
+            </div>
         </div>
-        <EducationTable gameData={gameData}/>
-        <UpdateData gameData={gameData} setGameData={setGameData}/>
+        <hr/>
+            <button id="b1" onClick={() => setActiveTab('Stats')} >Stats</button>
+            <button id="b2" onClick={() => setActiveTab('Population')}>Population</button>
+            <div className={"row"}>
+            {activeTab === 'Stats' && <StatsChart gameData={gameData} />}
+            {activeTab === 'Population' && <PopulationTable gameData={gameData} />}
+        </div>
     </div>
+    )
 }
 
 export default App
