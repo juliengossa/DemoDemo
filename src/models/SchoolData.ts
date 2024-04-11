@@ -5,6 +5,7 @@ export class SchoolData {
     secondaryValid: number = 0;
     hitgh: number = 0;
     highValid: number = 0;
+    workStudy: number = 0;
 
 
     getPrimary() {
@@ -53,5 +54,13 @@ export class SchoolData {
 
     setHigthValid(x : number) {
         this.highValid = x
+    }
+
+    getWorkStudy() {
+        return this.workStudy
+    }
+
+    setWorkStudy(x : number) {
+        this.workStudy = x
     }
 }

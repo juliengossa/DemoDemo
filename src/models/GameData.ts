@@ -454,7 +454,7 @@ export class GameData {
         return Math.floor(this.population[27].highSchoolStudent * (1-successPercent));
     }
 
-    private updatePopulation(primaryPercentage: number, primaryValidPercentage: number, secondaryPercentage: number, secondaryValidPercentage: number, highSchoolPercentage: number, highSchoolValidPercentage: number) {
+    private updatePopulation(primaryPercentage: number, primaryValidPercentage: number, secondaryPercentage: number, secondaryValidPercentage: number, highSchoolPercentage: number, highSchoolValidPercentage: number, workStudyPercentage: number) {
         // primaire
         const newPrimaryStudents = Math.floor(Math.min(this.population[2].child, this.population[2].child * primaryPercentage / 100))
         this.population[2].child = this.population[2].child - newPrimaryStudents;
@@ -479,8 +479,7 @@ export class GameData {
         let successCount3: number = this.highSchoolSuccess(highSchoolValidPercentage);
         this.population[27].highSchoolStudent = this.population[27].highSchoolStudent - successCount3;
 
-
-        let workers = Math.random() * successCount3;
+        let workers = Math.random() * (successCount3 * (workStudyPercentage/100));
         this.population[27].workStudyStudent = this.population[27].workStudyStudent + workers;
 
         this.population[27].qualifiedWorker = this.population[27].qualifiedWorker + (successCount3 - workers);
@@ -710,8 +709,8 @@ export class GameData {
         return budget;
     }
 
-    public step(primaryPercentage: number = 0, primaryValidPercentage: number = 100, secondaryPercentage: number = 0, secondaryValidPercentage: number = 100, highSchoolPercentage: number = 0, highSchoolValidPercentage: number = 100){
-        this.updatePopulation(primaryPercentage, primaryValidPercentage, secondaryPercentage, secondaryValidPercentage, highSchoolPercentage, highSchoolValidPercentage);
+    public step(primaryPercentage: number = 0, primaryValidPercentage: number = 0, secondaryPercentage: number = 0, secondaryValidPercentage: number = 0, highSchoolPercentage: number = 0, highSchoolValidPercentage: number = 0, workStudyPercentage: number = 0){
+        this.updatePopulation(primaryPercentage, primaryValidPercentage, secondaryPercentage, secondaryValidPercentage, highSchoolPercentage, highSchoolValidPercentage, workStudyPercentage);
         this.updatePibPart()
         const stats = this.getCurrentPopulationStats();
         this.nationBudget = this.generateNationBudget(stats);

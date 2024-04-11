@@ -15,6 +15,7 @@ export default function UpdateData(props : UpdateDataProps){
         newShoolData.setSecondaryValid(Number((document.getElementById("SecondaryValid") as HTMLInputElement).value))
         newShoolData.setHigth(Number((document.getElementById("high-school") as HTMLInputElement).value))
         newShoolData.setHigthValid(Number((document.getElementById("High-schoolValid") as HTMLInputElement).value))
+        newShoolData.setWorkStudy(Number((document.getElementById("work-study") as HTMLInputElement).value))
         props.setScholData(newShoolData)
     }
 
@@ -26,6 +27,7 @@ export default function UpdateData(props : UpdateDataProps){
         <input type="number" placeholder="Secondary sucessful (0%)" id={"SecondaryValid"} onChange={updateSchool}/>
         <input type="number" placeholder="High school" id={"high-school"} onChange={updateSchool}/>
         <input type="number" placeholder="High school sucessful (0%)" id="High-schoolValid" onChange={updateSchool}/>
+        <input type="number" placeholder="work study" id="work-study" onChange={updateSchool}/>
     </div>
 }
 
