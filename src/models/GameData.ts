@@ -14,9 +14,10 @@ import {PopulationSlice} from "./PopulationSlice.ts";
 
 export class GameData {
     constructor(){
-        for (let i = 0; i < this.population.length; i++) {
-            this.population[i] = new PopulationSlice(i);
-        }
+        // for (let i = 0; i < this.population.length; i++) {
+        //     this.population[i] = new PopulationSlice(i);
+        // }
+        this.generateBasePopulation();
 
         this.popChart = {
             type: 'bar',
@@ -186,6 +187,31 @@ export class GameData {
 
     private readonly statsChart;
 
+    private generateBasePopulation(){
+        const currentTotalPop = totalPopulation[this.year] * 1_000_000;
+        const targetYear = 80;
+        for (let i = 0; i < targetYear; i++){
+            this.population[i] = new PopulationSlice(-1);
+            this.population[i].child = Math.floor(170000 * (i / Math.sqrt(i)));
+        }
+        this.population.reverse();
+        for (let i = 0; i < targetYear; i++)
+            this.population[i] = this.population[i + (100 - targetYear)];
+        for(let i = targetYear - 1; i < this.population.length; i++)
+            this.population[i] = new PopulationSlice(-1);
+
+        const remainingPop = currentTotalPop - this.population.reduce((a, b) => a + b.child, 0);
+        const amountToDistribute = Math.floor(remainingPop / targetYear);
+        for (let i = 0; i < targetYear; i++)
+            this.population[i].child += amountToDistribute;
+
+        // Change children to unqualified workers
+        for(let i = 11; i < this.population.length; i++){
+            this.population[i].unqualifiedWorker = this.population[i].child;
+            this.population[i].child = 0;
+        }
+    }
+
     private updatePopulation(primaryPercentage: number, secondaryPercentage: number, highSchoolPercentage: number) {
         // primaire
         const newPrimaryStudents = Math.floor(Math.min(this.population[2].child, this.population[2].child * primaryPercentage / 100))
@@ -354,13 +380,14 @@ export class GameData {
      * @param nationBudget The current nation budget
      */
     private generateEducationBudget(stats: any, nationBudget: any) {
-        const budget: any = [{
-            'name' : 'Dotation',
-            'unit_cost' : "",
-            'pop' : "",
-            'budget' : Math.floor(nationBudget[nationBudget.length - 1].net * 2 / 100)
+        const budget: any = [
+            {
+                'name' : 'Dotation',
+                'unit_cost' : "",
+                'pop' : "",
+                'budget' : Math.floor(nationBudget[nationBudget.length - 1].net * 2 / 100)
 
-        },
+            },
             {
                 'name' : 'Dette',
                 'unit_cost' : "",
@@ -373,7 +400,8 @@ export class GameData {
                 'pop' : stats.primaryStudent,
                 'budget' : -Math.ceil(stats.primaryStudent / 25) * 3
 
-            }]
+            }
+        ]
 
         budget[budget.length] = {
             'name' : 'Bilan',
