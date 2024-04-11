@@ -62,6 +62,11 @@ export class PopulationSlice{
         this.highSchoolStudent = 0;
     }
 
+    public workStudyInsertion(): void{
+        this.highQualifiedWorker = this.workStudyStudent;
+        this.workStudyStudent = 0;
+    }
+
     public retirePopulation(): void{
         const popCount = this.getPopulation();
         this.resetPopulation();
