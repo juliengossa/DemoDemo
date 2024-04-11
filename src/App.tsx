@@ -1,7 +1,7 @@
 import './App.css'
 import PopulationTable from "./components/PopulationTable.tsx";
 import PopulationChart from "./components/PopulationChart.tsx";
-import { SchoolData } from './models/Test.ts';
+import { SchoolData } from './models/SchoolData.ts';
 import { PassYear } from './components/PassYear.tsx';
 import StatsChart from "./components/StatsChart.tsx";
 import EducationTable from "./components/EducationTable.tsx";

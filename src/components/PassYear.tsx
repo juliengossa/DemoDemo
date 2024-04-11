@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Leader from '../json/leader.json'
 import UpdatData from "./UpdateData";
 import {GameData} from "../models/GameData.ts";
-import { SchoolData } from "../models/Test.ts";
+import { SchoolData } from "../models/SchoolData.ts";
 
 
 interface UpdateSchoolProps {
@@ -19,7 +19,7 @@ interface LeaderData {
 }
 
 export function PassYear(props: UpdateSchoolProps) {
-    const[year, setYear] = useState(1800)
+    const[year, setYear] = useState(props.gameData.year)
     const[leaderId, setLeaderId] = useState(0)
     const[leaderList, setLeaderList] = useState<LeaderData[]>(Leader)
     const[leader, setLeader] = useState<LeaderData>(leaderList[0])
@@ -57,6 +57,6 @@ export function PassYear(props: UpdateSchoolProps) {
         <p>{year}</p>
         <p>{leader.name}</p>
         <button onClick={() => updateData(1)}>Pass year</button>
-        <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat</button>
+        <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button>
     </div>
 }

@@ -1,4 +1,4 @@
-import {SchoolData} from "../models/Test.ts"
+import {SchoolData} from "../models/SchoolData.ts"
 
 interface UpdateDataProps {
     schoolData : SchoolData
@@ -7,12 +7,12 @@ interface UpdateDataProps {
 
 export default function UpdateData(props : UpdateDataProps){
     function updateSchool() {
-        const teste = new SchoolData()
-        Object.assign(teste, props.schoolData)
-        teste.setPraimary(Number((document.getElementById("primary") as HTMLInputElement).value))
-        teste.setSecondary(Number((document.getElementById("secondary") as HTMLInputElement).value))
-        teste.setHigth(Number((document.getElementById("high-school") as HTMLInputElement).value))
-        props.setScholData(teste)
+        const newShoolData = new SchoolData()
+        Object.assign(newShoolData, props.schoolData)
+        newShoolData.setPraimary(Number((document.getElementById("primary") as HTMLInputElement).value))
+        newShoolData.setSecondary(Number((document.getElementById("secondary") as HTMLInputElement).value))
+        newShoolData.setHigth(Number((document.getElementById("high-school") as HTMLInputElement).value))
+        props.setScholData(newShoolData)
 
         console.log("primary " +props.schoolData.getPrimary())
         console.log("second " +props.schoolData.getSecondary())
