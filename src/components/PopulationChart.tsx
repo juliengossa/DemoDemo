@@ -37,7 +37,7 @@ export default function PopulationChart(props: PopulationChartProps){
                 : null
         }
         
-        <p>Pib part {props.gameData.pidPart - props.gameData.pidReduce}</p>
+        <p>Pib reduction {100 - parseInt((props.gameData.pidPart - props.gameData.pidReduce).toFixed(2))}%</p>
     </>
 
 }

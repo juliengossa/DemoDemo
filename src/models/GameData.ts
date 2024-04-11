@@ -495,7 +495,7 @@ export class GameData {
             'production' : "",
             'total_consumption' : budget.reduce((a: any, b: any) => a + b.consumption * b.pop, 0),
             'total_production' : budget.reduce((a: any, b: any) => a + b.production * b.pop, 0),
-            'net' : ((budget.reduce((a: any, b: any) => a + b.net, 0))* (this.pidPart-this.pidReduce))/100
+            'net' : ((budget.reduce((a: any, b: any) => a + b.net, 0))* parseInt((this.pidPart-this.pidReduce).toFixed(2)))/100
         }
 
         return budget;
