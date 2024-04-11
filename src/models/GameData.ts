@@ -189,17 +189,17 @@ export class GameData {
                 datasets: [
                     {
                         data: [0],
-                        label: "Primary students",
-                        borderColor: colors.primaryStudent,
-                        backgroundColor: colors.primaryStudent,
-                        borderWidth:2
-                    },
-                    {
-                        data: [0],
                         label: "Children",
                         borderColor: colors.child,
                         backgroundColor: colors.child,
                         borderWidth: 2,
+                    },
+                    {
+                        data: [0],
+                        label: "Primary students",
+                        borderColor: colors.primaryStudent,
+                        backgroundColor: colors.primaryStudent,
+                        borderWidth:2
                     },
                     {
                         data: [0],
@@ -566,8 +566,8 @@ export class GameData {
         Object.keys(this.yearsPopulation).forEach(year => {
             const index = Number(year) - 1800;
             if (index >= 0 && index < 2025 - 1800) {
-                this.yearsReviewChart.data.datasets[0].data[index] = this.yearsPopulation[year].primaryStudent;
-                this.yearsReviewChart.data.datasets[1].data[index] = this.yearsPopulation[year].child;
+                this.yearsReviewChart.data.datasets[0].data[index] = this.yearsPopulation[year].child;
+                this.yearsReviewChart.data.datasets[1].data[index] = this.yearsPopulation[year].primaryStudent;
                 this.yearsReviewChart.data.datasets[2].data[index] = this.yearsPopulation[year].secondaryStudent;
                 this.yearsReviewChart.data.datasets[3].data[index] = this.yearsPopulation[year].highSchoolStudent;
                 this.yearsReviewChart.data.datasets[4].data[index] = this.yearsPopulation[year].workStudyStudent;

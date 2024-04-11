@@ -7,7 +7,7 @@ interface PopulationChartProps {
     gameData: GameData;
 }
 
-export default function PopulationChart(props: PopulationChartProps){
+export default function FinalPopulationChart(props: PopulationChartProps){
     const [options, setOptions] = useState<any>();
     const [data, setData] = useState<any>();
     const [isLoading, setIsLoading] = useState(true);

@@ -9,6 +9,7 @@ interface UpdateSchoolProps {
     setGameData: any;
     schoolData : SchoolData
     setScholData: any;
+    setEnded: any;
 }
 
 interface LeaderData {
@@ -35,6 +36,8 @@ export function PassYear(props: UpdateSchoolProps) {
     }
 
     function updateYear(nbYear : number) {
+        if(year + nbYear > 2024)
+            props.setEnded(true);
         setYear(year+nbYear)
         updateLeader(year+nbYear)
     }
