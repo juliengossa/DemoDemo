@@ -28,28 +28,28 @@ export default function PopulationTable(props: PopulationTableProps) {
         {
             !isLoading ? <table>
                 <tbody>
-                <tr>
-                    <th>name</th>
-                    <th>pop</th>
-                    <th>consumption</th>
-                    <th>production</th>
-                    <th>total_consumption</th>
-                    <th>total_production</th>
-                    <th>net</th>
-                </tr>
-                {
-                    population.map((pop: any, id: number) => {
-                        return <tr key={id}>
-                            <td>{pop.name}</td>
-                            <td>{pop.pop}</td>
-                            <td>{pop.consumption}</td>
-                            <td>{pop.production}</td>
-                            <td>{pop.total_consumption}</td>
-                            <td>{pop.total_production}</td>
-                            <td>{pop.net}</td>
-                        </tr>
-                    })
-                }
+                    <tr>
+                        <th>name</th>
+                        <th>pop</th>
+                        <th>consumption</th>
+                        <th>production</th>
+                        <th>total_consumption</th>
+                        <th>total_production</th>
+                        <th>net</th>
+                    </tr>
+                    {
+                        population.map((pop: any, id: number) => {
+                            return <tr key={id}>
+                                <td>{pop.name}</td>
+                                <td>{pop.pop}</td>
+                                <td>{pop.consumption}</td>
+                                <td>{pop.production}</td>
+                                <td>{pop.total_consumption}</td>
+                                <td>{pop.total_production}</td>
+                                <td>{pop.net}</td>
+                            </tr>
+                        })
+                    }
                 </tbody>
             </table> : null
         }

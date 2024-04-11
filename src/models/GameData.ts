@@ -10,59 +10,90 @@ ChartJS.register(
 );
 
 import {birthRate, deathRate} from "./Data.ts";
+import {PopulationSlice} from "./PopulationSlice.ts";
 
 export class GameData {
     constructor(){
         for (let i = 0; i < this.population.length; i++) {
-            this.population[i] = {
-                child : i <= 10 ? 29_000_000 / 100 : 0,
-                student : 0,
-                worker_unqualified : i >= 10 && i <= 63 ? 29_000_000 / 100 : 0,
-                worker_primary : 0,
-                retired : i >= 64 ? 29_000_000 / 100 : 0
-            }
-
+            this.population[i] = new PopulationSlice(i);
         }
 
         this.popChart = {
             type: 'bar',
             data: {
                 labels: this.population.map(function (_, i) {return i;}),
-                datasets: [{
-                    data: this.population.map(function (d) {return d.child;}),
-                    label: "Enfant",
-                    borderColor: "rgb(100,200,100)",
-                    backgroundColor: "rgb(100,200,100,0.1)",
-                    borderWidth:2
-                },
+                datasets: [
                     {
-                        data: this.population.map(function (d) {return d.student;}),
-                        label: "Étudiant",
+                        data: this.population.map(function (d) {return d.child;}),
+                        label: "Children",
+                        borderColor: "rgb(100,200,100)",
+                        backgroundColor: "rgb(100,200,100,0.1)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.primaryStudent;}),
+                        label: "Primary students",
                         borderColor: "rgb(100,100,200)",
                         backgroundColor: "rgb(100,100,200,0.2)",
                         borderWidth:2
                     },
                     {
-                        data: this.population.map(function (d) {return d.worker_unqualified;}),
-                        label: "Travailleur non qualifié",
+                        data: this.population.map(function (d) {return d.secondaryStudent;}),
+                        label: "Secondary students",
+                        borderColor: "rgb(100,100,200)",
+                        backgroundColor: "rgb(100,100,200,0.2)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.highSchoolStudent;}),
+                        label: "High school students",
+                        borderColor: "rgb(100,100,200)",
+                        backgroundColor: "rgb(100,100,200,0.2)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.workStudyStudent;}),
+                        label: "Work study students",
+                        borderColor: "rgb(100,100,200)",
+                        backgroundColor: "rgb(100,100,200,0.2)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.unqualifiedWorker;}),
+                        label: "Unqualified worker",
                         borderColor: "rgb(200,100,100)",
                         backgroundColor: "rgb(200,100,100,0.1)",
                         borderWidth:2
                     },
                     {
-                        data: this.population.map(function (d) {return d.worker_primary;}),
-                        label: "Travailleur primaire",
+                        data: this.population.map(function (d) {return d.lowQualifiedWorker;}),
+                        label: "Low qualified worker",
+                        borderColor: "rgb(200,100,200)",
+                        backgroundColor: "rgb(200,100,200,0.2)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.qualifiedWorker;}),
+                        label: "Qualified worker",
+                        borderColor: "rgb(200,100,200)",
+                        backgroundColor: "rgb(200,100,200,0.2)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.highQualifiedWorker;}),
+                        label: "High qualified worker",
                         borderColor: "rgb(200,100,200)",
                         backgroundColor: "rgb(200,100,200,0.2)",
                         borderWidth:2
                     },
                     {
                         data: this.population.map(function (d) {return d.retired;}),
-                        label: "Retraité",
+                        label: "Retired",
                         borderColor: "rgb(100,100,100)",
                         backgroundColor: "rgb(100,100,100,0.1)",
                         borderWidth:2
-                    }]
+                    }
+                ]
             },
             options: {
                 scales: {
@@ -93,7 +124,18 @@ export class GameData {
         };
         this.statsChart = {
             data: {
-                labels: ['Enfant', 'Etudiant', 'Travailleur non qualifié', 'Travailleur primaire', 'Retraité'],
+                labels: [
+                    'Children',
+                    'Primary student',
+                    'Secondary student',
+                    'High school student',
+                    'Work school student',
+                    'Unqualified worker',
+                    'Low qualified worker',
+                    'Qualified worker',
+                    'High qualified worker',
+                    'Retired'
+                ],
                 datasets: [{
                     data: [0,0,0,0,0],
                     label: "Citoyens",
@@ -130,12 +172,12 @@ export class GameData {
             }
         };
 
-        this.step(0);
+        this.step();
     }
 
     public year = 1800;
     private debt = 0;
-    private population = new Array(100);
+    private population: PopulationSlice[] = new Array(100);
     public nationBudget: any;
     public educationBudget: any;
 
@@ -145,99 +187,51 @@ export class GameData {
     private readonly statsChart;
 
     private getTotalPopulation(): number{
-        return this.population.reduce((acc, val) => acc + val.child + val.student + val.worker_unqualified + val.worker_primary + val.retired, 0);
+        return this.population.reduce((a, b) => a + b.getPopulation(), 0);
     }
 
-    private updatePopulation(educationPercentage: number) {
+    private updatePopulation(primaryPercentage: number, secondaryPercentage: number, highSchoolPercentage: number) {
         // primaire
-        const s = Math.floor(Math.min(this.population[2].child, this.population[2].child * educationPercentage / 100))
-        this.population[2].child = this.population[2].child - s;
-        this.population[2].student = s;
+        const newPrimaryStudents = Math.floor(Math.min(this.population[2].child, this.population[2].child * primaryPercentage / 100))
+        this.population[2].child = this.population[2].child - newPrimaryStudents;
+        this.population[2].primaryStudent = newPrimaryStudents;
+
+        const newSecondaryStudents = Math.floor(Math.min(this.population[10].primaryStudent, this.population[10].primaryStudent * secondaryPercentage / 100))
+        this.population[10].primaryStudent = this.population[10].primaryStudent - newSecondaryStudents;
+        this.population[10].secondaryStudent = newSecondaryStudents;
+
+        const newHighSchoolStudents = Math.floor(Math.min(this.population[18].secondaryStudent, this.population[18].secondaryStudent * highSchoolPercentage / 100))
+        this.population[18].secondaryStudent = this.population[18].secondaryStudent - newHighSchoolStudents;
+        this.population[18].highSchoolStudent = newHighSchoolStudents;
 
 
-        // insertion pro
-        this.population[10] = {
-            child : 0,
-            student : 0,
-            worker_unqualified : this.population[10].child,
-            worker_primary : this.population[10].student,
-            retired : 0
-        }
+        // Primary insertion
+        this.population[10].primaryInsertion();
+        this.population[18].secondaryInsertion();
+        this.population[27].highSchoolInsertion();
 
-        // retraites
-        this.population[63] = {
-            child : 0,
-            student : 0,
-            worker_unqualified : 0,
-            worker_primary : 0,
-            retired : this.population[63].worker_unqualified + this.population[63].worker_primary
-        }
+        // Retirement
+        this.population[63].retirePopulation();
 
         let deathCount = this.getTotalPopulation() * deathRate[this.year] / 100;
         for(let i = 99; i >= 0; i--) {
             let currentDeathCount = deathCount * 0.1;
-            if(this.population[i].retired != 0) {
-                if(currentDeathCount > this.population[i].retired){
-                    currentDeathCount = this.population[i].retired;
-                    this.population[i].retired = 0;
-                }else{
-                    this.population[i].retired -= currentDeathCount;
-                }
-            }else if(this.population[i].worker_primary != 0) {
-                if(currentDeathCount > this.population[i].worker_primary){
-                    currentDeathCount = this.population[i].worker_primary;
-                    this.population[i].worker_primary = 0;
-                }else{
-                    this.population[i].worker_primary -= currentDeathCount;
-                }
-            }else if(this.population[i].worker_unqualified != 0) {
-                if(currentDeathCount > this.population[i].worker_unqualified){
-                    currentDeathCount = this.population[i].worker_unqualified;
-                    this.population[i].worker_unqualified = 0;
-                }else{
-                    this.population[i].worker_unqualified -= currentDeathCount;
-                }
-            }else if(this.population[i].student != 0) {
-                if(currentDeathCount > this.population[i].student){
-                    currentDeathCount = this.population[i].student;
-                    this.population[i].student = 0;
-                }else{
-                    this.population[i].student -= currentDeathCount;
-                }
-            }else if(this.population[i].child != 0) {
-                if(currentDeathCount > this.population[i].child){
-                    currentDeathCount = this.population[i].child;
-                    this.population[i].child = 0;
-                }else{
-                    this.population[i].child -= currentDeathCount;
-                }
-            }
-            deathCount -= currentDeathCount;
+            deathCount -= currentDeathCount - this.population[i].applyDeath(currentDeathCount);
         }
 
-        // Vieillissement
+        // Deaths
         for (let i = this.population.length-1; i > 0 ; i--) {
             this.population[i] = this.population[i-1];
         }
 
         // Births
         const pop0 = this.getTotalPopulation() * birthRate[this.year] / 100;
-        this.population[0] =  {
-            child : pop0,
-            student : 0,
-            worker_unqualified : 0,
-            worker_primary : 0,
-            retired : 0
-        }
+        this.population[0] = new PopulationSlice();
+        this.population[0].child = pop0;
 
         // rounding
-        for (let i = 0; i < this.population.length; i++) {
-            this.population[i].child = Math.floor(this.population[i].child);
-            this.population[i].student = Math.floor(this.population[i].student);
-            this.population[i].worker_unqualified = Math.floor(this.population[i].worker_unqualified);
-            this.population[i].worker_primary = Math.floor(this.population[i].worker_primary);
-            this.population[i].retired = Math.floor(this.population[i].retired);
-        }
+        for(let i = 0; i < this.population.length; i++)
+            this.population[i].roundPopulation();
     }
 
     /**
@@ -246,16 +240,26 @@ export class GameData {
     private getCurrentPopulationStats() {
         const stats = {
             child : 0,
-            student : 0,
-            worker_unqualified : 0,
-            worker_primary : 0,
+            primaryStudent : 0,
+            secondaryStudent : 0,
+            highSchoolStudent : 0,
+            unqualifiedWorker : 0,
+            workStudyStudent : 0,
+            lowQualifiedWorker : 0,
+            qualifiedWorker : 0,
+            highQualifiedWorker : 0,
             retired : 0
         }
         for (let i = 0; i < this.population.length; i++) {
             stats.child += this.population[i].child;
-            stats.student += this.population[i].student;
-            stats.worker_unqualified += this.population[i].worker_unqualified;
-            stats.worker_primary += this.population[i].worker_primary;
+            stats.primaryStudent += this.population[i].primaryStudent;
+            stats.secondaryStudent += this.population[i].secondaryStudent;
+            stats.highSchoolStudent += this.population[i].highSchoolStudent;
+            stats.workStudyStudent += this.population[i].workStudyStudent;
+            stats.unqualifiedWorker += this.population[i].unqualifiedWorker;
+            stats.lowQualifiedWorker += this.population[i].lowQualifiedWorker;
+            stats.qualifiedWorker += this.population[i].qualifiedWorker;
+            stats.highQualifiedWorker += this.population[i].highQualifiedWorker;
             stats.retired += this.population[i].retired;
         }
         return stats;
@@ -266,36 +270,67 @@ export class GameData {
      * @param stats The current population stats
      */
     private generateNationBudget(stats: any) {
-        const budget: any = [{
-            'name' : 'Enfants',
-            'pop' : stats.child,
-            'consumption' : 0.5,
-            'production' : 0,
-        },
+        const budget: any = [
             {
-                'name' : 'Étudiants',
-                'pop' : stats.student,
+                'name' : 'Children',
+                'pop' : stats.child,
+                'consumption' : 0.5,
+                'production' : 0,
+            },
+            {
+                'name' : 'Primary student',
+                'pop' : stats.primaryStudent,
                 'consumption' : 0.5,
                 'production' : 0
             },
             {
-                'name' : 'Travailleurs non qualifiés',
-                'pop' : stats.worker_unqualified,
+                'name' : 'Secondary student',
+                'pop' : stats.secondaryStudent,
+                'consumption' : 0.5,
+                'production' : 0
+            },
+            {
+                'name' : 'High school student',
+                'pop' : stats.highSchoolStudent,
+                'consumption' : 0.5,
+                'production' : 0
+            },
+            {
+                'name' : 'Work study student',
+                'pop' : stats.workStudyStudent,
+                'consumption' : 0.5,
+                'production' : 0
+            },
+            {
+                'name' : 'Unqualified worker',
+                'pop' : stats.unqualifiedWorker,
                 'consumption' : 1,
                 'production' : 2
             },
             {
-                'name' : 'Travailleurs qualifiés primaire',
-                'pop' : stats.worker_primary,
+                'name' : 'Low qualified worker',
+                'pop' : stats.lowQualifiedWorker,
                 'consumption' : 1,
                 'production' : 3
             },
             {
-                'name' : 'Retraités',
+                'name' : 'Qualified worker',
+                'pop' : stats.qualifiedWorker,
+                'consumption' : 1,
+                'production' : 3
+            },{
+                'name' : 'High qualified worker',
+                'pop' : stats.highQualifiedWorker,
+                'consumption' : 1,
+                'production' : 3
+            },
+            {
+                'name' : 'Retired',
                 'pop' : stats.retired,
                 'consumption' : 0.5,
                 'production' : 0
-            }]
+            }
+        ]
 
         budget.forEach(function(b: any, _: any) {
             b.pop = Math.round(b.pop);
@@ -309,7 +344,7 @@ export class GameData {
             'pop' : budget.reduce((a: any, b: any) => a + b.pop, 0),
             'consumption' : "",
             'production' : "",
-            'total_consumption' :  budget.reduce((a: any, b: any) => a + b.consumption * b.pop, 0),
+            'total_consumption' : budget.reduce((a: any, b: any) => a + b.consumption * b.pop, 0),
             'total_production' : budget.reduce((a: any, b: any) => a + b.production * b.pop, 0),
             'net' : budget.reduce((a: any, b: any) => a + b.net, 0)
         }
@@ -339,15 +374,15 @@ export class GameData {
             {
                 'name' : 'Primaire',
                 'unit_cost' : "3 pour 25", // 1 prof + 1 admin + 1 fonctionnement / 25 élèves
-                'pop' : stats.student,
-                'budget' : -Math.ceil(stats.student / 25) * 3
+                'pop' : stats.primaryStudent,
+                'budget' : -Math.ceil(stats.primaryStudent / 25) * 3
 
             }]
 
         budget[budget.length] = {
             'name' : 'Bilan',
             'unit_cost' : "",
-            'pop' : stats.student,
+            'pop' : stats.primaryStudent,
             'budget' : budget[0].budget + budget[1].budget + budget[2].budget
         }
 
@@ -356,19 +391,35 @@ export class GameData {
         return budget;
     }
 
-    public step(educationPercentage: number) {
-        this.updatePopulation(educationPercentage);
+    public step(primaryPercentage: number = 0, secondaryPercentage: number = 0, highSchoolPercentage: number = 0) {
+        this.updatePopulation(primaryPercentage, secondaryPercentage, highSchoolPercentage);
         const stats = this.getCurrentPopulationStats();
         this.nationBudget = this.generateNationBudget(stats);
         this.educationBudget = this.generateEducationBudget(stats, this.nationBudget);
 
         this.popChart.data.datasets[0].data = this.population.map(function (d) {return d.child;});
-        this.popChart.data.datasets[1].data = this.population.map(function (d) {return d.student;});
-        this.popChart.data.datasets[2].data = this.population.map(function (d) {return d.worker_unqualified;});
-        this.popChart.data.datasets[3].data = this.population.map(function (d) {return d.worker_primary;});
-        this.popChart.data.datasets[4].data = this.population.map(function (d) {return d.retired;});
+        this.popChart.data.datasets[1].data = this.population.map(function (d) {return d.primaryStudent;});
+        this.popChart.data.datasets[2].data = this.population.map(function (d) {return d.secondaryStudent;});
+        this.popChart.data.datasets[3].data = this.population.map(function (d) {return d.highSchoolStudent;});
+        this.popChart.data.datasets[4].data = this.population.map(function (d) {return d.workStudyStudent;});
+        this.popChart.data.datasets[5].data = this.population.map(function (d) {return d.unqualifiedWorker;});
+        this.popChart.data.datasets[6].data = this.population.map(function (d) {return d.lowQualifiedWorker;});
+        this.popChart.data.datasets[7].data = this.population.map(function (d) {return d.qualifiedWorker;});
+        this.popChart.data.datasets[8].data = this.population.map(function (d) {return d.highQualifiedWorker;});
+        this.popChart.data.datasets[9].data = this.population.map(function (d) {return d.retired;});
 
-        this.statsChart.data.datasets[0].data = [stats.child, stats.student, stats.worker_unqualified, stats.worker_primary, stats.retired];
+        this.statsChart.data.datasets[0].data = [
+            stats.child,
+            stats.primaryStudent,
+            stats.secondaryStudent,
+            stats.highSchoolStudent,
+            stats.workStudyStudent,
+            stats.unqualifiedWorker,
+            stats.lowQualifiedWorker,
+            stats.qualifiedWorker,
+            stats.highQualifiedWorker,
+            stats.retired
+        ];
 
         if(this.year < birthRate.length - 1)
             this.year++;
