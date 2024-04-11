@@ -1,6 +1,7 @@
 import './App.css'
 import PopulationTable from "./components/PopulationTable.tsx";
 import PopulationChart from "./components/PopulationChart.tsx";
+import { PassYear } from './components/PassYear.tsx';
 import StatsChart from "./components/StatsChart.tsx";
 import EducationTable from "./components/EducationTable.tsx";
 import UpdateData from "./components/UpdateData.tsx";
@@ -25,7 +26,7 @@ function App() {
         <div id= "container">
             <div id="sidebar">
                 <EducationTable gameData={gameData}/>
-                <UpdateData gameData={gameData} setGameData={setGameData}/>
+                <UpdateData/>
             </div>
             <div id="info">
                 <PopulationChart gameData={gameData}/>
@@ -37,6 +38,9 @@ function App() {
             <div className={"row"}>
             {activeTab === 'Stats' && <StatsChart gameData={gameData} />}
             {activeTab === 'Population' && <PopulationTable gameData={gameData} />}
+        </div>
+        <div>
+            <PassYear gameData={gameData} setGameData={setGameData}/>
         </div>
     </div>
     )
