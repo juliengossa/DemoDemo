@@ -353,8 +353,6 @@ export class GameData {
         this.population[63].retirePopulation();
 
         let deathCount = totalPopulation[this.year] * 1_000_000 * deathRate[this.year] / 78;
-        console.log(totalPopulation[this.year] * 1_000_000 * deathRate[this.year] / 78)
-        console.log(deathCount)
         for(let i = 0; i <= 99; i++) {
             let deathPercent = 0.001 
             switch (true) {
