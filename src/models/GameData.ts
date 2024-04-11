@@ -190,19 +190,101 @@ export class GameData {
         return this.population.reduce((a, b) => a + b.getPopulation(), 0);
     }
 
+    private setPrimarySchoolFailure():number {
+        let poptotal: number = (this.population[10].child + this.population[10].primaryStudent);
+        if (this.population[10].primaryStudent == poptotal){
+            return  20;
+        }
+        else if (this.population[10].primaryStudent >= poptotal/3 + poptotal/3){
+            return  15;
+        }
+        else if (this.population[10].primaryStudent >= poptotal/3){
+            return  10;
+        }
+        else{
+            return 5;
+        }
+    }
+    private setSecondarySchoolFailure():number {
+        let poptotal: number = (this.population[10].child + this.population[10].secondaryStudent);
+        if (this.population[10].secondaryStudent == poptotal){
+            return  20;
+        }
+        else if (this.population[10].secondaryStudent >= poptotal/3 + poptotal/3){
+            return  15;
+        }
+        else if (this.population[10].secondaryStudent >= poptotal/3){
+            return  10;
+        }
+        else{
+            return 5;
+        }
+    }
+    private setHighSchoolFailure(age: number):number {
+        let poptotal: number = (this.population[age].child + this.population[age].highSchoolStudent);
+        if (this.population[age].highSchoolStudent == poptotal){
+            return  20;
+        }
+        else if (this.population[age].highSchoolStudent >= poptotal/3 + poptotal/3){
+            return  15;
+        }
+        else if (this.population[age].highSchoolStudent >= poptotal/3){
+            return  10;
+        }
+        else{
+            return 5;
+        }
+    }
+    private primarySchoolFailure(failure: number): number{
+        let failurePourcent = failure/100;
+        console.log("primary Student"+this.population[10].primaryStudent);
+        let failureCount = Math.floor(this.population[10].primaryStudent * failurePourcent);
+        console.log("failure count "+failureCount);
+        return failureCount;
+    }
+    private secondarySchoolFailure(failure: number): number{
+        let failurePourcent = failure/100;
+        console.log("secondary Student"+this.population[18].secondaryStudent);
+        let failureCount = Math.floor(this.population[18].secondaryStudent * failurePourcent);
+        console.log("failure count "+failureCount);
+        return failureCount;
+    }
+    private highSchoolFailure(failure: number, age: number): number{
+        let failurePourcent = failure/100;
+        console.log("high school Student"+this.population[age].highSchoolStudent);
+        let failureCount = Math.floor(this.population[age].highSchoolStudent * failurePourcent);
+        console.log("failure count "+failureCount);
+        return failureCount;
+    }
+
     private updatePopulation(primaryPercentage: number, secondaryPercentage: number, highSchoolPercentage: number) {
         // primaire
         const newPrimaryStudents = Math.floor(Math.min(this.population[2].child, this.population[2].child * primaryPercentage / 100))
         this.population[2].child = this.population[2].child - newPrimaryStudents;
         this.population[2].primaryStudent = newPrimaryStudents;
 
-        const newSecondaryStudents = Math.floor(Math.min(this.population[10].primaryStudent, this.population[10].primaryStudent * secondaryPercentage / 100))
+        let failure: number = this.setPrimarySchoolFailure();
+        let failureCount: number = this.primarySchoolFailure(failure);
+        this.population[10].primaryStudent = this.population[10].primaryStudent - failureCount;
+        this.population[10].child = this.population[10].child + failureCount;
+        const newSecondaryStudents = Math.floor(Math.min(this.population[10].primaryStudent, (this.population[10].primaryStudent) * secondaryPercentage / 100))
         this.population[10].primaryStudent = this.population[10].primaryStudent - newSecondaryStudents;
         this.population[10].secondaryStudent = newSecondaryStudents;
 
-        const newHighSchoolStudents = Math.floor(Math.min(this.population[18].secondaryStudent, this.population[18].secondaryStudent * highSchoolPercentage / 100))
+        let failure2: number = this.setSecondarySchoolFailure();
+        let failureCount2: number = this.secondarySchoolFailure(failure2);
+        this.population[18].secondaryStudent = this.population[18].secondaryStudent - failureCount2;
+        this.population[18].lowQualifiedWorker = this.population[18].lowQualifiedWorker + failureCount2;
+        const newHighSchoolStudents = Math.floor(Math.min(this.population[18].secondaryStudent, (this.population[18].secondaryStudent) * highSchoolPercentage / 100))
         this.population[18].secondaryStudent = this.population[18].secondaryStudent - newHighSchoolStudents;
         this.population[18].highSchoolStudent = newHighSchoolStudents;
+
+        for (let i = 18; i < 27; i++){
+            let failure3: number = this.setHighSchoolFailure(i);
+            let failureCount3: number = this.highSchoolFailure(failure3, i);
+            this.population[i].highSchoolStudent = this.population[i].highSchoolStudent - failureCount3;
+            this.population[i].qualifiedWorker = this.population[i].qualifiedWorker + failureCount3;
+        }
 
 
         // Primary insertion
@@ -407,7 +489,6 @@ export class GameData {
         this.popChart.data.datasets[7].data = this.population.map(function (d) {return d.qualifiedWorker;});
         this.popChart.data.datasets[8].data = this.population.map(function (d) {return d.highQualifiedWorker;});
         this.popChart.data.datasets[9].data = this.population.map(function (d) {return d.retired;});
-
         this.statsChart.data.datasets[0].data = [
             stats.child,
             stats.primaryStudent,
