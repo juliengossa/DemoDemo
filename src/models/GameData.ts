@@ -193,17 +193,17 @@ export class GameData {
 
 
 
-    private primarySchoolFailure(failure: number): number{
-        let failurePercent = failure/100;
-        return Math.floor(this.population[10].primaryStudent * (1-failurePercent));
+    private primarySchoolSuccess(success: number): number{
+        let successPercent = success/100;
+        return Math.floor(this.population[10].primaryStudent * (1 - successPercent));
     }
-    private secondarySchoolFailure(failure: number): number{
-        let failurePourcent = failure/100;
-        return Math.floor(this.population[18].secondaryStudent * (1-failurePourcent));
+    private secondarySchoolSuccess(success: number): number{
+        let successPercent = success/100;
+        return Math.floor(this.population[18].secondaryStudent * (1-successPercent));
     }
-    private highSchoolFailure(failure: number): number{
-        let failurePourcent = failure/100;
-        return Math.floor(this.population[27].highSchoolStudent * (1-failurePourcent));
+    private highSchoolSuccess(success: number): number{
+        let successPercent = success/100;
+        return Math.floor(this.population[27].highSchoolStudent * (1-successPercent));
     }
 
     private updatePopulation(primaryPercentage: number, primaryValidPercentage: number, secondaryPercentage: number, secondaryValidPercentage: number, highSchoolPercentage: number, highSchoolValidPercentage: number) {
@@ -213,24 +213,27 @@ export class GameData {
         this.population[2].primaryStudent = newPrimaryStudents;
 
 
-        let failureCount: number = this.primarySchoolFailure(primaryValidPercentage);
-        this.population[10].primaryStudent = this.population[10].primaryStudent - failureCount;
-        this.population[10].child = this.population[10].child + failureCount;
+        let successCount: number = this.primarySchoolSuccess(primaryValidPercentage);
+        this.population[10].primaryStudent = this.population[10].primaryStudent - successCount;
+        this.population[10].child = this.population[10].child + successCount;
         const newSecondaryStudents = Math.floor(Math.min(this.population[10].primaryStudent, (this.population[10].primaryStudent) * secondaryPercentage / 100))
         this.population[10].primaryStudent = this.population[10].primaryStudent - newSecondaryStudents;
         this.population[10].secondaryStudent = newSecondaryStudents;
 
-        let failureCount2: number = this.secondarySchoolFailure(secondaryValidPercentage);
-        this.population[18].secondaryStudent = this.population[18].secondaryStudent - failureCount2;
-        this.population[18].lowQualifiedWorker = this.population[18].lowQualifiedWorker + failureCount2;
+        let successCount2: number = this.secondarySchoolSuccess(secondaryValidPercentage);
+        this.population[18].secondaryStudent = this.population[18].secondaryStudent - successCount2;
+        this.population[18].lowQualifiedWorker = this.population[18].lowQualifiedWorker + successCount2;
         const newHighSchoolStudents = Math.floor(Math.min(this.population[18].secondaryStudent, (this.population[18].secondaryStudent) * highSchoolPercentage / 100))
         this.population[18].secondaryStudent = this.population[18].secondaryStudent - newHighSchoolStudents;
         this.population[18].highSchoolStudent = newHighSchoolStudents;
 
 
-        let failureCount3: number = this.highSchoolFailure(highSchoolValidPercentage);
-        this.population[27].highSchoolStudent = this.population[27].highSchoolStudent - failureCount3;
-        this.population[27].qualifiedWorker = this.population[27].qualifiedWorker + failureCount3;
+        let successCount3: number = this.highSchoolSuccess(highSchoolValidPercentage);
+        this.population[27].highSchoolStudent = this.population[27].highSchoolStudent - successCount3;
+        this.population[27].qualifiedWorker = this.population[27].qualifiedWorker + successCount3;
+        
+        let workers = Math.random() * successCount3;
+        this.population[27].workStudyStudent = this.population[27].workStudyStudent + workers;
 
 
 

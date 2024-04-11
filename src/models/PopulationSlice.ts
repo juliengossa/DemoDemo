@@ -10,6 +10,7 @@ export class PopulationSlice{
     public qualifiedWorker: number = 0;
     public highQualifiedWorker: number = 0;
     public retired: number = 0;
+    public workStudy: number = 0;
 
 
     public constructor(slice: number = -1){
@@ -27,6 +28,7 @@ export class PopulationSlice{
         this.qualifiedWorker = 0;
         this.highQualifiedWorker = 0;
         this.retired = slice >= 64 ? 29_000_000 / 100 : 0;
+        this.workStudy = 0;
     }
 
     public getPopulation(): number{
@@ -39,6 +41,7 @@ export class PopulationSlice{
             this.lowQualifiedWorker +
             this.qualifiedWorker +
             this.highQualifiedWorker +
+            this.workStudy +
             this.retired;
     }
 
@@ -76,6 +79,7 @@ export class PopulationSlice{
         this.qualifiedWorker = 0;
         this.highQualifiedWorker = 0;
         this.retired = 0;
+        this.workStudy = 0;
     }
 
     public roundPopulation(): void{
@@ -89,6 +93,7 @@ export class PopulationSlice{
         this.qualifiedWorker = Math.floor(this.qualifiedWorker);
         this.highQualifiedWorker = Math.floor(this.highQualifiedWorker);
         this.retired = Math.floor(this.retired);
+        this.workStudy = Math.floor(this.workStudy);
     }
 
     /**
