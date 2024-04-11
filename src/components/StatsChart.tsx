@@ -18,6 +18,7 @@ export default function StatsChart(props: StatsChartProps){
             const popChart = props.gameData.getStatsChart();
             setOptions(popChart.options);
             setData(popChart.data);
+            console.log(popChart.data)
             await new Promise(r => setTimeout(r, .001));
         }catch(error){
             console.error(error);
