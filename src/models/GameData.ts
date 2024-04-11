@@ -9,16 +9,19 @@ ChartJS.register(
     Legend
 );
 
+import {birthRate, deathRate} from "./Data.ts";
+
 export class GameData {
     constructor(){
         for (let i = 0; i < this.population.length; i++) {
             this.population[i] = {
-                child : i <= 10 ? 10 : 0,
+                child : i <= 10 ? 29_000_000 / 100 : 0,
                 student : 0,
-                worker_unqualified :  i > 10 && i < 64 ? 10 : 0,
+                worker_unqualified : i >= 10 && i <= 63 ? 29_000_000 / 100 : 0,
                 worker_primary : 0,
-                retired : i >= 64 ? Math.max(Math.min(10,(85-i)),0) : 0
+                retired : i >= 64 ? 29_000_000 / 100 : 0
             }
+
         }
 
         this.popChart = {
@@ -130,18 +133,22 @@ export class GameData {
         this.step(0);
     }
 
-    private dpop = 0;
+    public year = 1800;
     private debt = 0;
     private population = new Array(100);
     public nationBudget: any;
     public educationBudget: any;
 
     // create a new chart object
-    private popChart;
+    private readonly popChart;
 
-    private statsChart;
+    private readonly statsChart;
 
-    public updatePopulation(educationPercentage: number) {
+    private getTotalPopulation(): number{
+        return this.population.reduce((acc, val) => acc + val.child + val.student + val.worker_unqualified + val.worker_primary + val.retired, 0);
+    }
+
+    private updatePopulation(educationPercentage: number) {
         // primaire
         const s = Math.floor(Math.min(this.population[2].child, this.population[2].child * educationPercentage / 100))
         this.population[2].child = this.population[2].child - s;
@@ -166,11 +173,46 @@ export class GameData {
             retired : this.population[63].worker_unqualified + this.population[63].worker_primary
         }
 
-        // morts
-        let death_ratio = 0.9;
-        for (let i = 64; i < this.population.length; i++) {
-            this.population[i].retired = this.population[i].retired * (death_ratio+Math.random()*0.1);
-            death_ratio = Math.max(death_ratio - 0.01, 0);
+        let deathCount = this.getTotalPopulation() * deathRate[this.year] / 100;
+        for(let i = 99; i >= 0; i--) {
+            let currentDeathCount = deathCount * 0.1;
+            if(this.population[i].retired != 0) {
+                if(currentDeathCount > this.population[i].retired){
+                    currentDeathCount = this.population[i].retired;
+                    this.population[i].retired = 0;
+                }else{
+                    this.population[i].retired -= currentDeathCount;
+                }
+            }else if(this.population[i].worker_primary != 0) {
+                if(currentDeathCount > this.population[i].worker_primary){
+                    currentDeathCount = this.population[i].worker_primary;
+                    this.population[i].worker_primary = 0;
+                }else{
+                    this.population[i].worker_primary -= currentDeathCount;
+                }
+            }else if(this.population[i].worker_unqualified != 0) {
+                if(currentDeathCount > this.population[i].worker_unqualified){
+                    currentDeathCount = this.population[i].worker_unqualified;
+                    this.population[i].worker_unqualified = 0;
+                }else{
+                    this.population[i].worker_unqualified -= currentDeathCount;
+                }
+            }else if(this.population[i].student != 0) {
+                if(currentDeathCount > this.population[i].student){
+                    currentDeathCount = this.population[i].student;
+                    this.population[i].student = 0;
+                }else{
+                    this.population[i].student -= currentDeathCount;
+                }
+            }else if(this.population[i].child != 0) {
+                if(currentDeathCount > this.population[i].child){
+                    currentDeathCount = this.population[i].child;
+                    this.population[i].child = 0;
+                }else{
+                    this.population[i].child -= currentDeathCount;
+                }
+            }
+            deathCount -= currentDeathCount;
         }
 
         // Vieillissement
@@ -178,9 +220,8 @@ export class GameData {
             this.population[i] = this.population[i-1];
         }
 
-        // naissances
-        this.dpop = Math.max(Math.min(this.dpop + Math.random() - 0.5, 1),-1);
-        const pop0 = Math.max(this.population[0].child + this.dpop, 10);
+        // Births
+        const pop0 = this.getTotalPopulation() * birthRate[this.year] / 100;
         this.population[0] =  {
             child : pop0,
             student : 0,
@@ -327,7 +368,10 @@ export class GameData {
         this.popChart.data.datasets[3].data = this.population.map(function (d) {return d.worker_primary;});
         this.popChart.data.datasets[4].data = this.population.map(function (d) {return d.retired;});
 
-        this.statsChart.data.datasets[0].data = [this.population.length, stats.student, stats.worker_unqualified, stats.worker_primary, stats.retired];
+        this.statsChart.data.datasets[0].data = [stats.child, stats.student, stats.worker_unqualified, stats.worker_primary, stats.retired];
+
+        if(this.year < birthRate.length - 1)
+            this.year++;
     }
 
     public getPopulationChart() {
@@ -337,10 +381,4 @@ export class GameData {
     getStatsChart() {
         return this.statsChart;
     }
-}
-
-const gameData = new GameData();
-
-export function getGameData() {
-    return gameData;
 }
