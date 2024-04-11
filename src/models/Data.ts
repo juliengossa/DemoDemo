@@ -100,6 +100,57 @@ const rawDeathRate = [
     0.9
 ]
 
+const rawPopulation = [
+    29,
+    29,
+    30,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    36,
+    36,
+    37,
+    37,
+    37,
+    38,
+    39,
+    39,
+    40,
+    40,
+
+    40,
+    41,
+    41,
+    40,
+    38,
+    40,
+    41,
+    41,
+    40,
+    38,
+    41,
+    43,
+    45,
+    48,
+    50,
+    52,
+    53,
+    55,
+    56,
+    57,
+
+    58,
+    60,
+    62,
+    64,
+    65,
+    65
+]
+
 export const birthRate: number[] = [];
 let year = 1800;
 for(let i = 0; i < rawBirthRateRate.length; i++) {
@@ -122,6 +173,19 @@ for(let i = 0; i < rawDeathRate.length; i++) {
     }
     for(let j = 0; j < 5; j++){
         deathRate[year] = rawDeathRate[i] + (rawDeathRate[i + 1] - rawDeathRate[i]) * j / 5;
+        year++;
+    }
+}
+
+export const totalPopulation: number[] = [];
+year = 1800;
+for(let i = 0; i < rawPopulation.length; i++) {
+    if(i + 1 >= rawPopulation.length) {
+        totalPopulation[year] = rawPopulation[i];
+        break;
+    }
+    for(let j = 0; j < 5; j++){
+        totalPopulation[year] = rawPopulation[i] + (rawPopulation[i + 1] - rawPopulation[i]) * j / 5;
         year++;
     }
 }

@@ -9,7 +9,7 @@ ChartJS.register(
     Legend
 );
 
-import {birthRate, deathRate} from "./Data.ts";
+import {birthRate, deathRate, totalPopulation} from "./Data.ts";
 import {PopulationSlice} from "./PopulationSlice.ts";
 
 export class GameData {
@@ -186,10 +186,6 @@ export class GameData {
 
     private readonly statsChart;
 
-    private getTotalPopulation(): number{
-        return this.population.reduce((a, b) => a + b.getPopulation(), 0);
-    }
-
     private updatePopulation(primaryPercentage: number, secondaryPercentage: number, highSchoolPercentage: number) {
         // primaire
         const newPrimaryStudents = Math.floor(Math.min(this.population[2].child, this.population[2].child * primaryPercentage / 100))
@@ -213,9 +209,9 @@ export class GameData {
         // Retirement
         this.population[63].retirePopulation();
 
-        let deathCount = this.getTotalPopulation() * deathRate[this.year] / 100;
+        let deathCount = totalPopulation[this.year] * 1_000_000 * deathRate[this.year] / 100;
         for(let i = 99; i >= 0; i--) {
-            let currentDeathCount = deathCount * 0.1;
+            let currentDeathCount = deathCount * 0.3;
             deathCount -= currentDeathCount - this.population[i].applyDeath(currentDeathCount);
         }
 
@@ -225,9 +221,9 @@ export class GameData {
         }
 
         // Births
-        const pop0 = this.getTotalPopulation() * birthRate[this.year] / 100;
+        const pop0 = totalPopulation[this.year] * 1_000_000 * birthRate[this.year] / 100;
         this.population[0] = new PopulationSlice();
-        this.population[0].child = pop0;
+        this.population[0].child = pop0 * 0.88;
 
         // rounding
         for(let i = 0; i < this.population.length; i++)
