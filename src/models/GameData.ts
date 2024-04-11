@@ -181,6 +181,8 @@ export class GameData {
     }
 
     public year = 1800;
+    public pidPart = 100;
+    public pidReduce = 0;
     private debt = 0;
     private population: PopulationSlice[] = new Array(100);
     public nationBudget: any;
@@ -283,7 +285,29 @@ export class GameData {
         stats.lowQualifiedWorkerNeed = (totPop * LowlifiedNeed[this.year])/100
         stats.qualifiedWorkerNeed = (totPop * QualifiedNeed[this.year])/100
         stats.highQualifiedWorkerNeed = (totPop * HighQualifiedNeed[this.year])/100
+
         return stats;
+    }
+
+    private updatePibPart() {
+        const stats = this.getCurrentPopulationStats()
+        this.pidPart = 100
+        
+     
+
+        if(stats.unqualifiedWorker < stats.unqualifiedWorkerNeed) {
+            this.pidPart -= ((stats.unqualifiedWorkerNeed-stats.unqualifiedWorker)/stats.unqualifiedWorkerNeed)*50
+        }
+        if(stats.lowQualifiedWorker < stats.lowQualifiedWorkerNeed) {
+            this.pidPart -= ((stats.lowQualifiedWorkerNeed-stats.lowQualifiedWorker)/stats.lowQualifiedWorkerNeed)*50
+        }
+        if(stats.qualifiedWorker < stats.qualifiedWorkerNeed) {
+            this.pidPart -= ((stats.qualifiedWorkerNeed-stats.qualifiedWorker)/stats.qualifiedWorkerNeed)*50
+        }
+        if(stats.highQualifiedWorker < stats.highQualifiedWorkerNeed) {
+            this.pidPart -= ((stats.highQualifiedWorkerNeed-stats.highQualifiedWorker)/stats.highQualifiedWorkerNeed)*50
+        }
+
     }
 
     /**
@@ -357,7 +381,7 @@ export class GameData {
             b.pop = Math.round(b.pop);
             b.total_consumption = b.consumption * b.pop;
             b.total_production = b.production * b.pop;
-            b.net =  b.total_production - b.total_consumption;
+            b.net =  b.total_production - b.total_consumption
         })
 
         budget[budget.length] = {
@@ -367,7 +391,7 @@ export class GameData {
             'production' : "",
             'total_consumption' : budget.reduce((a: any, b: any) => a + b.consumption * b.pop, 0),
             'total_production' : budget.reduce((a: any, b: any) => a + b.production * b.pop, 0),
-            'net' : budget.reduce((a: any, b: any) => a + b.net, 0)
+            'net' : ((budget.reduce((a: any, b: any) => a + b.net, 0))* (this.pidPart-this.pidReduce))/100
         }
 
         return budget;
@@ -414,6 +438,7 @@ export class GameData {
 
     public step(primaryPercentage: number = 0, secondaryPercentage: number = 0, highSchoolPercentage: number = 0) {
         this.updatePopulation(primaryPercentage, secondaryPercentage, highSchoolPercentage);
+        this.updatePibPart()
         const stats = this.getCurrentPopulationStats();
         this.nationBudget = this.generateNationBudget(stats);
         this.educationBudget = this.generateEducationBudget(stats, this.nationBudget);
