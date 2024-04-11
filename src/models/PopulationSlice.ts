@@ -70,7 +70,7 @@ export class PopulationSlice{
     }
 
     public workStudyInsertion(): void{
-        this.highQualifiedWorker = this.workStudyStudent;
+        this.highQualifiedWorker += this.workStudyStudent;
         this.workStudyStudent = 0;
     }
 
