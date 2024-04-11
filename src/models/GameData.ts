@@ -19,6 +19,20 @@ export class GameData {
             this.population[i] = new PopulationSlice(i);
         }
 
+        const colors = {
+            need: "rgb(255,0,0)",
+            primaryStudent: "rgb(0, 180, 216)",
+            child: "rgb(100,200,100)",
+            secondaryStudent: "rgb(0, 119, 182)",
+            highSchoolStudent: "rgb(3, 4, 94)",
+            workStudyStudent: "rgb(100,100,200)",
+            unqualifiedWorker: "rgb(255, 136, 0)",
+            lowQualifiedWorker: "rgb(255, 162, 0)",
+            qualifiedWorker: "rgb(255, 183, 0)",
+            highQualifiedWorker: "rgb(255, 208, 0)",
+            retired: "rgb(100,100,100)"
+        }
+
         this.popChart = {
             type: 'bar',
             data: {
@@ -141,99 +155,99 @@ export class GameData {
                     {
                         data: [0],
                         label: "Children",
-                        borderColor: "rgb(100,200,100)",
-                        backgroundColor: "rgb(100,200,100,0.1)",
+                        borderColor: colors.child,
+                        backgroundColor: "rgb(100,200,100,0.2)",
                         borderWidth:4
                     },
                     {
                         data: [0],
                         label: "Primary student",
-                        borderColor: "rgb(100,100,200)",
-                        backgroundColor: "rgb(100,100,200,0.2)",
+                        borderColor: colors.primaryStudent,
+                        backgroundColor: "rgb(0, 180, 216,0.2)",
                         borderWidth:4
                     },
                     {
                         data: [0],
                         label: "Secondary student",
-                        borderColor: "rgb(100,100,200)",
-                        backgroundColor: "rgb(100,100,200,0.2)",
+                        borderColor: colors.secondaryStudent,
+                        backgroundColor: "rgb(0, 119, 182,0.2)",
                         borderWidth:4
                     },
                     {
                         data: [0],
                         label: "High school student",
-                        borderColor: "rgb(100,200,200)",
-                        backgroundColor: "rgb(100,200,200,0.2)",
+                        borderColor: colors.highSchoolStudent,
+                        backgroundColor: "rgb(3, 4, 94,0.2)",
                         borderWidth:4
                     },
                     {
                         data: [0],
                         label: "Work school student",
-                        borderColor: "rgb(100,100,100)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
+                        borderColor: colors.workStudyStudent,
+                        backgroundColor: "rgb(100,100,200,0.2)",
                         borderWidth:4
                     },
                     {
                         data: [0],
                         label: "Unqualified worker",
-                        borderColor: "rgb(255,255,255)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.unqualifiedWorker,
+                        backgroundColor: "rgb(255, 136, 0,0.2)",
+                        borderWidth:3
                     },
                     {
                         data: [0],
                         label: "Unqualified worker Need",
-                        borderColor: "rgb(0,0,0)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
                     },
                     {
                         data:[0], 
                         label: "Low qualified worker",
-                        borderColor: "rgb(255,255,255)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.lowQualifiedWorker,
+                        backgroundColor: "rgb(255, 162, 0,0.2)",
+                        borderWidth:3,
                     },
                     {
                         data:[0], 
                         label: "Low qualified worker Need",
-                        borderColor: "rgb(0,0,0)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
                     },
                     {
                         data: [0],
                         label: "Qualified worker",
-                        borderColor: "rgb(255,255,255)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.qualifiedWorker,
+                        backgroundColor: "rgb(255, 183, 0,0.2)",
+                        borderWidth:3
                     },
                     {
                         data: [0],
                         label: "Qualified worker Need",
-                        borderColor: "rgb(0,0,0)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
                     },
                     {
                         data: [0],
                         label: "High qualified worker",
-                        borderColor: "rgb(255,255,255)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.highQualifiedWorker,
+                        backgroundColor: "rgb(255, 208, 0,0.2)",
+                        borderWidth:3
                     },
                     {
                         data: [0],
                         label: "High qualified worker Need",
-                        borderColor: "rgb(100,100,100)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
-                        borderWidth:4
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
                     },
                     {
                         data: [0],
                         label: "Retired",
-                        borderColor: "rgb(100,100,100)",
-                        backgroundColor: "rgb(100,100,100,0.1)",
+                        borderColor: colors.retired,
+                        backgroundColor: "rgb(100,100,100,0.2)",
                         borderWidth:4
                     }
                     
@@ -571,3 +585,7 @@ export class GameData {
         return this.statsChart;
     }
 }
+function hexToRGBA(child: string, arg1: number) {
+    throw new Error("Function not implemented.");
+}
+
