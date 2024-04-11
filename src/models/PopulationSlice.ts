@@ -42,6 +42,13 @@ export class PopulationSlice{
             this.retired;
     }
 
+    public getWorkerPopulation(): number{
+        return this.unqualifiedWorker +
+            this.lowQualifiedWorker +
+            this.qualifiedWorker +
+            this.highQualifiedWorker
+    }
+
     public primaryInsertion(): void{
         this.unqualifiedWorker = this.child;
         this.lowQualifiedWorker = this.primaryStudent;

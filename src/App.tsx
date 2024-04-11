@@ -38,9 +38,9 @@ function App() {
             <button id="b1" onClick={() => setActiveTab('Stats')} >Stats</button>
             <button id="b2" onClick={() => setActiveTab('Population')}>Population</button>
             <div className={"row"}>
-            {activeTab === 'Stats' && <StatsChart gameData={gameData} />}
-            {activeTab === 'Population' && <PopulationTable gameData={gameData} />}
-        </div>
+                {activeTab === 'Stats' && <StatsChart gameData={gameData} />}
+                {activeTab === 'Population' && <PopulationTable gameData={gameData} />}
+            </div>
         <div>
             <PassYear gameData={gameData} setGameData={setGameData} schoolData={schoolData} setScholData={schoolData}/>
         </div>

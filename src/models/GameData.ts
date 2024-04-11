@@ -9,8 +9,9 @@ ChartJS.register(
     Legend
 );
 
-import {birthRate, deathRate} from "./Data.ts";
+import {birthRate, deathRate, UnqualifiedNeed, LowlifiedNeed, QualifiedNeed, HighQualifiedNeed} from "./Data.ts";
 import {PopulationSlice} from "./PopulationSlice.ts";
+import { useState } from "react";
 
 export class GameData {
     constructor(){
@@ -131,13 +132,17 @@ export class GameData {
                     'High school student',
                     'Work school student',
                     'Unqualified worker',
+                    'Unqualified worker Need',
                     'Low qualified worker',
+                    'Low qualified worker Need',
                     'Qualified worker',
+                    'Qualified worker Need',
                     'High qualified worker',
+                    'High qualified worker Need',
                     'Retired'
                 ],
                 datasets: [{
-                    data: [0,0,0,0,0],
+                    data: [0],
                     label: "Citoyens",
                     borderColor: "rgb(100,100,100)",
                     backgroundColor: "rgb(100,100,100,0.1)",
@@ -188,6 +193,10 @@ export class GameData {
 
     private getTotalPopulation(): number{
         return this.population.reduce((a, b) => a + b.getPopulation(), 0);
+    }
+
+    private getTotalWorkerPopulation() : number {
+        return this.population.reduce((a,b) => a +b.getWorkerPopulation(), 0)
     }
 
     private updatePopulation(primaryPercentage: number, secondaryPercentage: number, highSchoolPercentage: number) {
@@ -244,12 +253,17 @@ export class GameData {
             secondaryStudent : 0,
             highSchoolStudent : 0,
             unqualifiedWorker : 0,
+            unqualifiedWorkerNeed : 0,
             workStudyStudent : 0,
             lowQualifiedWorker : 0,
+            lowQualifiedWorkerNeed : 0,
             qualifiedWorker : 0,
+            qualifiedWorkerNeed : 0,
             highQualifiedWorker : 0,
+            highQualifiedWorkerNeed : 0,
             retired : 0
         }
+
         for (let i = 0; i < this.population.length; i++) {
             stats.child += this.population[i].child;
             stats.primaryStudent += this.population[i].primaryStudent;
@@ -262,6 +276,13 @@ export class GameData {
             stats.highQualifiedWorker += this.population[i].highQualifiedWorker;
             stats.retired += this.population[i].retired;
         }
+
+        const totPop = this.getTotalWorkerPopulation()
+
+        stats.unqualifiedWorkerNeed = (totPop * UnqualifiedNeed[this.year])/100
+        stats.lowQualifiedWorkerNeed = (totPop * LowlifiedNeed[this.year])/100
+        stats.qualifiedWorkerNeed = (totPop * QualifiedNeed[this.year])/100
+        stats.highQualifiedWorkerNeed = (totPop * HighQualifiedNeed[this.year])/100
         return stats;
     }
 
@@ -415,9 +436,13 @@ export class GameData {
             stats.highSchoolStudent,
             stats.workStudyStudent,
             stats.unqualifiedWorker,
+            stats.unqualifiedWorkerNeed,
             stats.lowQualifiedWorker,
+            stats.lowQualifiedWorkerNeed,
             stats.qualifiedWorker,
+            stats.qualifiedWorkerNeed,
             stats.highQualifiedWorker,
+            stats.highQualifiedWorkerNeed,
             stats.retired
         ];
 
