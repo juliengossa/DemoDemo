@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import Leader from '../json/leader.json'
-import UpdatData from "./UpdateData";
 import {GameData} from "../models/GameData.ts";
 import { SchoolData } from "../models/SchoolData.ts";
 
@@ -21,7 +20,7 @@ interface LeaderData {
 export function PassYear(props: UpdateSchoolProps) {
     const[year, setYear] = useState(props.gameData.year)
     const[leaderId, setLeaderId] = useState(0)
-    const[leaderList, setLeaderList] = useState<LeaderData[]>(Leader)
+    const leaderList = Leader;
     const[leader, setLeader] = useState<LeaderData>(leaderList[0])
 
     useEffect(() => {
