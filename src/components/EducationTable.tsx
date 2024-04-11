@@ -35,8 +35,8 @@ export default function EducationTable(props: EducationTableProps) {
                     <th>budget</th>
                 </tr>
                 {
-                    education.map((ed: any) => {
-                        return <tr>
+                    education.map((ed: any, id: number) => {
+                        return <tr key={id}>
                             <td>{ed.name}</td>
                             <td>{ed.unit_cost}</td>
                             <td>{ed.pop}</td>

@@ -15,11 +15,10 @@ export default function PopulationChart(props: PopulationChartProps){
     const fetchPopulationChart = async () => {
         setIsLoading(true);
         try{
-            // await new Promise(r => setTimeout(r, 1000));
-            const popChart = {...props.gameData.popChart};
+            const popChart = {...props.gameData.getPopulationChart()};
             setOptions(popChart.options);
             setData(popChart.data);
-            console.log("Here")
+            await new Promise(r => setTimeout(r, 1));
         }catch(error){
             console.error(error);
         }

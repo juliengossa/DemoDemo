@@ -15,10 +15,10 @@ export default function StatsChart(props: StatsChartProps){
     const fetchPopulationChart = async () => {
         setIsLoading(true);
         try{
-            const popChart = props.gameData.statsChart
+            const popChart = props.gameData.getStatsChart();
             setOptions(popChart.options);
             setData(popChart.data);
-            await new Promise(r => setTimeout(r, 1));
+            await new Promise(r => setTimeout(r, .001));
         }catch(error){
             console.error(error);
         }

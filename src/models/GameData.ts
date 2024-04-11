@@ -20,6 +20,113 @@ export class GameData {
                 retired : i >= 64 ? Math.max(Math.min(10,(85-i)),0) : 0
             }
         }
+
+        this.popChart = {
+            type: 'bar',
+            data: {
+                labels: this.population.map(function (_, i) {return i;}),
+                datasets: [{
+                    data: this.population.map(function (d) {return d.child;}),
+                    label: "Enfant",
+                    borderColor: "rgb(100,200,100)",
+                    backgroundColor: "rgb(100,200,100,0.1)",
+                    borderWidth:2
+                },
+                    {
+                        data: this.population.map(function (d) {return d.student;}),
+                        label: "Étudiant",
+                        borderColor: "rgb(100,100,200)",
+                        backgroundColor: "rgb(100,100,200,0.2)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.worker_unqualified;}),
+                        label: "Travailleur non qualifié",
+                        borderColor: "rgb(200,100,100)",
+                        backgroundColor: "rgb(200,100,100,0.1)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.worker_primary;}),
+                        label: "Travailleur primaire",
+                        borderColor: "rgb(200,100,200)",
+                        backgroundColor: "rgb(200,100,200,0.2)",
+                        borderWidth:2
+                    },
+                    {
+                        data: this.population.map(function (d) {return d.retired;}),
+                        label: "Retraité",
+                        borderColor: "rgb(100,100,100)",
+                        backgroundColor: "rgb(100,100,100,0.1)",
+                        borderWidth:2
+                    }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        beginAtZero: true,
+                        stacked: true
+                    },
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'rgb(0, 0, 0)',
+                        fontSize: 14
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Mass Game',
+                    fontSize: 20,
+                    fontColor: 'rgb(0, 0, 0)',
+                    padding: 20
+                }
+            }
+        };
+        this.statsChart = {
+            data: {
+                labels: ['Enfant', 'Etudiant', 'Travailleur non qualifié', 'Travailleur primaire', 'Retraité'],
+                datasets: [{
+                    data: [0,0,0,0,0],
+                    label: "Citoyens",
+                    borderColor: "rgb(100,100,100)",
+                    backgroundColor: "rgb(100,100,100,0.1)",
+                    borderWidth:2
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: false
+                    },
+                    y: {
+                        beginAtZero: true,
+                        stacked: false
+                    },
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'rgb(0, 0, 0)',
+                        fontSize: 14
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Mass Game',
+                    fontSize: 20,
+                    fontColor: 'rgb(0, 0, 0)',
+                    padding: 20
+                }
+            }
+        };
+
         this.step(0);
     }
 
@@ -30,112 +137,9 @@ export class GameData {
     public educationBudget: any;
 
     // create a new chart object
-    public popChart = {
-        type: 'bar',
-        data: {
-            labels: this.population.map(function (_, i) {return i;}),
-            datasets: [{
-                data: this.population.map(function (d) {return d.child;}),
-                label: "Enfant",
-                borderColor: "rgb(100,200,100)",
-                backgroundColor: "rgb(100,200,100,0.1)",
-                borderWidth:2
-            },
-                {
-                    data: this.population.map(function (d) {return d.student;}),
-                    label: "Étudiant",
-                    borderColor: "rgb(100,100,200)",
-                    backgroundColor: "rgb(100,100,200,0.2)",
-                    borderWidth:2
-                },
-                {
-                    data: this.population.map(function (d) {return d.worker_unqualified;}),
-                    label: "Travailleur non qualifié",
-                    borderColor: "rgb(200,100,100)",
-                    backgroundColor: "rgb(200,100,100,0.1)",
-                    borderWidth:2
-                },
-                {
-                    data: this.population.map(function (d) {return d.worker_primary;}),
-                    label: "Travailleur primaire",
-                    borderColor: "rgb(200,100,200)",
-                    backgroundColor: "rgb(200,100,200,0.2)",
-                    borderWidth:2
-                },
-                {
-                    data: this.population.map(function (d) {return d.retired;}),
-                    label: "Retraité",
-                    borderColor: "rgb(100,100,100)",
-                    backgroundColor: "rgb(100,100,100,0.1)",
-                    borderWidth:2
-                }]
-        },
-        options: {
-            scales: {
-                x: {
-                    stacked: true
-                },
-                y: {
-                    beginAtZero: true,
-                    stacked: true
-                },
-            },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: 'rgb(0, 0, 0)',
-                    fontSize: 14
-                }
-            },
-            title: {
-                display: true,
-                text: 'Mass Game',
-                fontSize: 20,
-                fontColor: 'rgb(0, 0, 0)',
-                padding: 20
-            }
-        }
-    };
+    private popChart;
 
-    public statsChart = {
-        data: {
-            labels: ['Enfant', 'Etudiant', 'Travailleur non qualifié', 'Travailleur primaire', 'Retraité'],
-            datasets: [{
-                data: [0,0,0,0,0],
-                label: "Citoyens",
-                borderColor: "rgb(100,100,100)",
-                backgroundColor: "rgb(100,100,100,0.1)",
-                borderWidth:2
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    stacked: false
-                },
-                y: {
-                    beginAtZero: true,
-                    stacked: false
-                },
-            },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: 'rgb(0, 0, 0)',
-                    fontSize: 14
-                }
-            },
-            title: {
-                display: true,
-                text: 'Mass Game',
-                fontSize: 20,
-                fontColor: 'rgb(0, 0, 0)',
-                padding: 20
-            }
-        }
-    }
+    private statsChart;
 
     public updatePopulation(educationPercentage: number) {
         // primaire
@@ -198,7 +202,7 @@ export class GameData {
     /**
      * Get the global population stats
      */
-    public getCurrentPopulationStats() {
+    private getCurrentPopulationStats() {
         const stats = {
             child : 0,
             student : 0,
@@ -220,7 +224,7 @@ export class GameData {
      * Generate the new nation budget from current population stats
      * @param stats The current population stats
      */
-    public generateNationBudget(stats: any) {
+    private generateNationBudget(stats: any) {
         const budget: any = [{
             'name' : 'Enfants',
             'pop' : stats.child,
@@ -277,7 +281,7 @@ export class GameData {
      * @param stats The current population stats
      * @param nationBudget The current nation budget
      */
-    public generateEducationBudget(stats: any, nationBudget: any) {
+    private generateEducationBudget(stats: any, nationBudget: any) {
         const budget: any = [{
             'name' : 'Dotation',
             'unit_cost' : "",
@@ -325,5 +329,18 @@ export class GameData {
 
         this.statsChart.data.datasets[0].data = [this.population.length, stats.student, stats.worker_unqualified, stats.worker_primary, stats.retired];
     }
+
+    public getPopulationChart() {
+        return this.popChart;
+    }
+
+    getStatsChart() {
+        return this.statsChart;
+    }
 }
 
+const gameData = new GameData();
+
+export function getGameData() {
+    return gameData;
+}

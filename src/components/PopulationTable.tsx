@@ -38,8 +38,8 @@ export default function PopulationTable(props: PopulationTableProps) {
                     <th>net</th>
                 </tr>
                 {
-                    population.map((pop: any) => {
-                        return <tr>
+                    population.map((pop: any, id: number) => {
+                        return <tr key={id}>
                             <td>{pop.name}</td>
                             <td>{pop.pop}</td>
                             <td>{pop.consumption}</td>
