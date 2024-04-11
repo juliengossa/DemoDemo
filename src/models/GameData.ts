@@ -9,26 +9,20 @@ ChartJS.register(
     Legend
 );
 
-import {birthRate, deathRate, UnqualifiedNeed, LowlifiedNeed, QualifiedNeed, HighQualifiedNeed} from "./Data.ts";
+import {
+    birthRate,
+    deathRate,
+    UnqualifiedNeed,
+    LowlifiedNeed,
+    QualifiedNeed,
+    HighQualifiedNeed,
+    totalPopulation
+} from "./Data.ts";
 import {PopulationSlice} from "./PopulationSlice.ts";
-import { Children, useState } from "react";
 
 export class GameData {
     constructor(){
         this.generateBasePopulation();
-
-        const colors = {
-            primaryStudent: "rgb(0, 180, 216)",
-            child: "rgb(100,200,100)",
-            secondaryStudent: "rgb(0, 119, 182)",
-            highSchoolStudent: "rgb(3, 4, 94)",
-            workStudyStudent: "rgb(100,100,200)",
-            unqualifiedWorker: "rgb(255, 136, 0)",
-            lowQualifiedWorker: "rgb(255, 162, 0)",
-            qualifiedWorker: "rgb(255, 183, 0)",
-            highQualifiedWorker: "rgb(255, 208, 0)",
-            retired: "rgb(100,100,100)"
-        }
 
         const colors = {
             need: "rgb(255,0,0)",
@@ -213,14 +207,14 @@ export class GameData {
                         borderWidth:5
                     },
                     {
-                        data:[0], 
+                        data:[0],
                         label: "Low qualified worker",
                         borderColor: colors.lowQualifiedWorker,
                         backgroundColor: "rgb(255, 162, 0,0.2)",
                         borderWidth:3,
                     },
                     {
-                        data:[0], 
+                        data:[0],
                         label: "Low qualified worker Need",
                         borderColor: colors.need,
                         backgroundColor: "rgb(255,0,0,0.1)",
@@ -261,7 +255,7 @@ export class GameData {
                         backgroundColor: "rgb(100,100,100,0.2)",
                         borderWidth:4
                     }
-                    
+
                 ]
             },
             options: {
@@ -485,7 +479,7 @@ export class GameData {
         let successCount3: number = this.highSchoolSuccess(highSchoolValidPercentage);
         this.population[27].highSchoolStudent = this.population[27].highSchoolStudent - successCount3;
 
-        
+
         let workers = Math.random() * successCount3;
         this.population[27].workStudyStudent = this.population[27].workStudyStudent + workers;
 
@@ -570,8 +564,8 @@ export class GameData {
     private updatePibPart() {
         const stats = this.getCurrentPopulationStats()
         this.pidPart = 100
-        
-     
+
+
 
         if(stats.unqualifiedWorker < stats.unqualifiedWorkerNeed) {
             this.pidPart -= (((stats.unqualifiedWorkerNeed-stats.unqualifiedWorker)/stats.unqualifiedWorkerNeed)*100)/2
@@ -782,7 +776,3 @@ export class GameData {
         return this.yearsReviewChart;
     }
 }
-function hexToRGBA(child: string, arg1: number) {
-    throw new Error("Function not implemented.");
-}
-
