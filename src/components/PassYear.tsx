@@ -54,11 +54,16 @@ export function PassYear(props: UpdateSchoolProps) {
         props.setGameData(newGameData);
     }
 
-
-    return <div id="passYear">
-        <p>{year}</p>
-        <p>{leader.name}</p>
-        <button onClick={() => updateData(1)}>Pass year</button>
-        <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button>
-    </div>
+    return (
+        <div id="passYear">
+            {leaderId < leaderList.length ? 
+                <>
+                    <p>{year}</p>
+                    <p>{leader.name}</p>
+                    <button onClick={() => updateData(1)}>Pass year</button>
+                    <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button></> : 
+                <p id="end">Fin GG</p>
+            }
+        </div>
+    )
 }

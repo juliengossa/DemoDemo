@@ -20,6 +20,7 @@ export default function PopulationChart(props: PopulationChartProps){
             setOptions(popChart.options);
             setData(popChart.data);
             await new Promise(r => setTimeout(r, 1));
+
         }catch(error){
             console.error(error);
         }
@@ -29,13 +30,13 @@ export default function PopulationChart(props: PopulationChartProps){
     useEffect(() => {
         fetchPopulationChart();
     }, [props.gameData]);
-
     return <>
         {
             !isLoading ?
                 <Bar options={options} data={data}></Bar>
                 : null
         }
+        <p>Pib reduction {100 - parseInt((props.gameData.pidPart - props.gameData.pidReduce).toFixed(2))}%</p>
     </>
 
 }

@@ -40,11 +40,6 @@ function App() {
                     <div id="container">
                         <div id="sidebar">
                             <EducationTable gameData={gameData}/>
-                            {
-                                ended ? null : (
-                                    <UpdateData schoolData={schoolData} setScholData={setScholData} />
-                                )
-                            }
                         </div>
                         <div id="info">
                             <FinalPopulationChart gameData={gameData}/>

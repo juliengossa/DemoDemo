@@ -9,14 +9,29 @@ ChartJS.register(
     Legend
 );
 
-import {birthRate, deathRate, totalPopulation} from "./Data.ts";
+import {birthRate, deathRate, UnqualifiedNeed, LowlifiedNeed, QualifiedNeed, HighQualifiedNeed} from "./Data.ts";
 import {PopulationSlice} from "./PopulationSlice.ts";
+import { Children, useState } from "react";
 
 export class GameData {
     constructor(){
         this.generateBasePopulation();
 
         const colors = {
+            primaryStudent: "rgb(0, 180, 216)",
+            child: "rgb(100,200,100)",
+            secondaryStudent: "rgb(0, 119, 182)",
+            highSchoolStudent: "rgb(3, 4, 94)",
+            workStudyStudent: "rgb(100,100,200)",
+            unqualifiedWorker: "rgb(255, 136, 0)",
+            lowQualifiedWorker: "rgb(255, 162, 0)",
+            qualifiedWorker: "rgb(255, 183, 0)",
+            highQualifiedWorker: "rgb(255, 208, 0)",
+            retired: "rgb(100,100,100)"
+        }
+
+        const colors = {
+            need: "rgb(255,0,0)",
             primaryStudent: "rgb(0, 180, 216)",
             child: "rgb(100,200,100)",
             secondaryStudent: "rgb(0, 119, 182)",
@@ -147,18 +162,112 @@ export class GameData {
                     'High qualified worker',
                     'Retired'
                 ],
-                datasets: [{
-                    data: [0,0,0,0,0],
-                    label: "Citoyens",
-                    borderColor: "rgb(100,100,100)",
-                    backgroundColor: "rgb(100,100,100,0.1)",
-                    borderWidth:2
-                }]
+                datasets: [
+                    {
+                        data: [0],
+                        label: "Children",
+                        borderColor: colors.child,
+                        backgroundColor: "rgb(100,200,100,0.2)",
+                        borderWidth:4
+                    },
+                    {
+                        data: [0],
+                        label: "Primary student",
+                        borderColor: colors.primaryStudent,
+                        backgroundColor: "rgb(0, 180, 216,0.2)",
+                        borderWidth:4
+                    },
+                    {
+                        data: [0],
+                        label: "Secondary student",
+                        borderColor: colors.secondaryStudent,
+                        backgroundColor: "rgb(0, 119, 182,0.2)",
+                        borderWidth:4
+                    },
+                    {
+                        data: [0],
+                        label: "High school student",
+                        borderColor: colors.highSchoolStudent,
+                        backgroundColor: "rgb(3, 4, 94,0.2)",
+                        borderWidth:4
+                    },
+                    {
+                        data: [0],
+                        label: "Work school student",
+                        borderColor: colors.workStudyStudent,
+                        backgroundColor: "rgb(100,100,200,0.2)",
+                        borderWidth:4
+                    },
+                    {
+                        data: [0],
+                        label: "Unqualified worker",
+                        borderColor: colors.unqualifiedWorker,
+                        backgroundColor: "rgb(255, 136, 0,0.2)",
+                        borderWidth:3
+                    },
+                    {
+                        data: [0],
+                        label: "Unqualified worker Need",
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
+                    },
+                    {
+                        data:[0], 
+                        label: "Low qualified worker",
+                        borderColor: colors.lowQualifiedWorker,
+                        backgroundColor: "rgb(255, 162, 0,0.2)",
+                        borderWidth:3,
+                    },
+                    {
+                        data:[0], 
+                        label: "Low qualified worker Need",
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
+                    },
+                    {
+                        data: [0],
+                        label: "Qualified worker",
+                        borderColor: colors.qualifiedWorker,
+                        backgroundColor: "rgb(255, 183, 0,0.2)",
+                        borderWidth:3
+                    },
+                    {
+                        data: [0],
+                        label: "Qualified worker Need",
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
+                    },
+                    {
+                        data: [0],
+                        label: "High qualified worker",
+                        borderColor: colors.highQualifiedWorker,
+                        backgroundColor: "rgb(255, 208, 0,0.2)",
+                        borderWidth:3
+                    },
+                    {
+                        data: [0],
+                        label: "High qualified worker Need",
+                        borderColor: colors.need,
+                        backgroundColor: "rgb(255,0,0,0.1)",
+                        borderWidth:5
+                    },
+                    {
+                        data: [0],
+                        label: "Retired",
+                        borderColor: colors.retired,
+                        backgroundColor: "rgb(100,100,100,0.2)",
+                        borderWidth:4
+                    }
+                    
+                ]
             },
             options: {
                 scales: {
                     x: {
-                        stacked: false
+                        stacked: true
                     },
                     y: {
                         beginAtZero: true,
@@ -291,6 +400,8 @@ export class GameData {
     }
 
     public year = 1800;
+    public pidPart = 100;
+    public pidReduce = 0;
     private debt = 0;
     private population: PopulationSlice[] = new Array(100);
     public nationBudget: any;
@@ -327,6 +438,10 @@ export class GameData {
             this.population[i].unqualifiedWorker = this.population[i].child;
             this.population[i].child = 0;
         }
+    }
+
+    private getTotalWorkerPopulation() : number {
+        return this.population.reduce((a,b) => a +b.getWorkerPopulation(), 0)
     }
 
     private updatePopulation(primaryPercentage: number, secondaryPercentage: number, highSchoolPercentage: number) {
@@ -383,12 +498,17 @@ export class GameData {
             secondaryStudent : 0,
             highSchoolStudent : 0,
             unqualifiedWorker : 0,
+            unqualifiedWorkerNeed : 0,
             workStudyStudent : 0,
             lowQualifiedWorker : 0,
+            lowQualifiedWorkerNeed : 0,
             qualifiedWorker : 0,
+            qualifiedWorkerNeed : 0,
             highQualifiedWorker : 0,
+            highQualifiedWorkerNeed : 0,
             retired : 0
         }
+
         for (let i = 0; i < this.population.length; i++) {
             stats.child += this.population[i].child;
             stats.primaryStudent += this.population[i].primaryStudent;
@@ -401,7 +521,36 @@ export class GameData {
             stats.highQualifiedWorker += this.population[i].highQualifiedWorker;
             stats.retired += this.population[i].retired;
         }
+
+        const totPop = this.getTotalWorkerPopulation()
+
+        stats.unqualifiedWorkerNeed = (totPop * UnqualifiedNeed[this.year])/100
+        stats.lowQualifiedWorkerNeed = (totPop * LowlifiedNeed[this.year])/100
+        stats.qualifiedWorkerNeed = (totPop * QualifiedNeed[this.year])/100
+        stats.highQualifiedWorkerNeed = (totPop * HighQualifiedNeed[this.year])/100
+
         return stats;
+    }
+
+    private updatePibPart() {
+        const stats = this.getCurrentPopulationStats()
+        this.pidPart = 100
+        
+     
+
+        if(stats.unqualifiedWorker < stats.unqualifiedWorkerNeed) {
+            this.pidPart -= (((stats.unqualifiedWorkerNeed-stats.unqualifiedWorker)/stats.unqualifiedWorkerNeed)*100)/2
+        }
+        if(stats.lowQualifiedWorker < stats.lowQualifiedWorkerNeed) {
+            this.pidPart -= (((stats.lowQualifiedWorkerNeed-stats.lowQualifiedWorker)/stats.lowQualifiedWorkerNeed)*100)/2
+        }
+        if(stats.qualifiedWorker < stats.qualifiedWorkerNeed) {
+            this.pidPart -= (((stats.qualifiedWorkerNeed-stats.qualifiedWorker)/stats.qualifiedWorkerNeed)*100)/2
+        }
+        if(stats.highQualifiedWorker < stats.highQualifiedWorkerNeed) {
+            this.pidPart -= (((stats.highQualifiedWorkerNeed-stats.highQualifiedWorker)/stats.highQualifiedWorkerNeed)*100)/2
+        }
+
     }
 
     /**
@@ -475,7 +624,7 @@ export class GameData {
             b.pop = Math.round(b.pop);
             b.total_consumption = b.consumption * b.pop;
             b.total_production = b.production * b.pop;
-            b.net =  b.total_production - b.total_consumption;
+            b.net =  b.total_production - b.total_consumption
         })
 
         budget[budget.length] = {
@@ -485,7 +634,7 @@ export class GameData {
             'production' : "",
             'total_consumption' : budget.reduce((a: any, b: any) => a + b.consumption * b.pop, 0),
             'total_production' : budget.reduce((a: any, b: any) => a + b.production * b.pop, 0),
-            'net' : budget.reduce((a: any, b: any) => a + b.net, 0)
+            'net' : ((budget.reduce((a: any, b: any) => a + b.net, 0))* parseInt((this.pidPart-this.pidReduce).toFixed(2)))/100
         }
 
         return budget;
@@ -534,6 +683,7 @@ export class GameData {
 
     public step(primaryPercentage: number = 0, secondaryPercentage: number = 0, highSchoolPercentage: number = 0) {
         this.updatePopulation(primaryPercentage, secondaryPercentage, highSchoolPercentage);
+        this.updatePibPart()
         const stats = this.getCurrentPopulationStats();
         this.nationBudget = this.generateNationBudget(stats);
         this.educationBudget = this.generateEducationBudget(stats, this.nationBudget);
@@ -549,18 +699,20 @@ export class GameData {
         this.popChart.data.datasets[8].data = this.population.map(function (d) {return d.highQualifiedWorker;});
         this.popChart.data.datasets[9].data = this.population.map(function (d) {return d.retired;});
 
-        this.statsChart.data.datasets[0].data = [
-            stats.child,
-            stats.primaryStudent,
-            stats.secondaryStudent,
-            stats.highSchoolStudent,
-            stats.workStudyStudent,
-            stats.unqualifiedWorker,
-            stats.lowQualifiedWorker,
-            stats.qualifiedWorker,
-            stats.highQualifiedWorker,
-            stats.retired
-        ];
+        this.statsChart.data.datasets[0].data = [stats.child,0,0,0,0,0,0,0,0,0]
+        this.statsChart.data.datasets[1].data = [0,stats.primaryStudent,0,0,0,0,0,0,0,0]
+        this.statsChart.data.datasets[2].data = [0,0,stats.secondaryStudent,0,0,0,0,0,0,0]
+        this.statsChart.data.datasets[3].data = [0,0,0,stats.highSchoolStudent,0,0,0,0,0,0]
+        this.statsChart.data.datasets[4].data = [0,0,0,0,stats.workStudyStudent,0,0,0,0,0]
+        this.statsChart.data.datasets[5].data = [0,0,0,0,0,stats.unqualifiedWorker,0,0,0,0]
+        this.statsChart.data.datasets[6].data = [0,0,0,0,0,stats.unqualifiedWorkerNeed,0,0,0,0]
+        this.statsChart.data.datasets[7].data = [0,0,0,0,0,0,stats.lowQualifiedWorker,0,0,0]
+        this.statsChart.data.datasets[8].data = [0,0,0,0,0,0,stats.lowQualifiedWorkerNeed,0,0,0]
+        this.statsChart.data.datasets[9].data = [0,0,0,0,0,0,0,stats.qualifiedWorker,0,0]
+        this.statsChart.data.datasets[10].data = [0,0,0,0,0,0,0,stats.qualifiedWorkerNeed,0,0]
+        this.statsChart.data.datasets[11].data = [0,0,0,0,0,0,0,0,stats.highQualifiedWorker,0]
+        this.statsChart.data.datasets[12].data = [0,0,0,0,0,0,0,0,stats.highQualifiedWorkerNeed,0]
+        this.statsChart.data.datasets[13].data = [0,0,0,0,0,0,0,0,0,stats.retired]
 
         this.yearsPopulation[this.year] = stats;
         Object.keys(this.yearsPopulation).forEach(year => {
@@ -595,3 +747,7 @@ export class GameData {
         return this.yearsReviewChart;
     }
 }
+function hexToRGBA(child: string, arg1: number) {
+    throw new Error("Function not implemented.");
+}
+
