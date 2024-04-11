@@ -9,6 +9,7 @@ import UpdateData from "./components/UpdateData.tsx";
 import {useState} from "react";
 import {GameData} from "./models/GameData.ts";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
+import FinalPopulationChart from "./components/FinalPopulationChart.tsx";
 
 ChartJS.register(
     CategoryScale,
@@ -23,28 +24,61 @@ function App() {
     const [gameData, setGameData] = useState<GameData>(new GameData());
     const [activeTab, setActiveTab] = useState('Stats');
     const [schoolData, setScholData] = useState<SchoolData>(new SchoolData())
+    const [ended, setEnded] = useState(false)
 
-    return (<div>
-        <div id= "container">
-            <div id="sidebar">
-                <EducationTable gameData={gameData}/>
-                <UpdateData schoolData={schoolData} setScholData={setScholData}/>
-            </div>
-            <div id="info">
-                <PopulationChart gameData={gameData}/>
-            </div>
-        </div>
-        <hr/>
-            <button id="b1" onClick={() => setActiveTab('Stats')} >Stats</button>
-            <button id="b2" onClick={() => setActiveTab('Population')}>Population</button>
-            <div className={"row"}>
-            {activeTab === 'Stats' && <StatsChart gameData={gameData} />}
-            {activeTab === 'Population' && <PopulationTable gameData={gameData} />}
-        </div>
+    const reset = () => {
+        setGameData(new GameData());
+        setScholData(new SchoolData());
+        setEnded(false);
+    }
+
+    return (
         <div>
-            <PassYear gameData={gameData} setGameData={setGameData} schoolData={schoolData} setScholData={schoolData}/>
+            {ended ? (
+                <div>
+                    <h1>Le jeu est terminé</h1>
+                    <div id="container">
+                        <div id="sidebar">
+                            <EducationTable gameData={gameData}/>
+                        </div>
+                        <div id="info">
+                            <FinalPopulationChart gameData={gameData}/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <button id="b1" onClick={() => setActiveTab('Stats')}>Stats</button>
+                    <button id="b2" onClick={() => setActiveTab('Population')}>Population</button>
+                    <div className={"row"}>
+                        {activeTab === 'Stats' && <StatsChart gameData={gameData}/>}
+                        {activeTab === 'Population' && <PopulationTable gameData={gameData}/>}
+                    </div>
+                    <button onClick={reset}>Rejouer</button>
+                </div>
+            ) : (
+                <div>
+                    <div id="container">
+                        <div id="sidebar">
+                            <EducationTable gameData={gameData}/>
+                            <UpdateData schoolData={schoolData} setScholData={setScholData}/>
+                        </div>
+                        <div id="info">
+                            <PopulationChart gameData={gameData}/>
+                        </div>
+                    </div>
+                    <hr/>
+                    <button id="b1" onClick={() => setActiveTab('Stats')}>Stats</button>
+                    <button id="b2" onClick={() => setActiveTab('Population')}>Population</button>
+                    <div className={"row"}>
+                        {activeTab === 'Stats' && <StatsChart gameData={gameData}/>}
+                        {activeTab === 'Population' && <PopulationTable gameData={gameData}/>}
+                    </div>
+                    <div>
+                        <PassYear setEnded={setEnded} gameData={gameData} setGameData={setGameData}
+                                  schoolData={schoolData} setScholData={schoolData}/>
+                    </div>
+                </div>
+            )}
         </div>
-    </div>
     )
 }
 

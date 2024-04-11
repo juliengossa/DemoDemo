@@ -9,6 +9,7 @@ interface UpdateSchoolProps {
     setGameData: any;
     schoolData : SchoolData
     setScholData: any;
+    setEnded: any;
 }
 
 interface LeaderData {
@@ -20,7 +21,7 @@ interface LeaderData {
 export function PassYear(props: UpdateSchoolProps) {
     const[year, setYear] = useState(props.gameData.year)
     const[leaderId, setLeaderId] = useState(0)
-    const[leaderList, setLeaderList] = useState<LeaderData[]>(Leader)
+    const leaderList = Leader;
     const[leader, setLeader] = useState<LeaderData>(leaderList[0])
 
     useEffect(() => {
@@ -35,6 +36,8 @@ export function PassYear(props: UpdateSchoolProps) {
     }
 
     function updateYear(nbYear : number) {
+        if(year + nbYear > 2024)
+            props.setEnded(true);
         setYear(year+nbYear)
         updateLeader(year+nbYear)
     }
@@ -54,11 +57,16 @@ export function PassYear(props: UpdateSchoolProps) {
         props.setGameData(newGameData);
     }
 
-
-    return <div id="passYear">
-        <p>{year}</p>
-        <p>{leader.name}</p>
-        <button onClick={() => updateData(1)}>Pass year</button>
-        <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button>
-    </div>
+    return (
+        <div id="passYear">
+            {leaderId < leaderList.length ? 
+                <>
+                    <p>{year}</p>
+                    <p>{leader.name}</p>
+                    <button onClick={() => updateData(1)}>Pass year</button>
+                    <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button></> : 
+                <p id="end">Fin GG</p>
+            }
+        </div>
+    )
 }

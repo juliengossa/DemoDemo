@@ -100,6 +100,261 @@ const rawDeathRate = [
     0.9
 ]
 
+const rawUnqualifiedNeed = [
+    100,
+    100,
+    90,
+    90,
+    90,
+    90,
+    80,
+    80,
+    80,
+    80,
+    80,
+    80,
+    80,
+    70,
+    70,
+    70,
+    70,
+    60,
+    60,
+    60,
+
+    60,
+    60,
+    60,
+    60,
+    50,
+    50,
+    50,
+    40,
+    40,
+    30,
+    30,
+    25,
+    25,
+    25,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+
+    15,
+    20,
+    20,
+    20,
+    20,
+    20
+]
+
+const rawLowlifiedNeed = [
+    0,
+    0,
+    10,
+    10,
+    10,
+    10,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    30,
+    30,
+    30,
+    30,
+    35,
+    35,
+    35,
+
+    35,
+    35,
+    35,
+    35,
+    40,
+    40,
+    40,
+    45,
+    45,
+    50,
+    50,
+    50,
+    50,
+    50,
+    55,
+    55,
+    55,
+    55,
+    55,
+    55,
+
+    55,
+    55,
+    55,
+    55,
+    55,
+    55
+]
+
+const rawQualifiedNeed = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    5,
+    5,
+
+    5,
+    5,
+    5,
+    5,
+    10,
+    10,
+    10,
+    10,
+    10,
+    15,
+    15,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+
+    20,
+    15,
+    15,
+    15,
+    15,
+    15
+]
+
+const rawHighQualifiedNeed = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+
+    10,
+    10,
+    10,
+    10,
+    10,
+    10
+]
+
+const rawPopulation = [
+    29,
+    29,
+    30,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    36,
+    36,
+    37,
+    37,
+    37,
+    38,
+    39,
+    39,
+    40,
+    40,
+
+    40,
+    41,
+    41,
+    40,
+    38,
+    40,
+    41,
+    41,
+    40,
+    38,
+    41,
+    43,
+    45,
+    48,
+    50,
+    52,
+    53,
+    55,
+    56,
+    57,
+
+    58,
+    60,
+    62,
+    64,
+    65,
+    65
+]
+
 export const birthRate: number[] = [];
 let year = 1800;
 for(let i = 0; i < rawBirthRateRate.length; i++) {
@@ -125,3 +380,70 @@ for(let i = 0; i < rawDeathRate.length; i++) {
         year++;
     }
 }
+
+
+export const UnqualifiedNeed: number[] = [];
+year = 1800;
+for(let i = 0; i < rawUnqualifiedNeed.length; i++) {
+    if(i + 1 >= rawUnqualifiedNeed.length) {
+        UnqualifiedNeed[year] = rawUnqualifiedNeed[i];
+        break;
+    }
+    for(let j = 0; j < 5; j++){
+        UnqualifiedNeed[year] = rawUnqualifiedNeed[i] + (rawUnqualifiedNeed[i + 1] - rawUnqualifiedNeed[i]) * j / 5;
+        year++;
+    }
+}
+
+export const LowlifiedNeed: number[] = [];
+year = 1800;
+for(let i = 0; i < rawLowlifiedNeed.length; i++) {
+    if(i + 1 >= rawLowlifiedNeed.length) {
+        LowlifiedNeed[year] = rawLowlifiedNeed[i];
+        break;
+    }
+    for(let j = 0; j < 5; j++){
+        LowlifiedNeed[year] = rawLowlifiedNeed[i] + (rawLowlifiedNeed[i + 1] - rawLowlifiedNeed[i]) * j / 5;
+        year++;
+    }
+}
+
+export const QualifiedNeed: number[] = [];
+year = 1800;
+for(let i = 0; i < rawQualifiedNeed.length; i++) {
+    if(i + 1 >= rawQualifiedNeed.length) {
+        QualifiedNeed[year] = rawQualifiedNeed[i];
+        break;
+    }
+    for(let j = 0; j < 5; j++){
+        QualifiedNeed[year] = rawQualifiedNeed[i] + (rawQualifiedNeed[i + 1] - rawQualifiedNeed[i]) * j / 5;
+        year++;
+    }
+}
+
+export const HighQualifiedNeed: number[] = [];
+year = 1800;
+for(let i = 0; i < rawHighQualifiedNeed.length; i++) {
+    if(i + 1 >= rawHighQualifiedNeed.length) {
+        HighQualifiedNeed[year] = rawHighQualifiedNeed[i];
+        break;
+    }
+    for(let j = 0; j < 5; j++){
+        HighQualifiedNeed[year] = rawHighQualifiedNeed[i] + (rawHighQualifiedNeed[i + 1] - rawHighQualifiedNeed[i]) * j / 5;
+        year++;
+    }
+}
+
+export const totalPopulation: number[] = [];
+year = 1800;
+for(let i = 0; i < rawPopulation.length; i++) {
+    if(i + 1 >= rawPopulation.length) {
+        totalPopulation[year] = rawPopulation[i];
+        break;
+    }
+    for(let j = 0; j < 5; j++){
+        totalPopulation[year] = rawPopulation[i] + (rawPopulation[i + 1] - rawPopulation[i]) * j / 5;
+        year++;
+    }
+}
+

@@ -3,11 +3,11 @@ import {useEffect, useState} from "react";
 import {Bar} from "react-chartjs-2";
 import {GameData} from "../models/GameData.ts";
 
-interface StatsChartProps {
+interface PopulationChartProps {
     gameData: GameData;
 }
 
-export default function StatsChart(props: StatsChartProps){
+export default function FinalPopulationChart(props: PopulationChartProps){
     const [options, setOptions] = useState<any>();
     const [data, setData] = useState<any>();
     const [isLoading, setIsLoading] = useState(true);
@@ -15,11 +15,10 @@ export default function StatsChart(props: StatsChartProps){
     const fetchPopulationChart = async () => {
         setIsLoading(true);
         try{
-            const popChart = props.gameData.getStatsChart();
+            const popChart = {...props.gameData.getYearsReviewChart()};
             setOptions(popChart.options);
             setData(popChart.data);
-            console.log(popChart.data)
-            await new Promise(r => setTimeout(r, .001));
+            await new Promise(r => setTimeout(r, 1));
         }catch(error){
             console.error(error);
         }
@@ -30,11 +29,12 @@ export default function StatsChart(props: StatsChartProps){
         fetchPopulationChart();
     }, [props.gameData]);
 
-    return <div className={"column"}>
+    return <>
         {
             !isLoading ?
                 <Bar options={options} data={data}></Bar>
                 : null
         }
-    </div>
+    </>
+
 }
