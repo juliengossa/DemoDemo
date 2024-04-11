@@ -45,12 +45,15 @@ export function PassYear(props: UpdateSchoolProps) {
     const updateData = async (nbYear : number) => {
         updateYear(nbYear)
         const primaryValue = props.schoolData.getPrimary();
+        const primaryValidValue = props.schoolData.getPraimaryValid();
         const secondaryValue = props.schoolData.getSecondary();
+        const secondaryValidValue = props.schoolData.getSecondaryValid();
         const highSchoolValue = props.schoolData.getHigth();
+        const highSchoolValidValue = props.schoolData.getHigthValid();
         const newGameData = new GameData();
         Object.assign(newGameData, props.gameData);
         for (let i = 0; i < nbYear; i++)
-            newGameData.step(Number(primaryValue), Number(secondaryValue), Number(highSchoolValue));
+            newGameData.step(Number(primaryValue), primaryValidValue , Number(secondaryValue), secondaryValidValue, Number(highSchoolValue), highSchoolValidValue);
         props.setGameData(newGameData);
     }
 

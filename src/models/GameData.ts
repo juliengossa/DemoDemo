@@ -444,25 +444,60 @@ export class GameData {
         return this.population.reduce((a,b) => a +b.getWorkerPopulation(), 0)
     }
 
-    private updatePopulation(primaryPercentage: number, secondaryPercentage: number, highSchoolPercentage: number) {
+
+
+
+    private primarySchoolSuccess(success: number): number{
+        let successPercent = success/100;
+        return Math.floor(this.population[10].primaryStudent * (1 - successPercent));
+    }
+    private secondarySchoolSuccess(success: number): number{
+        let successPercent = success/100;
+        return Math.floor(this.population[18].secondaryStudent * (1-successPercent));
+    }
+    private highSchoolSuccess(success: number): number{
+        let successPercent = success/100;
+        return Math.floor(this.population[27].highSchoolStudent * (1-successPercent));
+    }
+
+    private updatePopulation(primaryPercentage: number, primaryValidPercentage: number, secondaryPercentage: number, secondaryValidPercentage: number, highSchoolPercentage: number, highSchoolValidPercentage: number) {
         // primaire
         const newPrimaryStudents = Math.floor(Math.min(this.population[2].child, this.population[2].child * primaryPercentage / 100))
         this.population[2].child = this.population[2].child - newPrimaryStudents;
         this.population[2].primaryStudent = newPrimaryStudents;
 
-        const newSecondaryStudents = Math.floor(Math.min(this.population[10].primaryStudent, this.population[10].primaryStudent * secondaryPercentage / 100))
+
+        let successCount: number = this.primarySchoolSuccess(primaryValidPercentage);
+        this.population[10].primaryStudent = this.population[10].primaryStudent - successCount;
+        this.population[10].child = this.population[10].child + successCount;
+        const newSecondaryStudents = Math.floor(Math.min(this.population[10].primaryStudent, (this.population[10].primaryStudent) * secondaryPercentage / 100))
         this.population[10].primaryStudent = this.population[10].primaryStudent - newSecondaryStudents;
         this.population[10].secondaryStudent = newSecondaryStudents;
 
-        const newHighSchoolStudents = Math.floor(Math.min(this.population[18].secondaryStudent, this.population[18].secondaryStudent * highSchoolPercentage / 100))
+        let successCount2: number = this.secondarySchoolSuccess(secondaryValidPercentage);
+        this.population[18].secondaryStudent = this.population[18].secondaryStudent - successCount2;
+        this.population[18].lowQualifiedWorker = this.population[18].lowQualifiedWorker + successCount2;
+        const newHighSchoolStudents = Math.floor(Math.min(this.population[18].secondaryStudent, (this.population[18].secondaryStudent) * highSchoolPercentage / 100))
         this.population[18].secondaryStudent = this.population[18].secondaryStudent - newHighSchoolStudents;
         this.population[18].highSchoolStudent = newHighSchoolStudents;
+
+
+        let successCount3: number = this.highSchoolSuccess(highSchoolValidPercentage);
+        this.population[27].highSchoolStudent = this.population[27].highSchoolStudent - successCount3;
+
+        
+        let workers = Math.random() * successCount3;
+        this.population[27].workStudyStudent = this.population[27].workStudyStudent + workers;
+
+        this.population[27].qualifiedWorker = this.population[27].qualifiedWorker + (successCount3 - workers);
+
 
 
         // Primary insertion
         this.population[10].primaryInsertion();
         this.population[18].secondaryInsertion();
         this.population[27].highSchoolInsertion();
+        this.population[30].workStudyInsertion();
 
         // Retirement
         this.population[63].retirePopulation();
@@ -681,8 +716,8 @@ export class GameData {
         return budget;
     }
 
-    public step(primaryPercentage: number = 0, secondaryPercentage: number = 0, highSchoolPercentage: number = 0) {
-        this.updatePopulation(primaryPercentage, secondaryPercentage, highSchoolPercentage);
+    public step(primaryPercentage: number = 0, primaryValidPercentage: number = 100, secondaryPercentage: number = 0, secondaryValidPercentage: number = 100, highSchoolPercentage: number = 0, highSchoolValidPercentage: number = 100){
+        this.updatePopulation(primaryPercentage, primaryValidPercentage, secondaryPercentage, secondaryValidPercentage, highSchoolPercentage, highSchoolValidPercentage);
         this.updatePibPart()
         const stats = this.getCurrentPopulationStats();
         this.nationBudget = this.generateNationBudget(stats);
