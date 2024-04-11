@@ -1,28 +1,29 @@
-import {GameData} from "../models/GameData.ts";
+import {SchoolData} from "../models/SchoolData.ts"
 
 interface UpdateDataProps {
-    gameData: GameData;
-    setGameData: any;
+    schoolData : SchoolData
+    setScholData: any
 }
 
-export default function UpdateData(props: UpdateDataProps){
-    const updateData = async () => {
-        const primaryValue = (document.getElementById("primary") as HTMLInputElement).value;
-        const secondaryValue = (document.getElementById("secondary") as HTMLInputElement).value;
-        const highSchoolValue = (document.getElementById("high-school") as HTMLInputElement).value;
-        const years = (document.getElementById("years") as HTMLInputElement).value;
-        const newGameData = new GameData();
-        Object.assign(newGameData, props.gameData);
-        for (let i = 0; i < Number(years); i++)
-            newGameData.step(Number(primaryValue), Number(secondaryValue), Number(highSchoolValue));
-        props.setGameData(newGameData);
+export default function UpdateData(props : UpdateDataProps){
+    function updateSchool() {
+        const newShoolData = new SchoolData()
+        Object.assign(newShoolData, props.schoolData)
+        newShoolData.setPraimary(Number((document.getElementById("primary") as HTMLInputElement).value))
+        newShoolData.setSecondary(Number((document.getElementById("secondary") as HTMLInputElement).value))
+        newShoolData.setHigth(Number((document.getElementById("high-school") as HTMLInputElement).value))
+        props.setScholData(newShoolData)
+
+        console.log("primary " +props.schoolData.getPrimary())
+        console.log("second " +props.schoolData.getSecondary())
+        console.log("hight " +props.schoolData.getHigth())
     }
 
+
     return <div className={"row"}>
-        <input type="number" placeholder="Primary" id={"primary"} />
-        <input type="number" placeholder="Secondary" id={"secondary"}/>
-        <input type="number" placeholder="High school" id={"high-school"}/>
-        <input type="number" placeholder="Years" defaultValue={1} id={"years"}/>
-        <button onClick={updateData}>Update data</button>
+        <input type="number" placeholder="Primary" id={"primary"} onChange={updateSchool}/>
+        <input type="number" placeholder="Secondary" id={"secondary"} onChange={updateSchool}/>
+        <input type="number" placeholder="High school" id={"high-school"} onChange={updateSchool}/>
     </div>
 }
+
