@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import Leader from '../json/leader.json'
-import UpdateData from "./UpdateData";
+import UpdatData from "./UpdateData";
 import {GameData} from "../models/GameData.ts";
+import { SchoolData } from "../models/Test.ts";
 
 
-interface UpdateDataProps {
+interface UpdateSchoolProps {
     gameData: GameData;
     setGameData: any;
+    schoolData : SchoolData
+    setScholData: any;
 }
 
 interface LeaderData {
@@ -15,7 +18,7 @@ interface LeaderData {
     end: number;
 }
 
-export function PassYear(props: UpdateDataProps) {
+export function PassYear(props: UpdateSchoolProps) {
     const[year, setYear] = useState(1800)
     const[leaderId, setLeaderId] = useState(0)
     const[leaderList, setLeaderList] = useState<LeaderData[]>(Leader)
@@ -38,9 +41,10 @@ export function PassYear(props: UpdateDataProps) {
     }
 
     const updateData = async (nbYear : number) => {
-        const primaryValue = 1;
-        const secondaryValue = 2;
-        const highSchoolValue = 3;
+        updateYear(nbYear)
+        const primaryValue = props.schoolData.getPrimary();
+        const secondaryValue = props.schoolData.getSecondary();
+        const highSchoolValue = props.schoolData.getHigth();
         const newGameData = new GameData();
         Object.assign(newGameData, props.gameData);
         for (let i = 0; i < nbYear; i++)

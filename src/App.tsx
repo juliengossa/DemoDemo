@@ -1,6 +1,7 @@
 import './App.css'
 import PopulationTable from "./components/PopulationTable.tsx";
 import PopulationChart from "./components/PopulationChart.tsx";
+import { SchoolData } from './models/Test.ts';
 import { PassYear } from './components/PassYear.tsx';
 import StatsChart from "./components/StatsChart.tsx";
 import EducationTable from "./components/EducationTable.tsx";
@@ -21,12 +22,13 @@ ChartJS.register(
 function App() {
     const [gameData, setGameData] = useState<GameData>(new GameData());
     const [activeTab, setActiveTab] = useState('Stats');
+    const [schoolData, setScholData] = useState<SchoolData>(new SchoolData())
 
     return (<div>
         <div id= "container">
             <div id="sidebar">
                 <EducationTable gameData={gameData}/>
-                <UpdateData/>
+                <UpdateData schoolData={schoolData} setScholData={setScholData}/>
             </div>
             <div id="info">
                 <PopulationChart gameData={gameData}/>
@@ -40,7 +42,7 @@ function App() {
             {activeTab === 'Population' && <PopulationTable gameData={gameData} />}
         </div>
         <div>
-            <PassYear gameData={gameData} setGameData={setGameData}/>
+            <PassYear gameData={gameData} setGameData={setGameData} schoolData={schoolData} setScholData={schoolData}/>
         </div>
     </div>
     )
