@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import Leader from '../json/leader.json'
-import UpdatData from "./UpdateData";
 import {GameData} from "../models/GameData.ts";
 import { SchoolData } from "../models/SchoolData.ts";
 
@@ -10,6 +9,7 @@ interface UpdateSchoolProps {
     setGameData: any;
     schoolData : SchoolData
     setScholData: any;
+    setEnded: any;
 }
 
 interface LeaderData {
@@ -21,7 +21,7 @@ interface LeaderData {
 export function PassYear(props: UpdateSchoolProps) {
     const[year, setYear] = useState(props.gameData.year)
     const[leaderId, setLeaderId] = useState(0)
-    const[leaderList, setLeaderList] = useState<LeaderData[]>(Leader)
+    const leaderList = Leader;
     const[leader, setLeader] = useState<LeaderData>(leaderList[0])
 
     useEffect(() => {
@@ -36,6 +36,8 @@ export function PassYear(props: UpdateSchoolProps) {
     }
 
     function updateYear(nbYear : number) {
+        if(year + nbYear > 2024)
+            props.setEnded(true);
         setYear(year+nbYear)
         updateLeader(year+nbYear)
     }
@@ -51,7 +53,6 @@ export function PassYear(props: UpdateSchoolProps) {
             newGameData.step(Number(primaryValue), Number(secondaryValue), Number(highSchoolValue));
         props.setGameData(newGameData);
     }
-
 
     return (
         <div id="passYear">

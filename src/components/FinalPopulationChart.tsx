@@ -7,20 +7,18 @@ interface PopulationChartProps {
     gameData: GameData;
 }
 
-export default function PopulationChart(props: PopulationChartProps){
+export default function FinalPopulationChart(props: PopulationChartProps){
     const [options, setOptions] = useState<any>();
     const [data, setData] = useState<any>();
     const [isLoading, setIsLoading] = useState(true);
 
-
     const fetchPopulationChart = async () => {
         setIsLoading(true);
         try{
-            const popChart = {...props.gameData.getPopulationChart()};
+            const popChart = {...props.gameData.getYearsReviewChart()};
             setOptions(popChart.options);
             setData(popChart.data);
             await new Promise(r => setTimeout(r, 1));
-
         }catch(error){
             console.error(error);
         }
@@ -30,13 +28,13 @@ export default function PopulationChart(props: PopulationChartProps){
     useEffect(() => {
         fetchPopulationChart();
     }, [props.gameData]);
+
     return <>
         {
             !isLoading ?
                 <Bar options={options} data={data}></Bar>
                 : null
         }
-        <p>Pib reduction {100 - parseInt((props.gameData.pidPart - props.gameData.pidReduce).toFixed(2))}%</p>
     </>
 
 }
