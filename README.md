@@ -173,3 +173,8 @@ Les modules suivants peuvent être remplacés dans les scénarios :
 - PvP ou PvE (avec concurrents IA)
 - Ajouter la possibilité d'importer de la production, si on est pas en négatif sur le budget de l'éducation.
 - Ajouter la possibilité de perdre de différente façons
+- Les travailleurs peuvent occuper un emploi (fonctionalité avancée)
+  - Un travailleur occupe en priorité un emploi correspondant à son niveau de qualification.
+  - Si aucun emploi disponible ne correspond à son niveau de qualification, il occupe un emploi de niveau immédiatement supérieur ou inférieur.
+  - Sinon il est au chômage.
+  - Un travailleur occupant un emploi de niveau supérieur est dit sous-qualifié (malus de productivié, bonus de moral), un travailleur occupant un emploi de niveau inférieur est dit surqualifié (bonus de productivité, malus de moral).
