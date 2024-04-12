@@ -634,60 +634,60 @@ export class GameData {
             {
                 'name' : 'Children',
                 'pop' : stats.child,
-                'consumption' : 0.5,
+                'consumption' : 1,
                 'production' : 0,
             },
             {
                 'name' : 'Primary student',
                 'pop' : stats.primaryStudent,
-                'consumption' : 0.5,
+                'consumption' : 1,
                 'production' : 0
             },
             {
                 'name' : 'Secondary student',
                 'pop' : stats.secondaryStudent,
-                'consumption' : 0.5,
+                'consumption' : 2,
                 'production' : 0
             },
             {
                 'name' : 'High school student',
                 'pop' : stats.highSchoolStudent,
-                'consumption' : 0.5,
+                'consumption' : 2,
                 'production' : 0
             },
             {
                 'name' : 'Work study student',
                 'pop' : stats.workStudyStudent,
-                'consumption' : 0.5,
+                'consumption' : 2,
                 'production' : 0
             },
             {
                 'name' : 'Unqualified worker',
                 'pop' : stats.unqualifiedWorker,
-                'consumption' : 1,
+                'consumption' : 2,
                 'production' : 2
             },
             {
                 'name' : 'Low qualified worker',
                 'pop' : stats.lowQualifiedWorker,
-                'consumption' : 1,
+                'consumption' : 2,
                 'production' : 3
             },
             {
                 'name' : 'Qualified worker',
                 'pop' : stats.qualifiedWorker,
-                'consumption' : 1,
-                'production' : 3
+                'consumption' : 2,
+                'production' : 5
             },{
                 'name' : 'High qualified worker',
                 'pop' : stats.highQualifiedWorker,
-                'consumption' : 1,
-                'production' : 3
+                'consumption' : 2,
+                'production' : 6
             },
             {
                 'name' : 'Retired',
                 'pop' : stats.retired,
-                'consumption' : 0.5,
+                'consumption' : 1,
                 'production' : 0
             }
         ]

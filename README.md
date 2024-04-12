@@ -28,16 +28,16 @@ Il permet au joueur d'expérimenter diverses politiques éducatives, mesurer les
 Les objectifs pédagogiques sont de permettre au joueur de comprendre :
 
 - Les concepts de massification et de stagnation éducative
-  - En augmentant le niveau de qualification de sa population, une civilisation améliore ses performances économiques, mais cette politique connait une limite.
+  - En augmentant le niveau de qualification de sa population, une civilisation améliore ses performances économiques, mais cette politique connaît une limite.
 - Le concept de stratification scolaire.
-  - En décidant du nombre de places dans le système éducatif, on pilote une stratification scolaire, qui ne correspond pas forcément à la stratification économique.
+  - En décidant du nombre de places dans le système éducatif, on pilote une stratification scolaire qui ne correspond pas forcément à la stratification économique.
 - Le temps long de l'éducation.
-  - le temps qui sépare une décision de ses effets concrets en matière d'éducation peut être très long, et la période de temps qui est engagée par ces décisions encore plus.
+  - Le temps qui sépare une décision de ses effets concrets en matière d'éducation peut être très long, et la période de temps qui est engagée par ces décisions est encore plus longue.
 
-### Objectifs pédagogiques avancés 
+## Objectifs pédagogiques avancés
 - L'éducation impacte de nombreux aspects d'une société.
   - En plus de l'économie, la natalité et la mortalité notamment, lesquels impactent à leur tour le système éducatif.
-  - Lorsque la population est moins qualifiée que les besoins de l'emploi, il peut y avoir ascencion sociale.
+  - Lorsque la population est moins qualifiée que les besoins de l'emploi, il peut y avoir ascension sociale.
   - Lorsque la population est plus qualifiée que les besoins de l'emploi, il y a déclassement social.
 - L'éducation peut se placer dans un contexte de compétition internationale.
   - Monter en qualification peut servir à vaincre sur les plans économiques, technologiques (militaire) ou culturels.
@@ -45,8 +45,7 @@ Les objectifs pédagogiques sont de permettre au joueur de comprendre :
 - Le temps de l'éducation n'est pas le temps du politique.
   - Impossibilité pour un élu de récolter les fruits d'une réforme dans les 5 ans de son mandat.
 - L'éducation peut servir à autre chose que l'insertion professionnelle.
-  - Bataille culturelle, Progression technologique, Progression sociale, Stabilité démocratique... Et diminuer le nombre d'actifs (donc de chômeurs).
-
+  - Bataille culturelle, progression technologique, progression sociale, stabilité démocratique... Et diminuer le nombre d'actifs (donc de chômeurs).
 ## Références
 
 - https://fr.wikipedia.org/wiki/D%C3%A9mocratisation_de_l%27enseignement_en_France
@@ -57,25 +56,22 @@ Les objectifs pédagogiques sont de permettre au joueur de comprendre :
 - https://blog.educpros.fr/julien-gossa/2022/02/03/50-ans-de-massification-et-apres/
 - https://fr.wikipedia.org/wiki/Démographie_de_la_France#Natalité
 - https://www.ined.fr/fr/tout-savoir-population/graphiques-cartes/graphiques-interpretes/esperance-vie-france/
-  
+
 ## Description des fonctionnalités
 
 ### Simulation
+Le pas de la simulation est d'un an où l'on peut passer au prochain dirigeant.
 
-Le pas de la simulation est d’un an ou l'on peut passer au prochain dirigent.
-
-- Tous les individus veillissent d'une année ensemble
-- Chaque année, un certain nombre d'individus naissent et meurent. 
+- Tous les individus vieillissent d'une année ensemble.
+- Chaque année, un certain nombre d'individus naissent et meurent.
 
 Les individus sont comptés par statut : enfant, étudiant, puis travailleur et enfin retraité.
 
-- Chaque statut a ses caractéristiques en terme de production et de consommation de richesses.
-- A 3 ans, si une place de formation est disponible, un enfant devient étudiant, et reste étudiant tant qu'il reste des places de formation.
-- A partir de x ans (10 par défaut), un enfant qui n'est pas étudiant devient un travailleur.
-- Un étudiant qui quitte le système éducatif devient un travailleur.
-- A partir de x ans (64 par défaut), un travailleur devient retraité.
-
-Le système éducatif est organisé en trois strates : primaine, secondaire et tertaire (supérieur).
+Chaque statut a ses caractéristiques en termes de production et de consommation de richesses.
+À 3 ans, si une place de formation est disponible, un enfant devient étudiant et reste étudiant tant qu'il reste des places de formation.
+À partir de x ans (10 par défaut), un enfant qui n'est pas étudiant devient un travailleur.
+Un étudiant qui quitte le système éducatif devient un travailleur.
+À partir de x ans (64 par défaut), un travailleur devient retraité.Le système éducatif est organisé en trois strates : primaine, secondaire et tertaire (supérieur).Le système éducatif est organisé en trois strates : primaine, secondaire et tertaire (supérieur).
 
 - A 3 ans, un enfant peut devenir étudiant dans le primaire, sinon il reste enfant.
 - A 10 ans, un enfant devient un travailleur non qualifié.
