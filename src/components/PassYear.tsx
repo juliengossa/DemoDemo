@@ -60,14 +60,10 @@ export function PassYear(props: UpdateSchoolProps) {
 
     return (
         <div id="passYear">
-            {props.setEnded ?
-                <>
-                    <p>{year}</p>
-                    <p>{leader.name}</p>
-                    <button onClick={() => updateData(1)}>Pass year</button>
-                    <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button></> :
-                <p id="end">Fin bien joué</p>
-            }
+            <p>{year}</p>
+            <p>{leader.name}</p>
+            <button onClick={() => updateData(1)}>Pass year</button>
+            <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button>
         </div>
     )
 }
