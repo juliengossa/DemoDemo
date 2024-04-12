@@ -12,13 +12,13 @@ Un simulateur de démographie
 DemoDemo est un démonstrateur de démographie, qui simule une population, avec un certain nombre d'individus par âge. 
 Il permet au joueur d'expérimenter diverses politiques éducatives, mesurer les impacts sur la société, et découvrir les enjeux de la massification scolaire.
 
-## presentation du projet
-### écran de jeux
+## présentation du projet
+### Ecran de jeu
 ![zone de principal](./img/capture_ecrant_zone_principale.png)
-### recapitulatif
+### Récapitulatif
 ![zone de secondaire 1](./img/capture_ecrant_zone_secondaire_1.png)
 ![zone de secondaire 2](./img/capture_ecrant_zone_secondaire_2.png)
-### fin du jeux
+### Fin du jeu
 ![fin du jeux](./img/image_de_fin.png)
 ## Objectifs pédagogiques
 Les objectifs pédagogiques sont de permettre au joueur de comprendre :
@@ -171,11 +171,11 @@ Les modules suivants peuvent être remplacés dans les scénarios :
 - Ajouter la formation continue des adultes.
 - Permettre de modifier la part du surplus de richesses affectée à l'éducation, par exemple s'il y a croissance économique.
 - PvP ou PvE (avec concurrents IA)
-- Ajouter la possibilité d'importer de la production, si on est pas en négatif sur le budget de l'éducation.
+- Ajouter la possibilité d'importer de la production, si budget de l'éducation n'est pas négatif.
 - Ajouter la possibilité de perdre de différente façons
 - Les travailleurs peuvent occuper un emploi (fonctionalité avancée)
   - Un travailleur occupe en priorité un emploi correspondant à son niveau de qualification.
   - Si aucun emploi disponible ne correspond à son niveau de qualification, il occupe un emploi de niveau immédiatement supérieur ou inférieur.
   - Sinon il est au chômage.
   - Un travailleur occupant un emploi de niveau supérieur est dit sous-qualifié (malus de productivié, bonus de moral), un travailleur occupant un emploi de niveau inférieur est dit surqualifié (bonus de productivité, malus de moral).
-- ajouter la modularité
+- Ajouter la modularité

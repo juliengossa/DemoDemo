@@ -54,12 +54,12 @@ export default function UpdateData(props : UpdateDataProps){
 
     return <div className={"row"}>
         <input type="number" placeholder="Primary" id={"primary"} pattern="[0-9]*" min="0" max="100" onKeyPress={teste} onChange={updateSchool}/>
-        <input type="number" placeholder=" Primary sucessful (0%) " pattern="[0-9]*" id={"primaryValid"} onKeyPress={teste} min="0" max="100" onChange={updateSchool}/>
+        <input type="number" placeholder="Primary sucessful (0%) " pattern="[0-9]*" id={"primaryValid"} onKeyPress={teste} min="0" max="100" onChange={updateSchool}/>
         <input type="number" placeholder="Secondary" id={"secondary"} pattern="[0-9]*" onKeyPress={teste} min="0" max="100" onChange={updateSchool}/>
         <input type="number" placeholder="Secondary sucessful (0%)" pattern="[0-9]*" id={"SecondaryValid"} onKeyPress={teste} min="0" max="100" onChange={updateSchool}/>
         <input type="number" placeholder="High school" id={"high-school"} pattern="[0-9]*" min="0" max="100" onKeyPress={teste} onChange={updateSchool}/>
         <input type="number" placeholder="High school sucessful (0%)" pattern="[0-9]*" id={"High-schoolValid"} onKeyPress={teste} min="0" max="100" onChange={updateSchool}/>
-        <input type="number" placeholder="work study" id={"work-study"} pattern="[0-9]*" min="0" max="100" onKeyPress={teste} onChange={updateSchool}/>
+        <input type="number" placeholder="Work study" id={"work-study"} pattern="[0-9]*" min="0" max="100" onKeyPress={teste} onChange={updateSchool}/>
     </div>
 }
 
