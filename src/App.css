@@ -91,6 +91,7 @@ ul {
 #container {
   display: flex;
   flex-direction: row;
+  text-align: left;
 }
 
 #container div{
@@ -142,8 +143,12 @@ ul {
 #sidebar form div {
   display: flex;
   flex-direction: row;
-  margin: 0.5rem;
-  margin-left: 0;
+  justify-items: flex-start;
+}
+
+#sidebar p{
+  margin: 0;
+  text-align: start;
 }
 
 #sidebar form div input {
