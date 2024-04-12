@@ -1,3 +1,11 @@
+# T4
+Nom du groupe : KFC
+menbres : Gaël Seiller, Tom Czekaj, Anatole Voltz
+lien evaluation T4:
+- Lilou : https://git.unistra.fr/-/ide/project0Xys/Demography-Simulator/edit/master/-/evaluations/evaluation-Lilou_Choukroun--Balzan.md
+- Jules : https://git.unistra.fr/-/ide/project0Xys/Demography-Simulator/edit/master/-/evaluations/evaluation-Jules_Klausnitzer.md
+- Kilian : https://git.unistra.fr/-/ide/project0Xys/Demography-Simulator/edit/master/-/evaluations/evaluation-Kilian_Sakhi.md
+
 # DemoDemo
 Un simulateur de démographie
 
@@ -35,12 +43,14 @@ Les objectifs pédagogiques sont de permettre au joueur de comprendre :
 - http://ses.ens-lyon.fr/ressources/stats-a-la-une/massification-et-democratisation-de-lacces-a-lecole-et-a-lenseignement-superieur
 - https://journals.openedition.org/sdt/15641
 - https://blog.educpros.fr/julien-gossa/2022/02/03/50-ans-de-massification-et-apres/
+- https://fr.wikipedia.org/wiki/Démographie_de_la_France#Natalité
+- https://www.ined.fr/fr/tout-savoir-population/graphiques-cartes/graphiques-interpretes/esperance-vie-france/
   
 ## Description des fonctionnalités
 
 ### Simulation
 
-Le pas de la simulation est de un an.
+Le pas de la simulation est d’un an ou l'on peut passer au prochain dirigent.
 
 - Tous les individus veillissent d'une année ensemble
 - Chaque année, un certain nombre d'individus naissent et meurent. 
@@ -60,6 +70,8 @@ Le système éducatif est organisé en trois strates : primaine, secondaire et t
 - A 10 ans, un étudiant peut devenir étudiant dans le secondaire s'il y a une place, sinon il devient travailleur peu qualifié.
 - A 18 ans, un étudiant peut devenir étudiant dans le supérieur s'il y a une place, sinon il devient travailleur qualifé.
 - A 23 ans, un étudiant devient travailleur très qualifé.
+- À chaque fin d'étude un étudiant peut échouer il devient alors un travailleur du niveau inférieur.
+- Si un étudiant échoue ses études supérieures il a une chance d'aller en alternance pour devenir un travailleur très qualifié.
 
 Chaque année, un budget nationnal est calculé.
 
@@ -102,9 +114,13 @@ L'interface est constituée des élements suivants :
 Les actions du joueur sont les suivantes :
 
 - Modifier le nombre de places de formation primaire.
+- Modifier le taux de réussite de la formation primaire.
 - Modifier le nombre de places de formation secondaire.
+- Modifier le taux de réussite de la formation secondaire.
 - Modifier le nombre de places de formation tertiaire.
   - Les modifications sont en % d'une classe d'âge, avec un pas de 5% ou 10%.
+- Modifier le taux de réussite de la formation tertiaire. 
+- Modifier le taux d'étudiant qui peuvent aller en alternace
 - Autres actions : mise en œuvre de différentes politiques avec différents couts et effets (voir fonctionnalités et scénarios avancés)
 
 ### Scénario

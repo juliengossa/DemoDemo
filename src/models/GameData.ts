@@ -495,9 +495,54 @@ export class GameData {
         // Retirement
         this.population[63].retirePopulation();
 
-        let deathCount = totalPopulation[this.year] * 1_000_000 * deathRate[this.year] / 100;
-        for(let i = 99; i >= 0; i--) {
-            let currentDeathCount = deathCount * 0.3;
+        let deathCount = totalPopulation[this.year] * 1_000_000 * deathRate[this.year] / 78;
+        for(let i = 0; i <= 99; i++) {
+            let deathPercent = 0.001 
+            switch (true) {
+                case i>=15 && i<30:
+                    if(this.year<1950) {
+                        deathPercent = 0.003
+                    } else {
+                        deathPercent = 0.001
+                    }
+                    break
+                case i>=30 && i<50 :
+                    if(this.year<1950) {
+                        deathPercent = 0.04
+                    } else {
+                        deathPercent = 0.01
+                    }
+                    break
+                case i>=60 && i<70 :
+                    if(this.year<1950) {
+                        deathPercent = 0.06
+                    } else {
+                        deathPercent = 0.025
+                    }
+                    break
+                case i>=70 && i<80 :
+                    deathPercent = 0.06 
+                    break
+                case i>=80 && i<90 :
+                    deathPercent = 0.1 
+                    break 
+                case i>=90 && i<95 :
+                    deathPercent = 0.5 
+                    break
+                case i>=95 && i<100 :
+                    deathPercent = 1 
+                    break
+                default :
+                    if(this.year<1950) {
+                        deathPercent = 0.003
+                    } else {
+                        deathPercent = 0.001
+                    }
+                    break           
+            }
+            
+            let currentDeathCount = deathCount * deathPercent;
+            console.log(i + " " +deathCount + " -current" + currentDeathCount)
             deathCount -= currentDeathCount - this.population[i].applyDeath(currentDeathCount);
         }
 
