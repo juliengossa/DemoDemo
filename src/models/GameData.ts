@@ -856,8 +856,6 @@ export class GameData {
         });
         this.pibReviewChart.data.labels = Array.from({length: this.year - 1800}, (_, i) => 1800 + i);
 
-        console.log(this.pibReviewChart.data.datasets[0].data)
-
         if(this.year < birthRate.length - 1)
             this.year++;
     }
