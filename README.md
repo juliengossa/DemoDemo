@@ -2,6 +2,9 @@
 Nom du groupe : KFC
 menbres : Gaël Seiller, Tom Czekaj, Anatole Voltz
 lien evaluation T4:
+- Lilou : https://git.unistra.fr/-/ide/project0Xys/Demography-Simulator/edit/master/-/evaluations/evaluation-Lilou_Choukroun--Balzan.md
+- Jules : https://git.unistra.fr/-/ide/project0Xys/Demography-Simulator/edit/master/-/evaluations/evaluation-Jules_Klausnitzer.md
+- Kilian : https://git.unistra.fr/-/ide/project0Xys/Demography-Simulator/edit/master/-/evaluations/evaluation-Kilian_Sakhi.md
 
 # DemoDemo
 Un simulateur de démographie
@@ -41,6 +44,7 @@ Les objectifs pédagogiques sont de permettre au joueur de comprendre :
 - https://journals.openedition.org/sdt/15641
 - https://blog.educpros.fr/julien-gossa/2022/02/03/50-ans-de-massification-et-apres/
 - https://fr.wikipedia.org/wiki/Démographie_de_la_France#Natalité
+- https://www.ined.fr/fr/tout-savoir-population/graphiques-cartes/graphiques-interpretes/esperance-vie-france/
   
 ## Description des fonctionnalités
 
