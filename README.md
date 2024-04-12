@@ -8,6 +8,8 @@ lien evaluation T4:
 - Jules : https://git.unistra.fr/-/ide/project/T234/2024/Demography-Simulator/edit/main/-/evaluations/evaluation-Jules_Klausnitzer.md
 - Kilian : https://git.unistra.fr/-/ide/project/T234/2024/Demography-Simulator/edit/main/-/evaluations/evaluation-Kilian_Sakhi.md
 
+Lien du jeu : https://xen0xys.github.io/Demography-Simulator/
+
 # DemoDemo
 Un simulateur de démographie
 
