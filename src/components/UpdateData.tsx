@@ -1,4 +1,3 @@
-import { version } from "react"
 import {SchoolData} from "../models/SchoolData.ts"
 
 interface UpdateDataProps {
@@ -10,7 +9,7 @@ export default function UpdateData(props : UpdateDataProps){
     function updateSchool() {
         const newShoolData = new SchoolData()
         Object.assign(newShoolData, props.schoolData)
-        
+
         if (Number((document.getElementById("primary") as HTMLInputElement).value) > 100) {
             (document.getElementById("primary") as HTMLInputElement).value = "100"
         }
@@ -40,8 +39,8 @@ export default function UpdateData(props : UpdateDataProps){
         newShoolData.setHigth(Number((document.getElementById("high-school") as HTMLInputElement).value))
         newShoolData.setHigthValid(Number((document.getElementById("High-schoolValid") as HTMLInputElement).value))
         newShoolData.setWorkStudy(Number((document.getElementById("work-study") as HTMLInputElement).value))
-        
-        
+
+
         props.setScholData(newShoolData)
     }
 
@@ -50,7 +49,7 @@ export default function UpdateData(props : UpdateDataProps){
             e.preventDefault();
         }
 
-       
+
     }
 
     return <div className={"row"}>
