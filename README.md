@@ -178,3 +178,4 @@ Les modules suivants peuvent être remplacés dans les scénarios :
   - Si aucun emploi disponible ne correspond à son niveau de qualification, il occupe un emploi de niveau immédiatement supérieur ou inférieur.
   - Sinon il est au chômage.
   - Un travailleur occupant un emploi de niveau supérieur est dit sous-qualifié (malus de productivié, bonus de moral), un travailleur occupant un emploi de niveau inférieur est dit surqualifié (bonus de productivité, malus de moral).
+- ajouter la modularité
