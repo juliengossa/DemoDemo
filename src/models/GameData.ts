@@ -389,6 +389,46 @@ export class GameData {
                 }
             }
         };
+        this.pibReviewChart = {
+            data: {
+                labels: Array.from({length: 2026 - 1800}, (_, i) => 1800 + i),
+                datasets: [
+                    {
+                        data: [0],
+                        label: "PIB",
+                        borderColor: colors.retired,
+                        backgroundColor: colors.retired,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        beginAtZero: true,
+                        stacked: false
+                    },
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: 'rgb(0, 0, 0)',
+                        fontSize: 14
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Mass Game',
+                    fontSize: 20,
+                    fontColor: 'rgb(0, 0, 0)',
+                    padding: 20
+                }
+            }
+        };
 
         this.step();
     }
@@ -408,6 +448,9 @@ export class GameData {
 
     private readonly yearsReviewChart;
     private yearsPopulation: any = {};
+
+    private readonly pibReviewChart;
+    private yearsPib: any = {};
 
     private generateBasePopulation(){
         const currentTotalPop = totalPopulation[this.year] * 1_000_000;
@@ -497,7 +540,7 @@ export class GameData {
 
         let deathCount = totalPopulation[this.year] * 1_000_000 * deathRate[this.year] / 78;
         for(let i = 0; i <= 99; i++) {
-            let deathPercent = 0.001 
+            let deathPercent = 0.001
             switch (true) {
                 case i>=15 && i<30:
                     if(this.year<1950) {
@@ -521,16 +564,16 @@ export class GameData {
                     }
                     break
                 case i>=70 && i<80 :
-                    deathPercent = 0.06 
+                    deathPercent = 0.06
                     break
                 case i>=80 && i<90 :
-                    deathPercent = 0.1 
-                    break 
+                    deathPercent = 0.1
+                    break
                 case i>=90 && i<95 :
-                    deathPercent = 0.5 
+                    deathPercent = 0.5
                     break
                 case i>=95 && i<100 :
-                    deathPercent = 1 
+                    deathPercent = 1
                     break
                 default :
                     if(this.year<1950) {
@@ -538,9 +581,9 @@ export class GameData {
                     } else {
                         deathPercent = 0.001
                     }
-                    break           
+                    break
             }
-            
+
             let currentDeathCount = deathCount * deathPercent;
             deathCount -= currentDeathCount - this.population[i].applyDeath(currentDeathCount);
         }
@@ -802,6 +845,18 @@ export class GameData {
                 this.yearsReviewChart.data.datasets[9].data[index] = this.yearsPopulation[year].retired;
             }
         });
+        this.yearsReviewChart.data.labels = Array.from({length: this.year - 1800}, (_, i) => 1800 + i);
+
+        this.yearsPib[this.year] = this.nationBudget[this.nationBudget.length - 1].net;
+        Object.keys(this.yearsPib).forEach(year => {
+            const index = Number(year) - 1800;
+            if (index >= 0 && index < 2025 - 1800) {
+                this.pibReviewChart.data.datasets[0].data[index] = this.yearsPib[year];
+            }
+        });
+        this.pibReviewChart.data.labels = Array.from({length: this.year - 1800}, (_, i) => 1800 + i);
+
+        console.log(this.pibReviewChart.data.datasets[0].data)
 
         if(this.year < birthRate.length - 1)
             this.year++;
@@ -817,5 +872,9 @@ export class GameData {
 
     public getYearsReviewChart() {
         return this.yearsReviewChart;
+    }
+
+    public getPIBReviewChart() {
+        return this.pibReviewChart;
     }
 }

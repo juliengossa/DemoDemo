@@ -41,7 +41,6 @@ export function PassYear(props: UpdateSchoolProps) {
     }
 
     function updateYear(nbYear : number) {
-        console.log(props.gameData.pidReduce)
         if(year + nbYear > 2024)
             props.setEnded(true);
         setYear(year+nbYear)

@@ -10,6 +10,7 @@ import {useState} from "react";
 import {GameData} from "./models/GameData.ts";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
 import FinalPopulationChart from "./components/FinalPopulationChart.tsx";
+import PibReviewChart from "./components/PibReviewChart.tsx";
 
 ChartJS.register(
     CategoryScale,
@@ -43,6 +44,7 @@ function App() {
                         </div>
                         <div id="info">
                             <FinalPopulationChart gameData={gameData}/>
+                            <PibReviewChart gameData={gameData} />
                         </div>
                     </div>
                     <hr/>
@@ -55,7 +57,7 @@ function App() {
                     <div id="end">
                         <button onClick={reset}>Rejouer</button>
                         {gameData.year<2025 ?
-                            <p>Dommage vous etes trop endetté, vous ferez mieux la prochaine fois.</p> :                   
+                            <p>Dommage vous etes trop endetté, vous ferez mieux la prochaine fois.</p> :
                             <p>Bien jouer vous etes arrivé à la fin.</p>
                         }
                     </div>
