@@ -28,6 +28,11 @@ export function PassYear(props: UpdateSchoolProps) {
         updateLeader(year)
     }, [year])
 
+    useEffect(() => {
+        if(props.gameData.pidPart - props.gameData.pidReduce <= 0)
+            props.setEnded(true)
+    })
+
     function updateLeader(nbYear :number) {
         if(nbYear > leader.end) {
             setLeaderId(leaderId+1)
@@ -36,6 +41,7 @@ export function PassYear(props: UpdateSchoolProps) {
     }
 
     function updateYear(nbYear : number) {
+        console.log(props.gameData.pidReduce)
         if(year + nbYear > 2024)
             props.setEnded(true);
         setYear(year+nbYear)

@@ -54,7 +54,10 @@ function App() {
                     </div>
                     <div id="end">
                         <button onClick={reset}>Rejouer</button>
-                        <p>Bien jouer vous etes arrivé à la fin.</p>
+                        {gameData.year<2025 ?
+                            <p>Dommage vous etes trop endetté, vous ferez mieux la prochaine fois.</p> :                   
+                            <p>Bien jouer vous etes arrivé à la fin.</p>
+                        }
                     </div>
                 </div>
             ) : (
