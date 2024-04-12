@@ -12,6 +12,14 @@ Un simulateur de démographie
 DemoDemo est un démonstrateur de démographie, qui simule une population, avec un certain nombre d'individus par âge. 
 Il permet au joueur d'expérimenter diverses politiques éducatives, mesurer les impacts sur la société, et découvrir les enjeux de la massification scolaire.
 
+## presentation du projet
+### écran de jeux
+![zone de principal](./img/capture_ecrant_zone_principale.png)
+### recapitulatif
+![zone de secondaire 1](./img/capture_ecrant_zone_secondaire_1.png)
+![zone de secondaire 2](./img/capture_ecrant_zone_secondaire_2.png)
+### fin du jeux
+![fin du jeux](./img/image_de_fin.png)
 ## Objectifs pédagogiques
 Les objectifs pédagogiques sont de permettre au joueur de comprendre :
 
