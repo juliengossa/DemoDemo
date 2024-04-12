@@ -542,7 +542,6 @@ export class GameData {
             }
             
             let currentDeathCount = deathCount * deathPercent;
-            console.log(i + " " +deathCount + " -current" + currentDeathCount)
             deathCount -= currentDeathCount - this.population[i].applyDeath(currentDeathCount);
         }
 
