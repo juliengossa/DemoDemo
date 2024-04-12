@@ -1,4 +1,3 @@
-import { version } from "react"
 import {SchoolData} from "../models/SchoolData.ts"
 
 interface UpdateDataProps {
