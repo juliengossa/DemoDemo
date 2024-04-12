@@ -1,3 +1,7 @@
+/*See licence in LICENCE.md
+Created by Tom CZEKAJ, Anatole VOLTZ and Gaël SEILER*/
+
+
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
 
 ChartJS.register(
@@ -485,15 +489,15 @@ export class GameData {
 
 
     private primarySchoolSuccess(success: number): number{
-        let successPercent = success/100;
+        const successPercent = success/100;
         return Math.floor(this.population[10].primaryStudent * (1 - successPercent));
     }
     private secondarySchoolSuccess(success: number): number{
-        let successPercent = success/100;
+        const successPercent = success/100;
         return Math.floor(this.population[18].secondaryStudent * (1-successPercent));
     }
     private highSchoolSuccess(success: number): number{
-        let successPercent = success/100;
+        const successPercent = success/100;
         return Math.floor(this.population[27].highSchoolStudent * (1-successPercent));
     }
 
@@ -504,14 +508,14 @@ export class GameData {
         this.population[2].primaryStudent = newPrimaryStudents;
 
 
-        let successCount: number = this.primarySchoolSuccess(primaryValidPercentage);
+        const successCount: number = this.primarySchoolSuccess(primaryValidPercentage);
         this.population[10].primaryStudent = this.population[10].primaryStudent - successCount;
         this.population[10].child = this.population[10].child + successCount;
         const newSecondaryStudents = Math.floor(Math.min(this.population[10].primaryStudent, (this.population[10].primaryStudent) * secondaryPercentage / 100))
         this.population[10].primaryStudent = this.population[10].primaryStudent - newSecondaryStudents;
         this.population[10].secondaryStudent = newSecondaryStudents;
 
-        let successCount2: number = this.secondarySchoolSuccess(secondaryValidPercentage);
+        const successCount2: number = this.secondarySchoolSuccess(secondaryValidPercentage);
         this.population[18].secondaryStudent = this.population[18].secondaryStudent - successCount2;
         this.population[18].lowQualifiedWorker = this.population[18].lowQualifiedWorker + successCount2;
         const newHighSchoolStudents = Math.floor(Math.min(this.population[18].secondaryStudent, (this.population[18].secondaryStudent) * highSchoolPercentage / 100))
@@ -519,10 +523,10 @@ export class GameData {
         this.population[18].highSchoolStudent = newHighSchoolStudents;
 
 
-        let successCount3: number = this.highSchoolSuccess(highSchoolValidPercentage);
+        const successCount3: number = this.highSchoolSuccess(highSchoolValidPercentage);
         this.population[27].highSchoolStudent = this.population[27].highSchoolStudent - successCount3;
 
-        let workers = Math.random() * (successCount2 * (workStudyPercentage/100));
+        const workers = Math.random() * (successCount2 * (workStudyPercentage/100));
         this.population[18].workStudyStudent = this.population[27].workStudyStudent + workers;
 
         this.population[18].qualifiedWorker = this.population[27].qualifiedWorker + (successCount3 - workers);
@@ -584,7 +588,7 @@ export class GameData {
                     break
             }
 
-            let currentDeathCount = deathCount * deathPercent;
+            const currentDeathCount = deathCount * deathPercent;
             deathCount -= currentDeathCount - this.population[i].applyDeath(currentDeathCount);
         }
 

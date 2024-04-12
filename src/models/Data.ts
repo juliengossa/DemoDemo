@@ -1,3 +1,7 @@
+/*See licence in LICENCE.md
+Created by Tom CZEKAJ, Anatole VOLTZ and Gaël SEILER*/
+
+
 const rawBirthRateRate = [
     3.2,
     3.2,

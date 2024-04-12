@@ -1,3 +1,7 @@
+/*See licence in LICENCE.md
+Created by Tom CZEKAJ, Anatole VOLTZ and Gaël SEILER*/
+
+
 import { useEffect, useState } from "react"
 import Leader from '../json/leader.json'
 import {GameData} from "../models/GameData.ts";
@@ -64,11 +68,14 @@ export function PassYear(props: UpdateSchoolProps) {
     }
 
     return (
-        <div id="passYear">
-            <p>{year}</p>
-            <p>{leader.name}</p>
-            <button onClick={() => updateData(1)}>Pass year</button>
-            <button onClick={() => updateData((leader.end-year)+1)}>Pass mandat {`(${(leader.end-year+1)} ans)`}</button>
-        </div>
+        <>
+            <div id="passYear">
+                <p>{year}</p>
+                <p>{leader.name}</p>
+                <button onClick={() => updateData(1)}>Pass year</button>
+                <button onClick={() => updateData((leader.end - year) + 1)}>Pass
+                    mandat {`(${(leader.end - year + 1)} ans)`}</button>
+            </div>
+        </>
     )
 }

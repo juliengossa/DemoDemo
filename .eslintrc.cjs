@@ -8,11 +8,12 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'header'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
+      "header/header": [2, "block", "See licence in LICENCE.md\nCreated by Tom CZEKAJ, Anatole VOLTZ and Gaël SEILER"],
   },
 }

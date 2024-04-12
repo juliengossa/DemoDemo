@@ -1,3 +1,7 @@
+/*See licence in LICENCE.md
+Created by Tom CZEKAJ, Anatole VOLTZ and Gaël SEILER*/
+
+
 export class SchoolData {
     primary: number = 0;
     primaryValid: number = 0;

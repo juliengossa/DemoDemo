@@ -20,6 +20,25 @@
     display: table;
 }
 
+footer {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    background-color: gray;
+    text-align: center;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+footer > p{
+    margin: 0;
+}
+
 #passYear, #end {
     display: flex;
     flex-direction: row;
@@ -31,16 +50,14 @@
     left: 0;
     width: 100%;
     height: 10%;
+    margin-bottom: 3rem;
 }
 
 #passYear *, #end * {
-    margin: 1rem 0 1rem 0;
-    border: black solid;
     border-radius: 10px;
-    border-width: 2px;
+    border: 2px solid black;
     height: 2.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin: 1rem;
 }
 
 #passYear p, #end p {
