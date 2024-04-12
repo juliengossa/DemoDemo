@@ -52,7 +52,10 @@ function App() {
                         {activeTab === 'Stats' && <StatsChart gameData={gameData}/>}
                         {activeTab === 'Population' && <PopulationTable gameData={gameData}/>}
                     </div>
-                    <button onClick={reset}>Rejouer</button>
+                    <div id="end">
+                        <button onClick={reset}>Rejouer</button>
+                        <p>Bien jouer vous etes arrivé à la fin.</p>
+                    </div>
                 </div>
             ) : (
                 <div>

@@ -20,7 +20,7 @@
     display: table;
 }
 
-#passYear {
+#passYear, #end {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -33,7 +33,7 @@
     height: 10%;
 }
 
-#passYear * {
+#passYear *, #end * {
     margin: 1rem 0 1rem 0;
     border: black solid;
     border-radius: 10px;
@@ -43,15 +43,18 @@
     margin-right: 1rem;
 }
 
-#passYear p {
+#passYear p, #end p {
     background-color: beige;
     text-align: center;
     line-height: 2.4rem;
 }
 
+#end p {
+    width: 30%;
+}
 
-#passYear button {
-    width: 7%;
+#passYear button, #end button {
+    width: 10rem;
 }
 
 #passYear :nth-child(2) {
