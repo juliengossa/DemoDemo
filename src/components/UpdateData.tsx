@@ -56,15 +56,15 @@ export default function UpdateData(props : UpdateDataProps){
         <p>Place in primary school</p>
         <input type="number" placeholder="Primary" id={"primary"} pattern="[0-9]*" min="0" max="100" onKeyPress={teste} defaultValue="0" onChange={updateSchool}/>
         <p>Primary school success rate (default 0%)</p>
-        <input type="number" placeholder="Primary sucessful (0%) " pattern="[0-9]*" id={"primaryValid"} onKeyPress={teste} min="0" max="100" defaultValue="100"  onChange={updateSchool}/>
+        <input type="number" placeholder="Primary sucessful" pattern="[0-9]*" id={"primaryValid"} onKeyPress={teste} min="0" max="100" defaultValue="100"  onChange={updateSchool}/>
         <p>Place in secondary school</p>
         <input type="number" placeholder="Secondary" id={"secondary"} pattern="[0-9]*" onKeyPress={teste} min="0" max="100" defaultValue="0"  onChange={updateSchool}/>
         <p>Secondary school success rate (default 0%)</p>
-        <input type="number" placeholder="Secondary sucessful (0%)" pattern="[0-9]*" id={"SecondaryValid"} onKeyPress={teste} min="0" max="100" defaultValue="100"  onChange={updateSchool}/>
+        <input type="number" placeholder="Secondary sucessful" pattern="[0-9]*" id={"SecondaryValid"} onKeyPress={teste} min="0" max="100" defaultValue="100"  onChange={updateSchool}/>
         <p>Place in High school</p>
         <input type="number" placeholder="High school" id={"high-school"} pattern="[0-9]*" min="0" max="100" onKeyPress={teste} defaultValue="0"  onChange={updateSchool}/>
         <p>High school success rate (default 0%)</p>
-        <input type="number" placeholder="High school sucessful (0%)" pattern="[0-9]*" id={"High-schoolValid"} onKeyPress={teste} min="0" max="100" defaultValue="100"  onChange={updateSchool}/>
+        <input type="number" placeholder="High school sucessful" pattern="[0-9]*" id={"High-schoolValid"} onKeyPress={teste} min="0" max="100" defaultValue="100"  onChange={updateSchool}/>
         <p>Work-study place</p>
         <input type="number" placeholder="Work study" id={"work-study"} pattern="[0-9]*" min="0" max="100" onKeyPress={teste} defaultValue="0"  onChange={updateSchool}/>
     </div>
