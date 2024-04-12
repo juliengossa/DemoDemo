@@ -611,16 +611,16 @@ export class GameData {
 
 
         if(stats.unqualifiedWorker < stats.unqualifiedWorkerNeed) {
-            this.pidPart -= (((stats.unqualifiedWorkerNeed-stats.unqualifiedWorker)/stats.unqualifiedWorkerNeed)*100)/2
+            this.pidPart -= (((stats.unqualifiedWorkerNeed-stats.unqualifiedWorker)/stats.unqualifiedWorkerNeed)*100)/1.5
         }
         if(stats.lowQualifiedWorker < stats.lowQualifiedWorkerNeed) {
-            this.pidPart -= (((stats.lowQualifiedWorkerNeed-stats.lowQualifiedWorker)/stats.lowQualifiedWorkerNeed)*100)/2
+            this.pidPart -= (((stats.lowQualifiedWorkerNeed-stats.lowQualifiedWorker)/stats.lowQualifiedWorkerNeed)*100)/1.5
         }
         if(stats.qualifiedWorker < stats.qualifiedWorkerNeed) {
-            this.pidPart -= (((stats.qualifiedWorkerNeed-stats.qualifiedWorker)/stats.qualifiedWorkerNeed)*100)/2
+            this.pidPart -= (((stats.qualifiedWorkerNeed-stats.qualifiedWorker)/stats.qualifiedWorkerNeed)*100)/1.5
         }
         if(stats.highQualifiedWorker < stats.highQualifiedWorkerNeed) {
-            this.pidPart -= (((stats.highQualifiedWorkerNeed-stats.highQualifiedWorker)/stats.highQualifiedWorkerNeed)*100)/2
+            this.pidPart -= (((stats.highQualifiedWorkerNeed-stats.highQualifiedWorker)/stats.highQualifiedWorkerNeed)*100)/1.5
         }
 
     }
