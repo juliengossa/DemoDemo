@@ -21,13 +21,13 @@ export default function UpdateData(props : UpdateDataProps){
 
 
     return <div className={"row"}>
-        <input type="number" placeholder="Primary" id={"primary"} onChange={updateSchool}/>
-        <input type="number" placeholder=" Primary sucessful (0%) " id={"primaryValid"} onChange={updateSchool}/>
-        <input type="number" placeholder="Secondary" id={"secondary"} onChange={updateSchool}/>
-        <input type="number" placeholder="Secondary sucessful (0%)" id={"SecondaryValid"} onChange={updateSchool}/>
-        <input type="number" placeholder="High school" id={"high-school"} onChange={updateSchool}/>
-        <input type="number" placeholder="High school sucessful (0%)" id="High-schoolValid" onChange={updateSchool}/>
-        <input type="number" placeholder="work study" id="work-study" onChange={updateSchool}/>
+        <input type="number" placeholder="Primary" id={"primary"} min="0" max="100" onChange={updateSchool}/>
+        <input type="number" placeholder=" Primary sucessful (0%) " id={"primaryValid"} min="0" max="100" onChange={updateSchool}/>
+        <input type="number" placeholder="Secondary" id={"secondary"} min="0" max="100" onChange={updateSchool}/>
+        <input type="number" placeholder="Secondary sucessful (0%)" id={"SecondaryValid"} min="0" max="100" onChange={updateSchool}/>
+        <input type="number" placeholder="High school" id={"high-school"} min="0" max="100" onChange={updateSchool}/>
+        <input type="number" placeholder="High school sucessful (0%)" id={"High-schoolValid"} min="0" max="100" onChange={updateSchool}/>
+        <input type="number" placeholder="work study" id={"work-study"} min="0" max="100" onChange={updateSchool}/>
     </div>
 }
 

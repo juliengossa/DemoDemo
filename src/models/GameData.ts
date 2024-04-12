@@ -479,10 +479,10 @@ export class GameData {
         let successCount3: number = this.highSchoolSuccess(highSchoolValidPercentage);
         this.population[27].highSchoolStudent = this.population[27].highSchoolStudent - successCount3;
 
-        let workers = Math.random() * (successCount3 * (workStudyPercentage/100));
-        this.population[27].workStudyStudent = this.population[27].workStudyStudent + workers;
+        let workers = Math.random() * (successCount2 * (workStudyPercentage/100));
+        this.population[18].workStudyStudent = this.population[27].workStudyStudent + workers;
 
-        this.population[27].qualifiedWorker = this.population[27].qualifiedWorker + (successCount3 - workers);
+        this.population[18].qualifiedWorker = this.population[27].qualifiedWorker + (successCount3 - workers);
 
 
 
@@ -490,7 +490,7 @@ export class GameData {
         this.population[10].primaryInsertion();
         this.population[18].secondaryInsertion();
         this.population[27].highSchoolInsertion();
-        this.population[30].workStudyInsertion();
+        this.population[21].workStudyInsertion();
 
         // Retirement
         this.population[63].retirePopulation();
