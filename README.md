@@ -1,6 +1,8 @@
 # T4
 Nom du groupe : KFC
+
 menbres : Gaël Seiller, Tom Czekaj, Anatole Voltz
+
 lien evaluation T4:
 - Lilou : https://git.unistra.fr/-/ide/project/T234/2024/Demography-Simulator/edit/main/-/evaluations/evaluation-Lilou_Choukroun--Balzan.md
 - Jules : https://git.unistra.fr/-/ide/project/T234/2024/Demography-Simulator/edit/main/-/evaluations/evaluation-Jules_Klausnitzer.md
