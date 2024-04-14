@@ -36,9 +36,13 @@ function updateTable(table, tableHeader, tableData) {
 
     console.log("Update")
   
-    population.update({
-      'primary' : parseFloat(document.getElementById("primary").value)
-    });
+    //get values from controls
+    controls = {}
+    for (const [key, value] of Object.entries(Population.controls)) {
+        controls[key] = document.getElementById(key+"Input").value;
+    }
+
+    population.update(controls);
 
     stats = population.getStats();
     budget.update(stats);
@@ -48,6 +52,8 @@ function updateTable(table, tableHeader, tableData) {
   
     chartPopulation.updateData(population)
     chartStats.updateData(stats)
+  
+    document.getElementById('yearLabel').value = population.year;
   }
   
   

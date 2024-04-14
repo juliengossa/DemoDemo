@@ -1,7 +1,8 @@
 console.log("Population")
 
 class Population {
-  constructor() {
+  constructor(year=0) {
+    this._year = year;
     this.dpop = 0;
 
     this.population = Array(100);
@@ -25,6 +26,14 @@ class Population {
     'retired': {label:'Retraité', production:0, consumption:2, educost:0,  color:'rgb(100,100,100)'}
   };
 
+  static controls = { primary : { label:"Places en primaire",
+                                  attributes : { type:"number", value:"0", step:"10", min:"0", max:"100" }
+  }};
+
+  get year() { 
+    return this._year;
+  }
+
   static getStatus() {
     return Object.entries(Population.status)
   }
@@ -44,6 +53,7 @@ class Population {
   }
 
   update(trainings) {
+    this._year += 1;
     
     // primaire
     var s = Math.floor(Math.min(this.population[2].child, this.population[2].child*trainings.primary/100))

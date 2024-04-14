@@ -5,13 +5,30 @@ var budget;
 var chartPopulation;
 var chartStats;
 
-// let populationChart = new ChartPopulation(document.getElementById('popChart').getContext('2d'), population);
 
-// initScenario();
+initControl = function() {
+    for (const [key, value] of Object.entries(Population.controls)) {
+        var newDiv = document.createElement("div");
+        var newLabel = document.createElement("label");
+        newLabel.setAttribute("for", key+"Label");
+        newLabel.appendChild(document.createTextNode(value.label));
+        newDiv.appendChild(newLabel);
 
-// run updateData once on load
+        var newInput = document.createElement("input");
+        newInput.setAttribute("id", key+"Input");
+        for (const [akey, avalue] of Object.entries(value.attributes)) {
+            newInput.setAttribute(akey, avalue);
+        }
+        newDiv.appendChild(newInput);
+        document.getElementById("controls").appendChild(newDiv)
+    }
+}
+
+
 window.onload = function() {
-    console.log("Init")
+    console.log("Init");
+    initControl();
+
     population = new Population();
     stats = population.getStats();
     budget = new Budget(stats);
