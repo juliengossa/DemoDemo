@@ -11,23 +11,24 @@
 
     <script>
       var dirname = "scenarios/bacasable";
-      var filenames = ["scenario.js", "updatePopulation.js"]
+      var filenames = [
+        dirname + "/" +"generation.js", 
+        dirname + "/" +"population.js",
+        dirname + "/" +"budget.js",
+        "common/" + "chartPopulation.js", 
+        "common/" + "chartStats.js",
+        "common/" + "update.js"
+    ]
 
       for (var  i = 0; i < filenames.length; i++) {
         var newScript = document.createElement("script");   ///Create a new <script> element
         newScript.setAttribute("type", "text/javascript");  // Set type to JS
-        newScript.setAttribute("src", dirname + "/" + filenames[i]);            //Set src, your file to load
-        document.getElementsByTagName("head")[0].appendChild(newScript)
-      }
-
-      var filenames = ["updateStats.js","updateBudgetNation.js","updateBudgetEducation.js","chartPopulation.js", "chartStats.js", "update.js"]
-      for (var  i = 0; i < filenames.length; i++) {
-        var newScript = document.createElement("script");   ///Create a new <script> element
-        newScript.setAttribute("type", "text/javascript");  // Set type to JS
-        newScript.setAttribute("src", "common/" + filenames[i]);            //Set src, your file to load
+        newScript.setAttribute("src",  filenames[i]);            //Set src, your file to load
         document.getElementsByTagName("head")[0].appendChild(newScript)
       }
     </script>
+
+    <script type="text/javascript" src="common/init.js"></script> 
 
     <style>
       * {
@@ -49,6 +50,20 @@
         content: "";
         clear: both;
         display: table;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th, td {
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #D6EEEE;
       }
     </style>
   </head>
@@ -78,9 +93,6 @@
       <input type="number" id="primary" value="0" step="10" min="0" max="100"> 
       <button onclick="updateData()">Update Data</button>
     </div>
-
-
-
   
   </body>
 </html>

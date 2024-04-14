@@ -1,12 +1,12 @@
-function updateTable(table, tableData) {
+function updateTable(table, tableHeader, tableData) {
   
     table.innerHTML = '';
     var tableBody = document.createElement('tbody');
     // add header
     var header = document.createElement('tr');
-    for(const [key, cellData] of Object.entries(tableData[0])) {
+    for(const h of tableHeader) {
       var cell = document.createElement('th');
-      cell.appendChild(document.createTextNode(key));
+      cell.appendChild(document.createTextNode(h));
       header.appendChild(cell);
     }
     tableBody.appendChild(header);
@@ -14,8 +14,13 @@ function updateTable(table, tableData) {
     tableData.forEach(function(rowData) {
       var row = document.createElement('tr');
   
-      for(const [key, cellData] of Object.entries(rowData)) {
+      for(const [key, value] of Object.entries(rowData)) {
         var cell = document.createElement('td');
+        var cellData = value;
+
+        if (Number.isInteger(cellData)) 
+          cellData = new Intl.NumberFormat('fr-FR', { style: 'decimal' }).format(value,)
+
         cell.appendChild(document.createTextNode(cellData));
         row.appendChild(cell);
       }
@@ -28,24 +33,22 @@ function updateTable(table, tableData) {
   
   
   function updateData() {
+
+    console.log("Update")
   
-    updatePopulation();
-    stats = updateStats();
-    budget_nation = updateBudgetNation(stats);
-    budget_education = updateBudgetEducation(stats,budget_nation);
+    population.update({
+      'primary' : parseFloat(document.getElementById("primary").value)
+    });
+
+    stats = population.getStats();
+    budget.update(stats);
   
-    updateTable(document.getElementById('populationTable'),budget_nation);
-    updateTable(document.getElementById('educationTable'),budget_education);
+    updateTable(document.getElementById('populationTable'), Budget.budget_nation_header, budget.budget_nation);
+    updateTable(document.getElementById('educationTable'), Budget.budget_education_header, budget.budget_education);
   
-    chartPopulationUpdate();
-  
+    chartPopulation.updateData(population)
+    chartStats.updateData(stats)
   }
   
-  // run updateData once on load
-  window.onload = function() {
-      for (var i = 0; i < 100; i++)
-          updatePopulation();
-      updateData();
-  }
   
   

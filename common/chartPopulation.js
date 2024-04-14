@@ -1,58 +1,64 @@
 
-chartPopulationDataset = function() {
-    dataset = [];
-    for (const [key, value] of Object.entries(Population.status))
-        dataset.push({ 
-            data: population.map(function (d) {return d[key];}),
-            label: value.label,
-            borderColor: value.color,
-            backgroundColor: value.color,
-            borderWidth:0,
-            barPercentage: 1,
-          });
-    return dataset;
-}
+class ChartPopulation extends Chart{
 
-// create a new chart object
-var chartPopulation = new Chart(popctx, {
-    type: 'bar',
-    data: {
-      labels: population.map(function (d,i) {return i;}),
-      datasets: chartPopulationDataset()
-    },
-    options: {
-      scales: {
-        x: {
-          stacked: true
+  constructor(ctx, population) {
+    super(ctx, {
+      type: 'bar',
+      data: ChartPopulation.initData(population),
+      options: {
+        scales: {
+          x: {
+            stacked: true
+          },
+          y: {
+            beginAtZero: true,
+            stacked: true
+          },
         },
-        y: {
-          beginAtZero: true,
-          stacked: true
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: {
+            fontColor: 'rgb(0, 0, 0)',
+            fontSize: 14
+          }
         },
-      },
-      legend: {
-        display: true,
-        position: 'bottom',
-        labels: {
+        title: {
+          display: true,
+          text: 'Mass Game',
+          fontSize: 20,
           fontColor: 'rgb(0, 0, 0)',
-          fontSize: 14
+          padding: 20
         }
-      },
-      title: {
-        display: true,
-        text: 'Mass Game',
-        fontSize: 20,
-        fontColor: 'rgb(0, 0, 0)',
-        padding: 20
       }
-    }
-  });
+    });
+  }
 
-chartPopulationUpdate = function() {
-  chartPopulation.data.datasets[0].data = population.map(function (d) {return d.child;});
-  chartPopulation.data.datasets[1].data = population.map(function (d) {return d.student;});
-  chartPopulation.data.datasets[2].data = population.map(function (d) {return d.worker_unqualified;});
-  chartPopulation.data.datasets[3].data = population.map(function (d) {return d.worker_primary;});
-  chartPopulation.data.datasets[4].data = population.map(function (d) {return d.retired;});
-  chartPopulation.update();
+  static initData(population) {
+      var datasets = [];
+      for (const [key, value] of Object.entries(Population.status))
+          datasets.push({ 
+              data: population.population.map(function (d) {return d[key];}),
+              label: value.label,
+              borderColor: value.color,
+              backgroundColor: value.color,
+              borderWidth:0,
+              barPercentage: 1,
+            });
+
+      return {
+        labels: population.population.map(function (d,i) {return i;}),
+        datasets: datasets
+      }
+  }
+
+  updateData(population) {
+    let i = 0;
+    for (const [key, value] of Object.entries(Population.status)) {
+      this.data.datasets[i].data = population.population.map(function (d) {return d[key];});
+      i++;
+    }
+
+    this.update();
+  }
 }
