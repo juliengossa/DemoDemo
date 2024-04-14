@@ -1,8 +1,9 @@
 // define status
 class Generation {
-  constructor() {
+  constructor(child = 0) {
     for (const [key, value] of Object.entries(Generation.status))
       this[key] = 0;
+    this.child = Math.floor(child);
   }
 
   static status = {
@@ -20,6 +21,12 @@ class Generation {
   get total() {
     console.log("Teste " + this)
     return Object.values(this).reduce((sum, value) => sum + value, 0);
+  }
+
+  kill(death_ratio) {
+    for (const [key, value] of Object.entries(this)) {
+      this[key] = Math.floor(this[key] * death_ratio);
+    }
   }
 }
 

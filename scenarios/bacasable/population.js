@@ -93,9 +93,7 @@ class Population {
     var death_age = 100;
     var death_ratio = 10;
     for (var i = 0; i < this.population.length; i++) {
-        for (const [key, value] of Object.entries(this.population[i])) {
-          this.population[i][key] = this.population[i][key] * (1-Math.exp((i-death_age)/death_ratio));
-        }
+      this.population[i].kill((1-Math.exp((i-death_age)/death_ratio)));
     }
 
     // Vieillissement
@@ -106,8 +104,7 @@ class Population {
     // naissances
     this.dpop = Math.max(Math.min(this.dpop+Math.random() * 1 - 0.5, 1),-1);
     var pop0 = Math.max(this.population[0].child + this.dpop, 10);
-    this.population[0] = new Generation();
-    this.population[0].child = pop0;
+    this.population[0] = new Generation(pop0);
 
   }
 };
