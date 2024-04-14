@@ -36,7 +36,7 @@ class ChartPopulation extends Chart{
 
   static initData(population) {
       var datasets = [];
-      for (const [key, value] of Object.entries(Population.status))
+      for (const [key, value] of Object.entries(Generation.status))
           datasets.push({ 
               data: population.population.map(function (d) {return d[key];}),
               label: value.label,
@@ -54,7 +54,7 @@ class ChartPopulation extends Chart{
 
   updateData(population) {
     let i = 0;
-    for (const [key, value] of Object.entries(Population.status)) {
+    for (const [key, value] of Object.entries(Generation.status)) {
       this.data.datasets[i].data = population.population.map(function (d) {return d[key];});
       i++;
     }

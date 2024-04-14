@@ -20,13 +20,13 @@ class Budget {
 
       for (const [key, value] of Object.entries(stats)) {
           budget.push({ 
-            'name' : Population.status[key].label, 
+            'name' : Generation.status[key].label, 
             'pop' : value,
-            'consumption' : Population.status[key].consumption,
-            'production' : Population.status[key].production,
-            'total_consumption' : Population.status[key].consumption * value,
-            'total_production' : Population.status[key].production * value,
-            'net' : Population.status[key].production * value - Population.status[key].consumption * value
+            'consumption' : Generation.status[key].consumption,
+            'production' : Generation.status[key].production,
+            'total_consumption' : Generation.status[key].consumption * value,
+            'total_production' : Generation.status[key].production * value,
+            'net' : Generation.status[key].production * value - Generation.status[key].consumption * value
           })
         }
       
@@ -59,12 +59,12 @@ class Budget {
       }]
       
       for (const [key, value] of Object.entries(stats)) {
-        if (Population.status[key].educost != 0) {
+        if (Generation.status[key].educost != 0) {
           budget.push({ 
-            'name' : Population.status[key].label, 
-            'unit_cost' : Population.status[key].educost,
+            'name' : Generation.status[key].label, 
+            'unit_cost' : Generation.status[key].educost,
             'pop' : value,
-            'budget' : -Math.ceil(Population.status[key].educost*value) 
+            'budget' : -Math.ceil(Generation.status[key].educost*value) 
           })
         }
       }
