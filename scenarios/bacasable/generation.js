@@ -23,10 +23,27 @@ class Generation {
     return Object.values(this).reduce((sum, value) => sum + value, 0);
   }
 
+  convert(from,to,amount=Infinity) {
+    amount = Math.min(amount, this[from]);
+    
+    this[from] -= amount;
+    this[to] += amount;
+  }
+
+  convertRatio(from,to,ratio=1) {
+    this.convert(from, to, Math.floor(this[from] * ratio));
+  }
+
+  convertTotalRatio(from,to,ratio=1) {
+    this.convert(from, to, Math.floor(this.total * ratio));
+  }
+
   kill(death_ratio) {
     for (const [key, value] of Object.entries(this)) {
       this[key] = Math.floor(this[key] * death_ratio);
     }
   }
+
+
 }
 
