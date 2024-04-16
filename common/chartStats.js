@@ -47,6 +47,6 @@ class ChartStats extends Chart{
 
   updateData(stats) {
     this.data.datasets[0].data = Object.keys(stats).map(function(key){ return stats[key];});
-    chartStats.update();
+    this.update();
   }
 }

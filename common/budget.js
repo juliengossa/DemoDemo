@@ -3,8 +3,6 @@ class Budget {
   static budget_nation_header = ["Catégorie", "Population", "Consommation unitaire", "Production unitaire", "Consommation totale", "Production totale", "Production nette"]
   static budget_education_header = ["Catégorie", "Coût unitaire", "Population", "Budget"]
 
-  static debt = 0;
-
   constructor(stats) {
     this.update(stats);
   }
@@ -49,13 +47,6 @@ class Budget {
         'pop' : "",
         'budget' : Math.floor(budget_nation[budget_nation.length-1].net * 2 / 100)
     
-      },
-      { 
-        'name' : 'Dette', 
-        'unit_cost' : "",
-        'pop' : "",
-        'budget' : this.debt
-    
       }]
       
       for (const [key, value] of Object.entries(stats)) {
@@ -75,9 +66,7 @@ class Budget {
         'pop' : stats.student,
         'budget' : budget[0].budget + budget[1].budget + budget[2].budget
       })
-    
-      this.debt = Math.min(0,budget[budget.length-1].budget)
-    
+        
       return budget;
     }
 
