@@ -41,13 +41,7 @@ class Budget {
     }
 
     static budgetEducation(stats,budget_nation) {
-      var budget = [{ 
-        'name' : 'Dotation', 
-        'unit_cost' : "",
-        'pop' : "",
-        'budget' : Math.floor(budget_nation[budget_nation.length-1].net * 2 / 100)
-    
-      }]
+      var budget = []
       
       for (const [key, value] of Object.entries(stats)) {
         if (Generation.status[key].educost != 0) {
@@ -55,17 +49,34 @@ class Budget {
             'name' : Generation.status[key].label, 
             'unit_cost' : Generation.status[key].educost,
             'pop' : value,
-            'budget' : -Math.ceil(Generation.status[key].educost*value) 
-          })
+            'total' : -Math.ceil(Generation.status[key].educost*value) 
+          });
         }
       }
     
-      budget.push({ 
+      var total = { 
+        'name' : 'Total', 
+        'unit_cost' : "",
+        'pop' : budget.reduce((a, b) => a + b.pop, 0),
+        'total' : budget.reduce((a, b) => a + b.total, 0)
+      };
+
+      var dotation = { 
+        'name' : 'Dotation', 
+        'unit_cost' : "",
+        'pop' : "",
+        'total' : Math.floor(budget_nation[budget_nation.length-1].net * 2 / 100)
+      };
+
+      var bilan = { 
         'name' : 'Bilan', 
         'unit_cost' : "",
-        'pop' : stats.student,
-        'budget' : budget[0].budget + budget[1].budget + budget[2].budget
-      })
+        'pop' : "",
+        'total' : dotation.total + total.total
+      };
+
+      budget.push(total,dotation,bilan);
+
         
       return budget;
     }

@@ -4,8 +4,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chart.js Bar Chart</title>
-    <!--Chart.js JS CDN--> 
+    <link rel="stylesheet" href="demodemo.css">
+    <title>DemoDemo</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 
 
@@ -17,7 +17,8 @@
         "common/budget.js",
         "common/chartPopulation.js", 
         "common/chartStats.js",
-        "scenarios/bacasable/bacasable.js"
+        "scenarios/bacasable/bacasable.js",
+        "scenarios/educrois.js",
     ]
 
       for (var  i = 0; i < filenames.length; i++) {
@@ -31,56 +32,12 @@
     <script type="text/javascript" src="common/demodemo.js"></script> 
     <script>
       window.onload = function() { 
-        scenario = new BacASable();
+        //scenario = new BacASable();
+        scenario = new EduCrois();
         demodemo = new DemoDemo(scenario); 
       }
     </script>
 
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-      
-      .row {
-        margin-left:-5px;
-        margin-right:-5px;
-      }
-        
-      .column {
-        float: left;
-        width: 50%;
-        padding: 5px;
-      }
-
-      .quarter {
-        width: 25%;
-      }
-
-      .half {
-        width: 50%;
-      }
-
-
-      .row::after {
-        content: "";
-        clear: both;
-        display: table;
-      }
-
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-
-      th, td {
-        text-align: left;
-        padding: 8px;
-      }
-
-      tr:nth-child(even) {
-        background-color: #D6EEEE;
-      }
-    </style>
   </head>
   <body>
 

@@ -17,15 +17,15 @@ class BacASable {
       };
 
       status = {
-        'child':              {label:'Enfant', production:0, consumption:1, educost:0, color:'rgb(100,200,100,0.8)'}, 
-        'worker_unqualified': {label:'Travailleur non qualifié', production:3, consumption:2, educost:0,  color:'rgb(200,100,100,0.3)'},
-        'student_primary':    {label:'Elèves du primaire', production:0, consumption:1, educost:3/25, color:'rgb(100,100,200,0.3)'},
-        'worker_primary':     {label:'Travailleur peu qualifié', production:4, consumption:2, educost:0,  color:'rgb(200,100,100,0.5)'},
-        'student_secondary':  {label:'Elèves du secondaire', production:0, consumption:1, educost:6/25, color:'rgb(100,100,200,0.6)'},
-        'worker_secondary':   {label:'Travailleur qualifié', production:5, consumption:2, educost:0,  color:'rgb(200,100,100,0.7)'},
-        'student_tertiary':   {label:'Etudiant du supérieur', production:0, consumption:1, educost:5/25, color:'rgb(100,100,200,0.8)'},
-        'worker_tertiary':    {label:'Travailleur très qualifié', production:6, consumption:2, educost:0,  color:'rgb(200,100,100,0.9)'},
-        'retired':            {label:'Retraité', production:0, consumption:2, educost:0,  color:'rgb(100,100,100,0.3)'}
+        'child':              {order:0, production:0, consumption:1, educost:0,    color:'rgb(100,200,100,0.8)', label:'Enfant'}, 
+        'student_primary':    {order:5, production:0, consumption:1, educost:3/25, color:'rgb(100,100,200,0.3)', label:'Elèves du primaire'},
+        'student_secondary':  {order:6, production:0, consumption:1, educost:6/25, color:'rgb(100,100,200,0.6)', label:'Elèves du secondaire'},        
+        'student_tertiary':   {order:7, production:0, consumption:1, educost:5/25, color:'rgb(100,100,200,0.8)', label:'Etudiant du supérieur'},
+        'worker_unqualified': {order:1, production:3, consumption:2, educost:0,    color:'rgb(200,100,100,0.3)', label:'Travailleur non qualifié'},
+        'worker_primary':     {order:2, production:4, consumption:2, educost:0,    color:'rgb(200,100,100,0.5)', label:'Travailleur peu qualifié'},
+        'worker_secondary':   {order:3, production:5, consumption:2, educost:0,    color:'rgb(200,100,100,0.7)', label:'Travailleur qualifié'},
+        'worker_tertiary':    {order:4, production:6, consumption:2, educost:0,    color:'rgb(200,100,100,0.9)', label:'Travailleur très qualifié'},
+        'retired':            {order:9, production:0, consumption:2, educost:0,    color:'rgb(100,100,100,0.3)', label:'Retraité'}
       };
 
       updatePopulation(population, positions) {

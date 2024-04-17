@@ -23,6 +23,10 @@ class Population {
     return Object.entries(scenario.status).map(([key, value]) => value.label)
   }
 
+  static getStatusColors() {
+    return Object.entries(scenario.status).map(([key, value]) => value.color)
+  }
+
   getStats() {
     var stats = {}
   

@@ -15,20 +15,22 @@ class ChartStats extends Chart{
             stacked: false
           },
         },
-        legend: {
-          display: true,
-          position: 'bottom',
-          labels: {
+        plugins : {
+          legend: {
+            display: false,
+            position: 'bottom',
+            labels: {
+              fontColor: 'rgb(0, 0, 0)',
+              fontSize: 14
+            }
+          },
+          title: {
+            display: true,
+            text: 'Mass Game',
+            fontSize: 20,
             fontColor: 'rgb(0, 0, 0)',
-            fontSize: 14
+            padding: 20
           }
-        },
-        title: {
-          display: true,
-          text: 'Mass Game',
-          fontSize: 20,
-          fontColor: 'rgb(0, 0, 0)',
-          padding: 20
         }
       }
     });
@@ -40,7 +42,9 @@ class ChartStats extends Chart{
       labels: Population.getStatusLabels(),
       datasets: [ { 
         label : "Population",
-        data : Object.keys(stats).map(function(key){ return stats[key];}) 
+        data : Object.keys(stats).map(function(key){ return stats[key];}),
+        backgroundColor: Population.getStatusColors(),
+        borderColor: Population.getStatusColors() 
       } ]
     }
   }
