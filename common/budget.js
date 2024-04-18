@@ -1,6 +1,6 @@
 class Budget {
 
-  static budget_nation_header = ["Catégorie", "Population", "Consommation unitaire", "Production unitaire", "Consommation totale", "Production totale", "Production nette"]
+  static budget_nation_header = ["Catégorie", "Population", "Conso. unitaire", "Prod. unitaire", "Conso. totale", "Prod. totale", "Prod. nette"]
   static budget_education_header = ["Catégorie", "Coût unitaire", "Population", "Budget"]
 
   constructor(stats) {

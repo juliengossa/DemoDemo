@@ -28,16 +28,45 @@
   display: table;
 }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
 th, td {
-  text-align: left;
-  padding: 8px;
+  text-align: right;
+  padding: 4px;
 }
 
 tr:nth-child(even) {
   background-color: #D6EEEE;
+}
+
+.infolabel {
+    width:100px;
+    display: inline-block;
+  }
+  
+.controllabel {
+    width:200px;
+    text-align: right;
+    display: inline-block;
+  }
+
+input[type='number']{
+    width: 50px;
+} 
+
+.budget_tables {
+    display: inline-block;    
+  }
+
+.toolbar {
+  display: inline-block;    
+}
+
+.educationTable {
+    border-collapse: collapse;
+    width: 30%;
+}
+
+.populationTable {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 60%;
 }

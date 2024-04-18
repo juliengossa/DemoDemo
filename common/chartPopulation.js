@@ -9,12 +9,20 @@ class ChartPopulation extends Chart{
         scales: {
           x: {
             stacked: true,
+            title: {
+              display: true,
+              text: "Age"
+            },
             ticks: {
               autoSkip: true,
               maxTicksLimit: 20,
               }
           },
           y: {
+            title: {
+              display: true,
+              text: "Nombre d'individus"
+            },
             beginAtZero: true,
             stacked: true
           },
@@ -30,13 +38,16 @@ class ChartPopulation extends Chart{
             }
           },
           title: {
-            display: true,
+            display: false,
             text: 'Population',
             fontSize: 20,
             fontColor: 'rgb(0, 0, 0)',
             padding: 20
           }
-        }
+        },
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 16/4
       }
     });
   }

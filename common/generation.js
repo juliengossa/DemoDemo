@@ -5,7 +5,7 @@ class Generation {
     Generation.status = status;
     for (const [key, value] of Object.entries(Generation.status))
       this[key] = 0;
-    this.child = child;
+    this.child = Math.floor(child);
   }
 
   get total() {

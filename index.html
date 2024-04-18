@@ -9,37 +9,53 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 
 
-    <script>
-      var dirname = "scenarios/bacasable";
-      var filenames = [
-        "common/generation.js", 
-        "common/population.js",
-        "common/budget.js",
-        "common/chartPopulation.js", 
-        "common/chartStats.js",
-        "scenarios/bacasable/bacasable.js",
-        "scenarios/educrois.js",
-    ]
-
-      for (var  i = 0; i < filenames.length; i++) {
-        var newScript = document.createElement("script");
-        newScript.setAttribute("type", "text/javascript");
-        newScript.setAttribute("src",  filenames[i]);
-        document.getElementsByTagName("head")[0].appendChild(newScript)
-      }
-    </script>
-
+    <script type="text/javascript" src="common/generation.js"></script> 
+    <script type="text/javascript" src="common/population.js"></script>
+    <script type="text/javascript" src="common/budget.js"></script>
+    <script type="text/javascript" src="common/chartPopulation.js"></script>
+    <script type="text/javascript" src="common/chartStats.js"></script>
+    <script type="text/javascript" src="common/scenario.js"></script>
+    <script type="text/javascript" src="scenarios/bacasable.js"></script>
+    <script type="text/javascript" src="scenarios/educrois.js"></script>
     <script type="text/javascript" src="common/demodemo.js"></script> 
     <script>
       window.onload = function() { 
-        //scenario = new BacASable();
-        scenario = new EduCrois();
+        changeScenario();
+      }
+
+      changeScenario = function() {
+        try {
+          demodemo.destroy();
+        } catch (error) {
+          console.log("No data to destroy");
+        }
+        let scenario_id = document.getElementById("selector_scenario").value;
+        scenario =  eval(`new ${scenario_id}()`);
+        console.log(scenario);
         demodemo = new DemoDemo(scenario); 
       }
     </script>
 
   </head>
   <body>
+    <div>
+      <h1>DémoDémo : un démonstrateur de démographie éducative</h1>
+    </div>
+    <div class="toolbar">
+      <select name="scenario" id="selector_scenario" onchange="changeScenario()">
+        <option value="BacASable">Bac à sable</option>
+        <option value="EduCrois">ÉduCrois</option>
+      </select>
+      <input type="button" value="🔃" onClick="changeScenario()">
+      <input type="button" value="▶️" onClick="demodemo.updateData()">
+      &ensp; &emsp;
+      <span id="infos">
+      </span>
+    </div>
+    <hr> 
+    <div id="inputs">  
+    </div>
+    <hr> 
 
     <div>
 	    <canvas id="popChart", height="100"></canvas>
@@ -49,21 +65,12 @@
       <div class="column half">
         <canvas id="statsChart", height="100"></canvas>
       </div>
-      <div class="column quarter">
-        <table id="educationTable"></table>
-      </div>
-      <div id="controls" class="column quarter">
-        <div>
-          <label for="yearlab">Année :</label>
-          <input type="number" id="yearLabel" value="" readonly="readonly" size="10"> 
-          <button onclick="demodemo.updateData()">Année suivante</button>
-        </div>
-      </div>
     </div>
     <br/>
 
-    <div class="row">
-      <table id="populationTable"></table>
+    <div class="budget_tables">
+      <table class="educationTable" id="educationTable"></table>
+      <table class="populationTable" id="populationTable"></table>
     </div>
 
   

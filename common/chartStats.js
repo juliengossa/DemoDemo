@@ -37,14 +37,14 @@ class ChartStats extends Chart{
   }
 
   static initData(stats) { 
-    console.log(Population.getStatusLabels());
+    console.log(scenario.getStatusLabels());
     return {
-      labels: Population.getStatusLabels(),
+      labels: scenario.getStatusLabels(),
       datasets: [ { 
         label : "Population",
         data : Object.keys(stats).map(function(key){ return stats[key];}),
-        backgroundColor: Population.getStatusColors(),
-        borderColor: Population.getStatusColors() 
+        backgroundColor: scenario.getStatusColors(),
+        borderColor: scenario.getStatusColors() 
       } ]
     }
   }
