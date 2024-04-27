@@ -110,3 +110,15 @@ input[type='number']{
   visibility: visible;
   opacity: 1;
 }
+
+.labelok {
+  color: green;
+}
+
+.labelwarning {
+  color: orange;
+}
+
+.labelko {
+  color: red;
+}

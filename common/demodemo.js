@@ -9,6 +9,8 @@ class DemoDemo {
 
     scenario;
 
+    history;
+
     constructor(scenario) {
 
         this.scenario = scenario;
@@ -28,6 +30,8 @@ class DemoDemo {
     
         DemoDemo.updateTable(document.getElementById('populationTable'), Budget.budget_nation_header, this.budget.budget_nation);
         DemoDemo.updateTable(document.getElementById('educationTable'), Budget.budget_education_header, this.budget.budget_education);
+
+        this.history = {};
     }
 
     destroy() {
@@ -40,14 +44,14 @@ class DemoDemo {
 
     initInputs(inputs) {
         for (const [key, item] of Object.entries(inputs)) {
-            var newDiv = document.createElement("span");
-            var newLabel = document.createElement("label");
+            let newDiv = document.createElement("span");
+            let newLabel = document.createElement("label");
             newLabel.setAttribute("for", key+"Input");
             newLabel.setAttribute("class", "controllabel");
             newLabel.appendChild(document.createTextNode(item.label+ " : "));
             newDiv.appendChild(newLabel);
 
-            var newInput = document.createElement("input");
+            let newInput = document.createElement("input");
             newInput.setAttribute("id", key+"Input");
             newLabel.setAttribute("size", "10");
             for (const [akey, avalue] of Object.entries(item.attributes)) {
@@ -95,7 +99,10 @@ class DemoDemo {
 
     updateInfos(infos) {
       for (const [key, item] of Object.entries(infos)) {
-        document.getElementById(key+"Label").innerHTML = item.labelfun(item.value);
+        let label = document.getElementById(key+"Label")
+        label.innerHTML = item.labelfun(item.value);
+        label.className = "infolabel";
+        label.classList.add(item.style);
       }
     }
 
@@ -103,7 +110,7 @@ class DemoDemo {
     updateData() {
       
         //get values from controls
-        var inputs_value = {}
+        let inputs_value = {}
         for (const [key, value] of Object.entries(this.scenario.inputs)) {
           this.scenario.inputs[key].value = document.getElementById(key+"Input").value;
         }
