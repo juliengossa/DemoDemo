@@ -1,5 +1,3 @@
-console.log("Population")
-
 class Population {
 
   constructor(scenario) {
@@ -9,11 +7,9 @@ class Population {
     for (var i = 0; i < 100; i++) {
       this.population[i] = new Generation(scenario.status);
     }
-  
-    this.population[0].child = 100000;
 
     for (var i = 0; i < 100; i++)
-        this.update(this.scenario.positions_start);
+        this.update(this.scenario);
   }
 
   getStats() {
@@ -32,7 +28,7 @@ class Population {
 
     // morts
     for (var i = 0; i < this.population.length; i++) {
-      this.population[i].killAll(this.scenario.death_rate(i));
+      this.population[i].kill(this.scenario.deathRate(i));
     }
 
     // Vieillissement
@@ -41,6 +37,6 @@ class Population {
     }
 
     // naissances
-    this.population[0] = new Generation(this.scenario.status, this.scenario.birth_rate(this.population));
+    this.population[0] = new Generation(this.scenario.status, this.scenario.birthRate(this.population));
   }
 };

@@ -37,7 +37,6 @@ class ChartStats extends Chart{
   }
 
   static initData(stats) { 
-    console.log(scenario.getStatusLabels());
     return {
       labels: scenario.getStatusLabels(),
       datasets: [ { 

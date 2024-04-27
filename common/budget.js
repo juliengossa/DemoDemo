@@ -14,7 +14,7 @@ class Budget {
 
 
   static budgetNation(stats) {
-      var budget = [];
+      let budget = [];
 
       for (const [key, value] of Object.entries(stats)) {
           budget.push({ 
@@ -41,7 +41,7 @@ class Budget {
     }
 
     static budgetEducation(stats,budget_nation) {
-      var budget = []
+      let budget = []
       
       for (const [key, value] of Object.entries(stats)) {
         if (Generation.status[key].educost != 0) {
@@ -54,28 +54,14 @@ class Budget {
         }
       }
     
-      var total = { 
+      let total = { 
         'name' : 'Total', 
         'unit_cost' : "",
         'pop' : budget.reduce((a, b) => a + b.pop, 0),
         'total' : budget.reduce((a, b) => a + b.total, 0)
       };
 
-      var dotation = { 
-        'name' : 'Dotation', 
-        'unit_cost' : "",
-        'pop' : "",
-        'total' : Math.floor(budget_nation[budget_nation.length-1].net * 2 / 100)
-      };
-
-      var bilan = { 
-        'name' : 'Bilan', 
-        'unit_cost' : "",
-        'pop' : "",
-        'total' : dotation.total + total.total
-      };
-
-      budget.push(total,dotation,bilan);
+      budget.push(total);
 
         
       return budget;

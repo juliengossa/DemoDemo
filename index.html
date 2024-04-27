@@ -16,6 +16,7 @@
     <script type="text/javascript" src="common/chartStats.js"></script>
     <script type="text/javascript" src="common/scenario.js"></script>
     <script type="text/javascript" src="scenarios/bacasable.js"></script>
+    <script type="text/javascript" src="scenarios/economy.js"></script>    
     <script type="text/javascript" src="scenarios/educrois.js"></script>
     <script type="text/javascript" src="common/demodemo.js"></script> 
     <script>
@@ -31,7 +32,6 @@
         }
         let scenario_id = document.getElementById("selector_scenario").value;
         scenario =  eval(`new ${scenario_id}()`);
-        console.log(scenario);
         demodemo = new DemoDemo(scenario); 
       }
     </script>
@@ -43,11 +43,19 @@
     </div>
     <div class="toolbar">
       <select name="scenario" id="selector_scenario" onchange="changeScenario()">
+        <option value="Economy">Economie</option>
+        <option value="EduCrois">Éducation et Croissance</option>
         <option value="BacASable">Bac à sable</option>
-        <option value="EduCrois">ÉduCrois</option>
       </select>
-      <input type="button" value="🔃" onClick="changeScenario()">
-      <input type="button" value="▶️" onClick="demodemo.updateData()">
+      <div class="tooltip">❓<span class="tooltiptext">Tooltip text</span></div>
+      <div class="tooltip">
+        <input type="button" value="🔃" onClick="changeScenario()">
+        <span class="tooltiptext">Recommencer le scénario</span>
+      </div>
+      <div class="tooltip">
+        <input type="button" value="▶️" onClick="demodemo.updateData()">
+        <span class="tooltiptext">Avancer d'un année</span>
+      </div>
       &ensp; &emsp;
       <span id="infos">
       </span>

@@ -9,7 +9,6 @@ class Generation {
   }
 
   get total() {
-    console.log("Teste " + this)
     return Object.values(this).reduce((sum, value) => sum + value, 0);
   }
 
@@ -26,6 +25,11 @@ class Generation {
 
   convertTotalRatio(from,to,ratio=1) {
     this.convert(from, to, Math.floor(this.total * ratio));
+  }
+
+  kill(death_ratio) {
+    if (typeof death_ratio === 'number') this.killAll(death_ratio);
+    else this.killStatus(death_ratio);
   }
 
   killAll(death_ratio) {
