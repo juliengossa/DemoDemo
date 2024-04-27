@@ -3,8 +3,9 @@ class BacASable extends Scenario {
 
     constructor() {
       super();
+      this.description = "Simulateur basique de population";
       this.infos = {
-        year : {label:"📅", value:-2, labelfun: (v) => v},
+        year : {label:"📅", value:-2, description:"Nombre d'années écoulées", labelfun: (v) => v},
       };
     }
 
@@ -66,8 +67,8 @@ class BacASable extends Scenario {
       }
 
       deathRate(age)  {
-        let death_age = 100;
-        let death_ratio = 7;
+        let death_age = 110;
+        let death_ratio = 11;
         return ((1-Math.exp((age-death_age)/death_ratio)));
       }
 

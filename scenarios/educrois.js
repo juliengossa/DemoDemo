@@ -2,6 +2,7 @@ class EduCrois extends Economy {
 
     constructor() {
         super();
+        this.description = "Minijeu éducation et croissance";
         this.infos.bilan = {label:"🪙", value:0, labelfun: (v) => v};
     }
 

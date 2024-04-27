@@ -33,6 +33,8 @@
         let scenario_id = document.getElementById("selector_scenario").value;
         scenario =  eval(`new ${scenario_id}()`);
         demodemo = new DemoDemo(scenario); 
+
+        document.getElementById("tooltip_scenario").innerHTML = scenario.description;
       }
     </script>
 
@@ -47,7 +49,7 @@
         <option value="EduCrois">Éducation et Croissance</option>
         <option value="BacASable">Bac à sable</option>
       </select>
-      <div class="tooltip">❓<span class="tooltiptext">Tooltip text</span></div>
+      <div class="tooltip">❓<span id="tooltip_scenario" class="tooltiptext">Tooltip text</span></div>
       <div class="tooltip">
         <input type="button" value="🔃" onClick="changeScenario()">
         <span class="tooltiptext">Recommencer le scénario</span>

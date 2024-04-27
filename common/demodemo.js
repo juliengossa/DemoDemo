@@ -70,15 +70,26 @@ class DemoDemo {
 
     initInfos(infos) {
       for (const [key, item] of Object.entries(infos)) {
-        var newDiv = document.createElement("span");
-        newDiv.innerHTML = item.label + " ";
-        var newLabel = document.createElement("label");
-        newLabel.setAttribute("id", key+"Label");
-        newLabel.setAttribute("class", "infolabel");
-        newLabel.appendChild(document.createTextNode(item.value));
-        newDiv.appendChild(newLabel);
+        let divinfo = document.createElement("span");
 
-        document.getElementById("infos").appendChild(newDiv)
+        let divtooltip = document.createElement("span");
+        divtooltip.setAttribute("class", "tooltip");
+        let tooltip = document.createElement("span");
+        tooltip.setAttribute("class", "tooltiptext");        
+        tooltip.innerHTML = item.description;
+        divtooltip.innerHTML = item.label + " ";
+        divtooltip.appendChild(tooltip);
+        
+
+        let labelval = document.createElement("label");
+        labelval.setAttribute("id", key+"Label");
+        labelval.setAttribute("class", "infolabel");
+        labelval.appendChild(document.createTextNode(item.value));
+
+        divinfo.appendChild(divtooltip);
+        divinfo.appendChild(labelval);
+
+        document.getElementById("infos").appendChild(divinfo)
       }
     }
 

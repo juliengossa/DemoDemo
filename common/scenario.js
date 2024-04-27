@@ -4,6 +4,7 @@ class Scenario {
     status;
     infos;
     inputs;
+    description;
 
     getStatus() {
         return Object.entries(this.status);
