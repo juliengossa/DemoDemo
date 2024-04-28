@@ -37,6 +37,23 @@
         document.getElementById("tooltip_scenario").innerHTML = scenario.help;
         document.getElementById("label_description").innerHTML = scenario.description;
       }
+
+      function openTab(evt, cityName) {
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }    
     </script>
 
   </head>
@@ -74,18 +91,24 @@
 	    <canvas id="popChart", height="100"></canvas>
     </div>
 
-    <div class="row">
-      <div class="column half">
-        <canvas id="statsChart", height="100"></canvas>
-      </div>
+    <!-- Tab content -->
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'statsChartTab')">Population</button>
+      <button class="tablinks" onclick="openTab(event, 'educationTableTab')">Budget éducation</button>
+      <button class="tablinks" onclick="openTab(event, 'populationTableTab')">Budget nation</button>
     </div>
-    <br/>
 
-    <div class="budget_tables">
+    <div id="statsChartTab" class="tabcontent">
+      <canvas id="statsChart", height="100"></canvas>
+    </div>
+
+    <div id="educationTableTab" class="tabcontent">
       <table class="educationTable" id="educationTable"></table>
+    </div>
+
+    <div id="populationTableTab" class="tabcontent">
       <table class="populationTable" id="populationTable"></table>
     </div>
-
   
   </body>
 </html>
