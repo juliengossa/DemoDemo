@@ -3,10 +3,13 @@ class EduCrois extends Economy {
     constructor() {
         super();
         this.description = "Objectif : conserver le plus longtemps possible une croissance économique supérieure à 1% avec une dépense d'éducation inférieure à 10% du PIB.";
-        this.help = "L'éducation et la croissance sont liées. L'éducation permet de former une main d'oeuvre qualifiée et de favoriser l'innovation. La croissance permet de financer l'éducation et de créer des emplois.";
+        this.help = " - Investir dans l'éducation permet de former une main d'oeuvre qualifiée.<br/>\
+                      - Une main d'oeuvre qualifiée permet de produire plus et donc de faire croître le PIB.<br/>\
+                      - Avoir de la croissance permet d'augmenter l'investissement dans l'éducation.<br/>\
+                      - Mais augmenter la dépense éducative augmente la durée des études.<br/>\
+                      - Et augementer la durée des études diminue la main d'oeuvre disponible pour produire.<br/>";
         this.infos.score = {label:"🏆", value:0, description:"Points de victoire", labelfun: (v) => v};
     }
-
     
     updateInfos(budget) {
         super.updateInfos(budget);
