@@ -49,7 +49,7 @@ class Budget {
             'name' : Generation.status[key].label, 
             'unit_cost' : Generation.status[key].educost,
             'pop' : value,
-            'total' : -Math.ceil(Generation.status[key].educost*value) 
+            'total' : Math.ceil(Generation.status[key].educost*value) 
           });
         }
       }

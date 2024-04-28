@@ -74,7 +74,7 @@ class BacASable extends Scenario {
 
       birthRate(population) {
         let pop = 800000;
-        let dpop = 0.1;
+        let dpop = 0.03;
         return pop * (1 + (Math.random() * dpop - dpop/2));
       }
   

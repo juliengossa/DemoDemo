@@ -162,8 +162,4 @@ class DemoDemo {
       
         table.appendChild(tableBody);
       }
-      
-      
-          
-
 }

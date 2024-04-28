@@ -2,8 +2,9 @@ class EduCrois extends Economy {
 
     constructor() {
         super();
-        this.description = "Minijeu éducation et croissance";
-        this.infos.score = {label:"🏆", value:0, description:"condition de victoire", labelfun: (v) => v};
+        this.description = "Objectif : conserver le plus longtemps possible une croissance économique supérieure à 1% avec une dépense d'éducation inférieure à 10% du PIB.";
+        this.help = "L'éducation et la croissance sont liées. L'éducation permet de former une main d'oeuvre qualifiée et de favoriser l'innovation. La croissance permet de financer l'éducation et de créer des emplois.";
+        this.infos.score = {label:"🏆", value:0, description:"Points de victoire", labelfun: (v) => v};
     }
 
     
@@ -14,11 +15,11 @@ class EduCrois extends Economy {
         else if (this.infos.growth.value >= 0.01) this.infos.growth.style = "labelwarning"
         else this.infos.growth.style = "labelko";
 
-        if (this.infos.die.value < 0.09) this.infos.die.style = "labelok"
-        else if (this.infos.die.value <= 0.1) this.infos.die.style = "labelwarning"
-        else this.infos.die.style = "labelko";
+        if (this.infos.diepib.value < 0.09) this.infos.diepib.style = "labelok"
+        else if (this.infos.diepib.value <= 0.1) this.infos.diepib.style = "labelwarning"
+        else this.infos.diepib.style = "labelko";
     
-        if(this.infos.growth.value >= 0.01 && this.infos.die.value <= 0.1) {
+        if(this.infos.growth.value >= 0.01 && this.infos.diepib.value <= 0.1) {
             this.infos.score.value += 1;
             this.infos.score.style = "labelok";
         } else {

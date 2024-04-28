@@ -43,7 +43,7 @@ tr:nth-child(even) {
   }
   
 .controllabel {
-    width:200px;
+    width:150px;
     text-align: right;
     display: inline-block;
   }
@@ -80,7 +80,7 @@ input[type='number']{
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: 140px;
   background-color: #555;
   color: #fff;
   text-align: center;
@@ -90,7 +90,7 @@ input[type='number']{
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: -60px;
+  margin-left: -10px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -99,7 +99,7 @@ input[type='number']{
   content: "";
   position: absolute;
   top: 100%;
-  left: 50%;
+  left: 10%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;

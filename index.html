@@ -8,7 +8,7 @@
     <title>DemoDemo</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 
-
+    <script type="text/javascript" src="common/common.js"></script> 
     <script type="text/javascript" src="common/generation.js"></script> 
     <script type="text/javascript" src="common/population.js"></script>
     <script type="text/javascript" src="common/budget.js"></script>
@@ -34,7 +34,8 @@
         scenario =  eval(`new ${scenario_id}()`);
         demodemo = new DemoDemo(scenario); 
 
-        document.getElementById("tooltip_scenario").innerHTML = scenario.description;
+        document.getElementById("tooltip_scenario").innerHTML = scenario.help;
+        document.getElementById("label_description").innerHTML = scenario.description;
       }
     </script>
 
@@ -54,19 +55,21 @@
         <input type="button" value="🔃" onClick="changeScenario()">
         <span class="tooltiptext">Recommencer le scénario</span>
       </div>
-      <div class="tooltip">
-        <input type="button" value="▶️" onClick="demodemo.updateData()">
-        <span class="tooltiptext">Avancer d'un année</span>
-      </div>
-      &ensp; &emsp;
+      <label id="label_description">Description</label>
+    </div>
+    <hr> 
+    <div class="toolbar">
       <span id="infos">
+        <div class="tooltip">
+          <input type="button" value="▶️" onClick="demodemo.updateData()">
+          <span class="tooltiptext">Avancer d'un année</span>
+        </div>        
       </span>
     </div>
     <hr> 
     <div id="inputs">  
     </div>
     <hr> 
-
     <div>
 	    <canvas id="popChart", height="100"></canvas>
     </div>
