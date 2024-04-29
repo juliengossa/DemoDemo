@@ -34,8 +34,8 @@ class DemoDemo {
     }
 
     destroy() {
-        this.chartPopulation.destroy();
-        this.chartStats.destroy();
+        this.destroyCharts();  
+
         document.getElementById("infos").innerHTML = "";
         document.getElementById("inputs").innerHTML = "";
     }
@@ -116,6 +116,15 @@ class DemoDemo {
         this.chartInfos.push(new t.chartclass(document.getElementById(id).getContext('2d'), scenario.infos));
       }
     }
+
+    destroyCharts() {
+      this.chartHistory.destroy();
+      this.chartPopulation.destroy();
+      this.chartStats.destroy();
+      for(const c of this.chartInfos) c.destroy();
+      this.chartInfos = [];
+    }
+
 
     updateData() {
         //get values from controls

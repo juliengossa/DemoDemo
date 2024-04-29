@@ -35,6 +35,9 @@
         } catch (error) {
           console.log("No data to destroy");
         }
+        document.getElementById("infosChartTabs").innerHTML = "";
+        document.getElementById("infosChartTabsHeader").innerHTML = "";
+
         let scenario_id = document.getElementById("selector_scenario").value;
         scenario =  eval(`new ${scenario_id}()`);
         demodemo = new DemoDemo(scenario); 
@@ -49,7 +52,7 @@
         tabhead.className = "tablinks";
         tabhead.setAttribute("onclick", "openTab(event, '"+id+"Tab')");
         tabhead.innerHTML = title;
-        document.getElementById("tabcontentHeader").appendChild(tabhead);
+        document.getElementById("infosChartTabsHeader").appendChild(tabhead);
 
         let tabcon = document.createElement("div");
         tabcon.className = "tabcontent";
@@ -60,7 +63,7 @@
         tabcan.setAttribute("height","100");
 
         tabcon.appendChild(tabcan);
-        document.getElementById("tabcontent").appendChild(tabcon);
+        document.getElementById("infosChartTabs").appendChild(tabcon);
 
         return id;
       }
@@ -103,11 +106,11 @@
     </div>
     <hr> 
     <div class="toolbar">
+      <div class="tooltip">
+        <input type="button" value="▶️" onClick="demodemo.updateData()">
+        <span class="tooltiptext">Avancer d'un année</span>
+      </div>
       <span id="infos">
-        <div class="tooltip">
-          <input type="button" value="▶️" onClick="demodemo.updateData()">
-          <span class="tooltiptext">Avancer d'un année</span>
-        </div>        
       </span>
     </div>
     <hr> 
@@ -125,6 +128,8 @@
         <button class="tablinks" onclick="openTab(event, 'populationTableTab')">Budget nation</button>
         <button class="tablinks" onclick="openTab(event, 'statsChartTab')">Population</button>
         <button class="tablinks" onclick="openTab(event, 'historyChartTab')"  id="defaultOpen">Historique Population</button>
+        <div id="infosChartTabsHeader">
+        </div>
       </div>
 
       <div id="educationTableTab" class="tabcontent">
@@ -143,6 +148,8 @@
         <canvas id="statsChart", height="100"></canvas>
       </div>
 
+      <div id="infosChartTabs">        
+      </div>
     </div>
   
   </body>
