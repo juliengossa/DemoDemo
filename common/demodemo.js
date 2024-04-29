@@ -21,7 +21,9 @@ class DemoDemo {
 
         this.initInputs(scenario.inputs);
         this.initInfos(scenario.infos);
-    
+
+        this.chartHistory = new ChartHistory(document.getElementById('historyChart').getContext('2d'), scenario.infos);
+        this.chartHistpop = new ChartHistpop(document.getElementById('histpopChart').getContext('2d'), this.population);
         this.chartPopulation = new ChartPopulation(document.getElementById('popChart').getContext('2d'), this.population);
         this.chartStats = new ChartStats(document.getElementById('statsChart').getContext('2d'), this.stats);
 
@@ -31,7 +33,7 @@ class DemoDemo {
         DemoDemo.updateTable(document.getElementById('populationTable'), Budget.budget_nation_header, this.budget.budget_nation);
         DemoDemo.updateTable(document.getElementById('educationTable'), Budget.budget_education_header, this.budget.budget_education);
 
-        this.history = {};
+        this.history = [];
     }
 
     destroy() {
@@ -126,6 +128,8 @@ class DemoDemo {
         DemoDemo.updateTable(document.getElementById('populationTable'), Budget.budget_nation_header, this.budget.budget_nation);
         DemoDemo.updateTable(document.getElementById('educationTable'), Budget.budget_education_header, this.budget.budget_education);
       
+        this.chartHistory.updateData(this.scenario.infos);
+        this.chartHistpop.updateData(this.scenario.infos, this.stats);
         this.chartPopulation.updateData(this.population)
         this.chartStats.updateData(this.stats)
       }

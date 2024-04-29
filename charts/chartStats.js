@@ -25,8 +25,8 @@ class ChartStats extends Chart{
             }
           },
           title: {
-            display: true,
-            text: 'Mass Game',
+            display: false,
+            text: 'Population',
             fontSize: 20,
             fontColor: 'rgb(0, 0, 0)',
             padding: 20

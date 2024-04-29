@@ -12,9 +12,11 @@
     <script type="text/javascript" src="common/generation.js"></script> 
     <script type="text/javascript" src="common/population.js"></script>
     <script type="text/javascript" src="common/budget.js"></script>
-    <script type="text/javascript" src="common/chartPopulation.js"></script>
-    <script type="text/javascript" src="common/chartStats.js"></script>
     <script type="text/javascript" src="common/scenario.js"></script>
+    <script type="text/javascript" src="charts/chartHistory.js"></script>
+    <script type="text/javascript" src="charts/chartHistpop.js"></script>
+    <script type="text/javascript" src="charts/chartPopulation.js"></script>
+    <script type="text/javascript" src="charts/chartStats.js"></script>
     <script type="text/javascript" src="scenarios/bacasable.js"></script>
     <script type="text/javascript" src="scenarios/economy.js"></script>    
     <script type="text/javascript" src="scenarios/educrois.js"></script>
@@ -93,9 +95,19 @@
 
     <!-- Tab content -->
     <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'historyChartTab')">Historique</button>
       <button class="tablinks" onclick="openTab(event, 'statsChartTab')">Population</button>
+      <button class="tablinks" onclick="openTab(event, 'histpopChartTab')">Historique Population</button>
       <button class="tablinks" onclick="openTab(event, 'educationTableTab')">Budget éducation</button>
       <button class="tablinks" onclick="openTab(event, 'populationTableTab')">Budget nation</button>
+    </div>
+
+    <div id="historyChartTab" class="tabcontent">
+      <canvas id="historyChart", height="100"></canvas>
+    </div>
+
+    <div id="histpopChartTab" class="tabcontent">
+      <canvas id="histpopChart", height="100"></canvas>
     </div>
 
     <div id="statsChartTab" class="tabcontent">

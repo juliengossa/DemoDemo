@@ -6,16 +6,16 @@ class Economy extends BacASable {
 
         this.infos.population = {label:"👥", value:0, description:"Population totale",
             labelfun: (v) => formatNumber(v, ' M', 1e6, 1)};
-        this.infos.pib = {label:"🛠️", value:0, description:"Production totale (PIB)",
+        this.infos.pib = {label:"🛠️", value:0, description:"Production totale (PIB)", chartcat:"Budget",
             labelfun: (v) => formatNumber(v, ' M₡', 1e6, 1)};
-        this.infos.growth = {label:"📈", value:0, description:"Croissance du PIB",
+        this.infos.growth = {label:"📈", value:0, description:"Croissance du PIB", chartcat:"Budget %",
             labelfun: (v) => formatNumber(v, '', 1, 1, 'percent')};
-        this.infos.die = {label:"👩‍🏫", value:0, description:"Dépense intérieure d'éducation (DIE)",
+        this.infos.die = {label:"👩‍🏫", value:0, description:"Dépense intérieure d'éducation (DIE)", chartcat:"Budget",
             labelfun: (v) => formatNumber(v, ' M₡', 1e6, 1)};
-        this.infos.diepib = {label:"🏫", value:0, description:"DIE en pourcent de PIB",
+        this.infos.diepib = {label:"🏫", value:0, description:"DIE en pourcent de PIB", chartcat:"Budget %",
             labelfun: (v) => formatNumber(v, '', 1, 1, 'percent')};
         
-        this.previous_total_production = 1;
+        //this.previous_total_production = 1;
     }
 
     
@@ -31,7 +31,11 @@ class Economy extends BacASable {
         this.infos.diepib.value = Math.abs(total_education.total / total_nation.total_production);
 
         // Croissance
-        this.infos.growth.value = Number(total_nation.total_production / this.previous_total_production - 1);
+        try {
+            this.infos.growth.value = Number(total_nation.total_production / this.previous_total_production - 1);
+        } catch {
+            this.infos.growth.value = 0;
+        }
         this.previous_total_production = total_nation.total_production;
     }
 
