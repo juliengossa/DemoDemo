@@ -18,7 +18,6 @@ class Economy extends BacASable {
         //this.previous_total_production = 1;
     }
 
-    
     updateInfos(budget) {
         super.updateInfos();
 
@@ -39,4 +38,49 @@ class Economy extends BacASable {
         this.previous_total_production = total_nation.total_production;
     }
 
+    infosChartsTitles = ['PIB', 'DIE'];
+
+    getInfosCharts(ctxs, infos) {
+        return [
+            new ChartPIB(ctxs[0], infos),
+            new ChartPIB(ctxs[1], infos)
+        ];
+    }
+
+}
+
+class ChartPIB extends ChartInfos {
+
+    constructor(ctx, infos) {
+        super (ctx, infos);
+        //this.options.plugins.title.text = 'PIB';
+    }
+
+    initData(infos) { 
+        let datasets = [
+            {
+                label: 'PIB',
+                data: [],
+                borderColor: 'rgb(192, 75, 192)',
+                hidden: false
+            },
+            {
+                label: 'DIE',
+                data: [],
+                borderColor: 'rgb(75, 192, 192)',
+                hidden: false
+            }
+        ];
+
+        return {
+            labels: [],
+            datasets: datasets
+        }
+    }
+
+    updateData(infos) {
+        this.data.datasets[0].data.push(infos.pib.value);
+        this.data.datasets[1].data.push(infos.die.value);
+        super.updateData(infos);
+    }
 }

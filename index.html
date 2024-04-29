@@ -14,7 +14,7 @@
     <script type="text/javascript" src="common/budget.js"></script>
     <script type="text/javascript" src="common/scenario.js"></script>
     <script type="text/javascript" src="charts/chartHistory.js"></script>
-    <script type="text/javascript" src="charts/chartHistpop.js"></script>
+    <script type="text/javascript" src="charts/chartInfos.js"></script>
     <script type="text/javascript" src="charts/chartPopulation.js"></script>
     <script type="text/javascript" src="charts/chartStats.js"></script>
     <script type="text/javascript" src="scenarios/bacasable.js"></script>
@@ -24,6 +24,7 @@
     <script>
       window.onload = function() { 
         changeScenario();
+        document.getElementById("defaultOpen").click();
       }
 
       changeScenario = function() {
@@ -94,32 +95,30 @@
     </div>
 
     <!-- Tab content -->
-    <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'historyChartTab')">Historique</button>
-      <button class="tablinks" onclick="openTab(event, 'statsChartTab')">Population</button>
-      <button class="tablinks" onclick="openTab(event, 'histpopChartTab')">Historique Population</button>
-      <button class="tablinks" onclick="openTab(event, 'educationTableTab')">Budget éducation</button>
-      <button class="tablinks" onclick="openTab(event, 'populationTableTab')">Budget nation</button>
-    </div>
+    <div id="tabcontent">
+      <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'educationTableTab')">Budget éducation</button>
+        <button class="tablinks" onclick="openTab(event, 'populationTableTab')">Budget nation</button>
+        <button class="tablinks" onclick="openTab(event, 'statsChartTab')">Population</button>
+        <button class="tablinks" onclick="openTab(event, 'historyChartTab')"  id="defaultOpen">Historique Population</button>
+      </div>
 
-    <div id="historyChartTab" class="tabcontent">
-      <canvas id="historyChart", height="100"></canvas>
-    </div>
+      <div id="educationTableTab" class="tabcontent">
+        <table class="educationTable" id="educationTable"></table>
+      </div>
 
-    <div id="histpopChartTab" class="tabcontent">
-      <canvas id="histpopChart", height="100"></canvas>
-    </div>
+      <div id="populationTableTab" class="tabcontent">
+        <table class="populationTable" id="populationTable"></table>
+      </div>
 
-    <div id="statsChartTab" class="tabcontent">
-      <canvas id="statsChart", height="100"></canvas>
-    </div>
+      <div id="historyChartTab" class="tabcontent">
+        <canvas id="historyChart", height="100"></canvas>
+      </div>
 
-    <div id="educationTableTab" class="tabcontent">
-      <table class="educationTable" id="educationTable"></table>
-    </div>
+      <div id="statsChartTab" class="tabcontent">
+        <canvas id="statsChart", height="100"></canvas>
+      </div>
 
-    <div id="populationTableTab" class="tabcontent">
-      <table class="populationTable" id="populationTable"></table>
     </div>
   
   </body>

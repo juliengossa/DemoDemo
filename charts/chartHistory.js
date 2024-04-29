@@ -1,10 +1,10 @@
 
 class ChartHistory extends Chart{
 
-  constructor(ctx, infos) {
+  constructor(ctx, stats) {
     super (ctx, {
       type: 'line',
-      data: ChartHistory.initData(infos),
+      data: ChartHistory.initData(stats),
       options: {
         scales: {
           x: {
@@ -12,7 +12,7 @@ class ChartHistory extends Chart{
           },
           y: {
             beginAtZero: true,
-            stacked: false
+            stacked: true
           },
         },
         plugins : {
@@ -26,45 +26,43 @@ class ChartHistory extends Chart{
           },
           title: {
             display: false,
-            text: 'Historique',
+            text: 'Population',
             fontSize: 20,
             fontColor: 'rgb(0, 0, 0)',
             padding: 20
           }
-        }
+        },
+        animation:false
       }
     });
   }
 
-  static initData(infos) { 
-    let datasets = [];
-    for (const [key, value] of Object.entries(infos)) {
-      if (key == "year") continue;
-      datasets.push({
-        label: key,
-        data: [],
-        borderColor: 'rgb(75, 192, 192)',
-        fill: false,
-        tension: 0.1,
-        hidden: true
-      });
-    }
+  static initData(stats) { 
+    var datasets = [];
+    for (const [key, value] of Object.entries(Generation.status))
+        datasets.push({ 
+            data: [],
+            label: value.label,
+            borderColor: 'rgb(255, 255, 255)',
+            backgroundColor: value.color,
+            borderWidth: 1,
+            fill:'stack'
+          });
 
     return {
       labels: [],
       datasets: datasets
     }
-  }
+}
 
-  updateData(infos) {
+  updateData(infos,stats) {
     this.data.labels.push(infos.year.value);
     let i = 0;
-    for (const [k, v] of Object.entries(infos)) {
-      if (k == "year") continue;
-      
-      this.data.datasets[i].data.push(v.value);
+    for (const [k, v] of Object.entries(stats)) {   
+      this.data.datasets[i].data.push(v);
       i++;
     }
     this.update();
   }
+
 }
