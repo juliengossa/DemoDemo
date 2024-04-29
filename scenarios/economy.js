@@ -1,3 +1,5 @@
+
+
 class Economy extends BacASable {
 
     constructor() {
@@ -38,16 +40,10 @@ class Economy extends BacASable {
         this.previous_total_production = total_nation.total_production;
     }
 
-    infosChartsTitles = ['PIB', 'DIE'];
-
-    getInfosCharts(ctxs, infos) {
-        return [
-            new ChartPIB(ctxs[0], infos),
-            new ChartPIB(ctxs[1], infos)
-        ];
-    }
-
+    infosChartsTitles = [ {title:'PIB', chartclass:ChartPIB}, {title:'% PIB',chartclass:ChartPIBp} ];
 }
+
+
 
 class ChartPIB extends ChartInfos {
 
@@ -81,6 +77,42 @@ class ChartPIB extends ChartInfos {
     updateData(infos) {
         this.data.datasets[0].data.push(infos.pib.value);
         this.data.datasets[1].data.push(infos.die.value);
+        super.updateData(infos);
+    }
+}
+
+class ChartPIBp extends ChartInfos {
+
+    constructor(ctx, infos) {
+        super (ctx, infos);
+        //this.options.plugins.title.text = 'PIB';
+    }
+
+    initData(infos) { 
+        let datasets = [
+            {
+                label: 'Croissance (% PIB)',
+                data: [],
+                borderColor: 'rgb(192, 75, 192)',
+                hidden: false
+            },
+            {
+                label: 'DIE (% PIB)',
+                data: [],
+                borderColor: 'rgb(75, 192, 192)',
+                hidden: false
+            }
+        ];
+
+        return {
+            labels: [],
+            datasets: datasets
+        }
+    }
+
+    updateData(infos) {
+        this.data.datasets[0].data.push(infos.growth.value);
+        this.data.datasets[1].data.push(infos.diepib.value);
         super.updateData(infos);
     }
 }

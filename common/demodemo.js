@@ -110,11 +110,14 @@ class DemoDemo {
       this.chartPopulation = new ChartPopulation(document.getElementById('popChart').getContext('2d'), this.population);
       this.chartStats = new ChartStats(document.getElementById('statsChart').getContext('2d'), this.stats);
 
-      //this.chartHistory = new ChartPIB(document.getElementById('historyChart').getContext('2d'), scenario.infos);
+      this.chartInfos = [];
+      for(const t of scenario.infosChartsTitles) {
+        let id = addTab(t.title);
+        this.chartInfos.push(new t.chartclass(document.getElementById(id).getContext('2d'), scenario.infos));
+      }
     }
 
     updateData() {
-      
         //get values from controls
         let inputs_value = {}
         for (const [key, value] of Object.entries(this.scenario.inputs)) {
@@ -136,6 +139,8 @@ class DemoDemo {
         this.chartHistory.updateData(this.scenario.infos, this.stats);
         this.chartPopulation.updateData(this.population)
         this.chartStats.updateData(this.stats)
+        for (const c of this.chartInfos)
+          c.updateData(this.scenario.infos);
       }
  
     static updateTable(table, tableHeader, tableData) {

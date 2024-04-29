@@ -6,6 +6,8 @@ class Scenario {
     inputs;
     description;
 
+    infosChartsTitles = [];
+
     getStatus() {
         return Object.entries(this.status);
     }
