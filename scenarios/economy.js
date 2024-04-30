@@ -8,13 +8,13 @@ class Economy extends BacASable {
 
         this.infos.population = {label:"👥", value:0, description:"Population totale",
             labelfun: (v) => formatNumber(v, ' M', 1e6, 1)};
-        this.infos.pib = {label:"🛠️", value:0, description:"Production totale (PIB)", chartcat:"Budget",
+        this.infos.pib = {label:"🛠️", value:0, description:"Production totale (PIB)",
             labelfun: (v) => formatNumber(v, ' M₡', 1e6, 1)};
-        this.infos.growth = {label:"📈", value:0, description:"Croissance du PIB", chartcat:"Budget %",
+        this.infos.growth = {label:"📈", value:0, description:"Croissance du PIB",
             labelfun: (v) => formatNumber(v, '', 1, 1, 'percent')};
-        this.infos.die = {label:"👩‍🏫", value:0, description:"Dépense intérieure d'éducation (DIE)", chartcat:"Budget",
+        this.infos.die = {label:"👩‍🏫", value:0, description:"Dépense intérieure d'éducation (DIE)",
             labelfun: (v) => formatNumber(v, ' M₡', 1e6, 1)};
-        this.infos.diepib = {label:"🏫", value:0, description:"DIE en pourcent de PIB", chartcat:"Budget %",
+        this.infos.diepib = {label:"🏫", value:0, description:"DIE en pourcent de PIB",
             labelfun: (v) => formatNumber(v, '', 1, 1, 'percent')};
         
         //this.previous_total_production = 1;

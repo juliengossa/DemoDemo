@@ -84,6 +84,7 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
       }
+
     </script>
 
   </head>
@@ -104,19 +105,21 @@
       </div>
       <label class="description_label" id="label_description">Description</label>
     </div>
-    <hr> 
-    <div class="toolbar">
-      <div class="tooltip">
-        <input type="button" value="▶️" onClick="demodemo.updateData()">
-        <span class="tooltiptext">Avancer d'un année</span>
+    <div id="myHeader" class="stickyheader">
+      <hr> 
+      <div class="toolbar">
+        <div class="tooltip">
+          <input type="button" value="▶️" onClick="demodemo.updateData()">
+          <span class="tooltiptext">Avancer d'un année</span>
+        </div>
+        <span id="infos">
+        </span>
       </div>
-      <span id="infos">
-      </span>
+      <hr> 
+      <div id="inputs">  
+      </div>
+      <hr> 
     </div>
-    <hr> 
-    <div id="inputs">  
-    </div>
-    <hr> 
     <div>
 	    <canvas id="popChart", height="100"></canvas>
     </div>
@@ -152,5 +155,19 @@
       </div>
     </div>
   
+
+    <script>
+      // When the user scrolls the page, execute myFunction
+      window.onscroll = function() {myScrollFunction()};
+      var header = document.getElementById("myHeader");
+      var sticky = header.offsetTop;
+      function myScrollFunction() {
+        if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      } 
+    </script>
   </body>
 </html>

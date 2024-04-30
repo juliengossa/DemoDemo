@@ -9,6 +9,10 @@ class BacASable extends Scenario {
       };
     }
 
+    newBudget(stats) {
+      return new Budget(stats);
+    }
+
     updateInfos() {
       this.infos.year.value++;
     }

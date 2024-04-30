@@ -17,7 +17,7 @@ class DemoDemo {
 
         this.population = new Population(scenario);
         this.stats = this.population.getStats();
-        this.budget = new Budget(this.stats);
+        this.budget = scenario.newBudget(this.stats);
 
         this.initInputs(scenario.inputs);
         this.initInfos(scenario.infos);
@@ -34,7 +34,7 @@ class DemoDemo {
     }
 
     destroy() {
-        this.destroyCharts();  
+        this.destroyCharts();
 
         document.getElementById("infos").innerHTML = "";
         document.getElementById("inputs").innerHTML = "";

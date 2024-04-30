@@ -62,6 +62,7 @@ class ChartHistory extends Chart{
       this.data.datasets[i].data.push(v);
       i++;
     }
+    console.log(this.data.datasets)
     this.update();
   }
 
