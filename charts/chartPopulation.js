@@ -35,7 +35,7 @@ class ChartPopulation extends Chart{
               fontColor: 'rgb(0, 0, 0)',
               fontSize: 14,
               sort: function(a, b, data) { return a.datasetIndex < b.datasetIndex ? 1 : -1; }
-            }
+            },
           },
           title: {
             display: false,
